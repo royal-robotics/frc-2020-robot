@@ -23,6 +23,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    //this is a comment
     m_myRobot = new DifferentialDrive(new PWMVictorSPX(0), new PWMVictorSPX(1));
     m_leftStick = new Joystick(0);
     m_rightStick = new Joystick(1);
