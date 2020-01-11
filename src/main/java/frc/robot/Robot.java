@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -17,20 +20,59 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * it contains the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  private DifferentialDrive m_myRobot;
-  private Joystick m_leftStick;
-  private Joystick m_rightStick;
+  private Joystick _controller;
+  
+  private WPI_TalonSRX _rightDrive1 = new WPI_TalonSRX(8);
+  private WPI_VictorSPX _rightDrive2 = new WPI_VictorSPX(6);
+  private WPI_VictorSPX _rightDrive3 = new WPI_VictorSPX(4);
+
+  private WPI_TalonSRX _leftDrive1 = new WPI_TalonSRX(7);
+  private WPI_VictorSPX _leftDrive2 = new WPI_VictorSPX(5);
+  private WPI_VictorSPX _leftDrive3 = new WPI_VictorSPX(3);
+        
 
   @Override
   public void robotInit() {
     //this is a comment
-    m_myRobot = new DifferentialDrive(new PWMVictorSPX(0), new PWMVictorSPX(1));
-    m_leftStick = new Joystick(0);
-    m_rightStick = new Joystick(1);
+    _controller = new Joystick(0);
+
+    _leftDrive2.follow(_leftDrive1);
+    _leftDrive3.follow(_leftDrive1);
+
+    _rightDrive2.follow(_rightDrive1);
+    _rightDrive3.follow(_rightDrive1);
   }
 
   @Override
   public void teleopPeriodic() {
-    m_myRobot.tankDrive(m_leftStick.getY(), m_rightStick.getY());
+    //boolean a_pressed= false;
+    float speed_modifier = 0.1f;
+    /*
+    if (_controller.getRawButton(1))
+    {
+      _leftDrive1.set(-speed_modifier*_controller.getRawAxis(1));
+      _rightDrive1.set(speed_modifier*_controller.getRawAxis(5));
+    }
+    else 
+    {
+      _leftDrive1.set(-_controller.getRawAxis(1));
+      _rightDrive1.set(_controller.getRawAxis(5));
+    }
+    */
+    
+    //System.out.println(_controller.getRawAxis(0));
+    Boolean toggle;
+    //false means normal speed
+    //true means speed set to 0.1
+    if (_controller.getRawButton(1))
+    {
+     toggle = false;
+    }
+
+    else if (_controller.getRawButton(2))
+    {
+      toggle = true;
+    }
   }
+
 }
