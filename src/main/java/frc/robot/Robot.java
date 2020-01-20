@@ -7,6 +7,8 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -57,21 +59,34 @@ public class Robot extends TimedRobot {
   
 
     _controller = new Joystick(0);
+
+    
+
+  
   }
 
   @Override
   public void teleopPeriodic() {
-    //boolean a_pressed= false;
-    float speed_modifier = 0.1f;
-   
-     double p = SmartDashboard.getNumber("P Gain", 0);
+    if(_controller.getRawButtonPressed(1)){   
+      setEncoderValues(100); 
+    }
+    else if(_controller.getRawButton(2)){
+      setEncoderValues(-100);
+    }
+    else {
+      setEncoderValues(0);
+    }
+  }
+
+  public void setEncoderValues(double set_rotation) {    
+    double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
     double d = SmartDashboard.getNumber("D Gain", 0);
     double iz = SmartDashboard.getNumber("I Zone", 0);
     double ff = SmartDashboard.getNumber("Feed Forward", 0);
     double max = SmartDashboard.getNumber("Max Output", 0);
     double min = SmartDashboard.getNumber("Min Output", 0);
-    double rotations = SmartDashboard.getNumber("Set Rotations", 0);
+    //double rotations = SmartDashboard.getNumber("Set Rotations", 0);
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if((p != kP)) { m_pidController.setP(p); kP = p; }
@@ -98,12 +113,10 @@ public class Robot extends TimedRobot {
      *  com.revrobotics.ControlType.kVelocity
      *  com.revrobotics.ControlType.kVoltage
      */
-    m_pidController.setReference(rotations, ControlType.kPosition);
+    m_pidController.setReference(set_rotation, ControlType.kPosition);
     
-    SmartDashboard.putNumber("SetPoint", rotations);
+    SmartDashboard.putNumber("SetPoint", set_rotation);
     SmartDashboard.putNumber("ProcessVariable", m_alternateEncoder.getPosition());
-
-   
+    
   }
-
 }
