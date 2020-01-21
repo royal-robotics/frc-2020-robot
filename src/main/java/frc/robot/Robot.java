@@ -30,6 +30,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_motor = new CANSparkMax(kCanID, kMotorType);
     m_alternateEncoder = m_motor.getAlternateEncoder(kAltEncType, kCPR);
+    
+
     m_pidController = m_motor.getPIDController();
     m_pidController.setFeedbackDevice(m_alternateEncoder);
 
@@ -56,19 +58,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
     SmartDashboard.putNumber("Set Rotations", 0);
-  
-
-    _controller = new Joystick(0);
-
-    
-
-  
   }
 
   @Override
   public void teleopPeriodic() {
-    if(_controller.getRawButtonPressed(1)){   
-      setEncoderValues(100); 
+    if(_controller.getRawButton(1)){   
+      setEncoderValues(100);
     }
     else if(_controller.getRawButton(2)){
       setEncoderValues(-100);
@@ -78,45 +73,8 @@ public class Robot extends TimedRobot {
     }
   }
 
-  public void setEncoderValues(double set_rotation) {    
-    double p = SmartDashboard.getNumber("P Gain", 0);
-    double i = SmartDashboard.getNumber("I Gain", 0);
-    double d = SmartDashboard.getNumber("D Gain", 0);
-    double iz = SmartDashboard.getNumber("I Zone", 0);
-    double ff = SmartDashboard.getNumber("Feed Forward", 0);
-    double max = SmartDashboard.getNumber("Max Output", 0);
-    double min = SmartDashboard.getNumber("Min Output", 0);
-    //double rotations = SmartDashboard.getNumber("Set Rotations", 0);
-
-    // if PID coefficients on SmartDashboard have changed, write new values to controller
-    if((p != kP)) { m_pidController.setP(p); kP = p; }
-    if((i != kI)) { m_pidController.setI(i); kI = i; }
-    if((d != kD)) { m_pidController.setD(d); kD = d; }
-    if((iz != kIz)) { m_pidController.setIZone(iz); kIz = iz; }
-    if((ff != kFF)) { m_pidController.setFF(ff); kFF = ff; }
-    if((max != kMaxOutput) || (min != kMinOutput)) { 
-      m_pidController.setOutputRange(min, max); 
-      kMinOutput = min; kMaxOutput = max; 
-    }
-
-    /**
-     * PIDController objects are commanded to a set point using the 
-     * SetReference() method.
-     * 
-     * The first parameter is the value of the set point, whose units vary
-     * depending on the control type set in the second parameter.
-     * 
-     * The second parameter is the control type can be set to one of four 
-     * parameters:
-     *  com.revrobotics.ControlType.kDutyCycle
-     *  com.revrobotics.ControlType.kPosition
-     *  com.revrobotics.ControlType.kVelocity
-     *  com.revrobotics.ControlType.kVoltage
-     */
-    m_pidController.setReference(set_rotation, ControlType.kPosition);
-    
-    SmartDashboard.putNumber("SetPoint", set_rotation);
-    SmartDashboard.putNumber("ProcessVariable", m_alternateEncoder.getPosition());
-    
+  public void setEncoderValues(double speed) {
+    m_motor.set(speed);
+    SmartDashboard.putNumber("Encoder Position", m_alternateEncoder.getPosition());
   }
 }
