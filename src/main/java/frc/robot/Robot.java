@@ -28,7 +28,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double direction = _controller.getRawAxis(1);
-    motor2.move(direction);
-    motor4.move(direction);
+    motor2.Move(direction);
+    motor4.Move(direction);
+    motor2.ReadEncoder();
+    motor4.ReadEncoder();
   }
 }

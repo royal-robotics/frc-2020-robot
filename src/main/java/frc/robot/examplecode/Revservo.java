@@ -11,7 +11,7 @@ public class Revservo
         servo = new PWM(channel);
     }
 
-    public void move(double direction)
+    public void Move(double direction)
     {
         if(direction > 0.1){   
             servo.setSpeed(1);
