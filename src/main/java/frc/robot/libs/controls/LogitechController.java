@@ -11,9 +11,13 @@ public class LogitechController {
     private final Joystick _joystick;
     private final double _deadband;
 
-    public LogitechController(int port, double deadband) {
-        _joystick = new Joystick (port);
+    public LogitechController(Joystick controller, double deadband) {
+        _joystick = controller;
         _deadband = deadband;
+    }
+
+    public LogitechController(int port, double deadband) {
+        this(new Joystick(port), deadband);
     }
 
     public double lXAxis() {
