@@ -1,4 +1,4 @@
-package examplecode;
+package frc.robot.examplecode;
 
 import edu.wpi.first.wpilibj.smartdashboard.*;
 

@@ -1,4 +1,5 @@
-package frc.libs.controls;
+package frc.robot.libs.controls;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 public class LogitechController
@@ -27,7 +28,7 @@ public class LogitechController
     public double LYAxis()
     {
         double value = joystick.getRawAxis(1);
-        
+
         if (value > deadband || value < -deadband)
         {
             return value;
@@ -59,7 +60,7 @@ public class LogitechController
 
         return 0;
     }
-    
+
     public double RXAxis()
     {
         double value = joystick.getRawAxis(4);
@@ -103,7 +104,7 @@ public class LogitechController
     {
         return joystick.getRawButton(4);
     }
-    
+
     public boolean LBumper()
     {
         return joystick.getRawButton(5);
