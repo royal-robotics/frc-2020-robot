@@ -1,27 +1,22 @@
-package examplecode;
+package frc.robot.examplecode;
 
-import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.*;
 
-public class Revservo
-{
-    private PWM servo;
+public class Revservo {
 
-    public Revservo(int channel)
-    {
-        servo = new PWM(channel);
+    private final PWM _servo;
+
+    public Revservo(int channel) {
+        _servo = new PWM(channel);
     }
 
-    public void Move(double direction)
-    {
-        if(direction > 0.1){   
-            servo.setSpeed(1);
-        }
-        else if (direction < -0.1)
-        {
-            servo.setSpeed(-1);
-        }
-        else {
-            servo.setSpeed(0);
+    public void move(double direction) {
+        if(direction > 0.1) {
+            _servo.setSpeed(1);
+        } else if (direction < -0.1) {
+            _servo.setSpeed(-1);
+        } else {
+            _servo.setSpeed(0);
         }
     }
 }

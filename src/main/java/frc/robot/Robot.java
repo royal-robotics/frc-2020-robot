@@ -7,23 +7,21 @@ import frc.robot.examplecode.*;
 import frc.robot.libs.controls.*;
 
 public class Robot extends TimedRobot {
-  private LogitechController _controller;
-  private Neomotor motor2;
-  private Neomotor motor4;
+  private final LogitechController _controller;
+  private final Neomotor _motor2;
+
+  public Robot() {
+    _controller = new LogitechController(0, 0.1);
+    _motor2 = new Neomotor(5, MotorType.kBrushless);
+  }
 
   @Override
   public void robotInit() {
-    _controller = new LogitechController(0, 0.1);
-    motor2 = new Neomotor(2, MotorType.kBrushless);
-    motor4 = new Neomotor(4, MotorType.kBrushless);
   }
 
   @Override
   public void teleopPeriodic() {
-    double direction = _controller.LYAxis();
-    motor2.Move(direction);
-    motor4.Move(direction);
-    motor2.ReadEncoder();
-    motor4.ReadEncoder();
+    final double motorSpeed = _controller.lYAxis();
+    _motor2.set(motorSpeed);
   }
 }

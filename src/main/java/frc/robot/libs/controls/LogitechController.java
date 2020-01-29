@@ -2,176 +2,149 @@ package frc.robot.libs.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class LogitechController
-{
-    private final Joystick joystick;
-    private final double deadband;
 
-    public LogitechController(int port, double deadband)
-    {
-        joystick = new Joystick(port);
-        this.deadband = deadband;
+// I like some of the ideas about abstraction in this class, going to leave it as reference.
+// But there's some built in Joystick abstractions in the WPILib command library I want us
+// to try and use.
+public class LogitechController {
+
+    private final Joystick _joystick;
+    private final double _deadband;
+
+    public LogitechController(int port, double deadband) {
+        _joystick = new Joystick (port);
+        _deadband = deadband;
     }
 
-    public double LXAxis()
-    {
-        double value = joystick.getRawAxis(0);
+    public double lXAxis() {
+        double value = _joystick.getRawAxis(0);
 
-        if (value > deadband || value < -deadband)
-        {
+        if (value > _deadband || value < -_deadband) {
             return value;
         }
 
         return 0;
     }
 
-    public double LYAxis()
-    {
-        double value = joystick.getRawAxis(1);
+    public double lYAxis() {
+        double value = _joystick.getRawAxis(1);
 
-        if (value > deadband || value < -deadband)
-        {
+        if (value > _deadband || value < -_deadband) {
             return value;
         }
 
         return 0;
     }
 
-    public double LTrigger()
-    {
-        double value = joystick.getRawAxis(2);
+    public double lTrigger() {
+        double value = _joystick.getRawAxis(2);
 
-        if (value > deadband)
-        {
+        if (value > _deadband) {
             return value;
         }
 
         return 0;
     }
 
-    public double RTrigger()
-    {
-        double value = joystick.getRawAxis(3);
+    public double rTrigger() {
+        double value = _joystick.getRawAxis(3);
 
-        if (value > deadband)
-        {
+        if (value > _deadband) {
             return value;
         }
 
         return 0;
     }
 
-    public double RXAxis()
-    {
-        double value = joystick.getRawAxis(4);
+    public double rXAxis() {
+        double value = _joystick.getRawAxis(4);
 
-        if (value > deadband)
-        {
+        if (value > _deadband) {
             return value;
         }
 
         return 0;
     }
 
-    public double RYAxis()
-    {
-        double value = joystick.getRawAxis(5);
+    public double rYAxis() {
+        double value = _joystick.getRawAxis(5);
 
-        if (value > deadband)
-        {
+        if (value > _deadband) {
             return value;
         }
 
         return 0;
     }
 
-    public boolean ButtonA()
-    {
-        return joystick.getRawButton(1);
+    public boolean buttonA() {
+        return _joystick.getRawButton(1);
     }
 
-    public boolean ButtonB()
-    {
-        return joystick.getRawButton(2);
+    public boolean buttonB() {
+        return _joystick.getRawButton(2);
     }
 
-    public boolean ButtonX()
-    {
-        return joystick.getRawButton(3);
+    public boolean buttonX() {
+        return _joystick.getRawButton(3);
     }
 
-    public boolean ButtonY()
-    {
-        return joystick.getRawButton(4);
+    public boolean buttonY() {
+        return _joystick.getRawButton(4);
     }
 
-    public boolean LBumper()
-    {
-        return joystick.getRawButton(5);
+    public boolean lBumper() {
+        return _joystick.getRawButton(5);
     }
 
-    public boolean RBumper()
-    {
-        return joystick.getRawButton(6);
+    public boolean rBumper() {
+        return _joystick .getRawButton(6);
     }
 
-    public boolean Back()
-    {
-        return joystick.getRawButton(7);
+    public boolean back() {
+        return _joystick .getRawButton(7);
     }
 
-    public boolean Start()
-    {
-        return joystick.getRawButton(8);
+    public boolean start() {
+        return _joystick .getRawButton(8);
     }
 
-    public boolean LStick()
-    {
-        return joystick.getRawButton(9);
+    public boolean lStick() {
+        return _joystick .getRawButton(9);
     }
 
-    public boolean RStick()
-    {
-        return joystick.getRawButton(10);
+    public boolean rStick() {
+        return _joystick .getRawButton(10);
     }
 
-    public boolean DUp()
-    {
-        return joystick.getPOV() == 0;
+    public boolean dUp() {
+        return _joystick .getPOV() == 0;
     }
 
-    public boolean DUpRight()
-    {
-        return joystick.getPOV() == 45;
+    public boolean dUpRight() {
+        return _joystick .getPOV() == 45;
     }
 
-    public boolean DRight()
-    {
-        return joystick.getPOV() == 90;
+    public boolean dRight() {
+        return _joystick .getPOV() == 90;
     }
 
-    public boolean DDownRight()
-    {
-        return joystick.getPOV() == 135;
+    public boolean dDownRight() {
+        return _joystick .getPOV() == 135;
     }
 
-    public boolean DDown()
-    {
-        return joystick.getPOV() == 180;
+    public boolean dDown() {
+        return _joystick .getPOV() == 180;
     }
 
-    public boolean DDownLeft()
-    {
-        return joystick.getPOV() == 225;
+    public boolean dDownLeft() {
+        return _joystick .getPOV() == 225;
     }
 
-    public boolean DLeft()
-    {
-        return joystick.getPOV() == 270;
+    public boolean dLeft() {
+        return _joystick .getPOV() == 270;
     }
 
-    public boolean DUpLeft()
-    {
-        return joystick.getPOV() == 315;
+    public boolean dUpLeft() {
+        return _joystick .getPOV() == 315;
     }
 }

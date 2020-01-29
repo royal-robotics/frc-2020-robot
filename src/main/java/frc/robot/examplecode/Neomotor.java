@@ -1,39 +1,39 @@
 package frc.robot.examplecode;
 
-import edu.wpi.first.wpilibj.smartdashboard.*;
-
+import java.text.DecimalFormat;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 
-public class Neomotor
-{
-    private CANSparkMax motor;
-    private CANEncoder encoder;
-    private int motor_id;
+public class Neomotor {
 
-    public Neomotor(int id, MotorType type)
-    {
-        motor = new CANSparkMax(id, type);
-        encoder = motor.getEncoder();
-        motor_id = id;
+    private final CANSparkMax _motor;
+    private final CANEncoder _encoder;
+    private final CANPIDController _pidController;
+
+    public Neomotor(int id, MotorType type) {
+        _motor = new CANSparkMax(id, type);
+        _encoder = _motor.getEncoder();
+        _pidController = _motor.getPIDController();
+        this.configurePidController();
     }
 
-    public void Move(double direction)
-    {
-        double speed = 1;
-        if (direction > 0.1 || direction < -0.1)
-        {
-            motor.set(speed * direction);
-        }
-        else
-        {
-            motor.set(0);
-        }
+    public void set(double percentSpeed) {
+        // Set target rpm for pid control
+        final var maxRPM = 5700.0;
+        final var targetRpm = percentSpeed * maxRPM;
+        _pidController.setReference(targetRpm, ControlType.kVelocity);
+
+        // Print actual motor output, and current shaft rpm
+        final var df2 = new DecimalFormat("#.##");
+        System.out.printf("%f %f", df2.format(_motor.get()), _encoder.getVelocity());
     }
 
-    public void ReadEncoder()
-    {
-        SmartDashboard.putNumber("Encoder Position#"+Integer.toString(motor_id), encoder.getPosition());
-        SmartDashboard.putNumber("Encoder Velocity#"+Integer.toString(motor_id), encoder.getVelocity());
+    private void configurePidController() {
+        _pidController.setP(5e-5);
+        _pidController.setI(1e-6);
+        _pidController.setD(0);
+        _pidController.setIZone(0);
+        _pidController.setFF(0);
+        _pidController.setOutputRange(-1, 1);
     }
 }
