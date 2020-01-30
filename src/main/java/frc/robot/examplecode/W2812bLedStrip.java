@@ -15,6 +15,8 @@ public class W2812bLedStrip {
     public W2812bLedStrip(Joystick controller, int pwmPort) {
         _ledStrip = new AddressableLED(pwmPort);
         _ledBuffer = new AddressableLEDBuffer(150);
+        _ledStrip.setLength(_ledBuffer.getLength());
+
         _controller = controller;
         _controlLoop = initializeControlLoop();
     }
