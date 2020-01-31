@@ -2,7 +2,6 @@ package frc.libs.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-
 // I like some of the ideas about abstraction in this class, going to leave it as reference.
 // But there's some built in Joystick abstractions in the WPILib command library I want us
 // to try and use.
@@ -101,54 +100,54 @@ public class LogitechController {
     }
 
     public boolean rBumper() {
-        return _joystick .getRawButton(6);
+        return _joystick.getRawButton(6);
     }
 
     public boolean back() {
-        return _joystick .getRawButton(7);
+        return _joystick.getRawButton(7);
     }
 
     public boolean start() {
-        return _joystick .getRawButton(8);
+        return _joystick.getRawButton(8);
     }
 
     public boolean lStick() {
-        return _joystick .getRawButton(9);
+        return _joystick.getRawButton(9);
     }
 
     public boolean rStick() {
-        return _joystick .getRawButton(10);
+        return _joystick.getRawButton(10);
     }
 
     public boolean dUp() {
-        return _joystick .getPOV() == 0;
+        return _joystick.getPOV() == 0;
     }
 
     public boolean dUpRight() {
-        return _joystick .getPOV() == 45;
+        return _joystick.getPOV() == 45;
     }
 
     public boolean dRight() {
-        return _joystick .getPOV() == 90;
+        return _joystick.getPOV() == 90;
     }
 
     public boolean dDownRight() {
-        return _joystick .getPOV() == 135;
+        return _joystick.getPOV() == 135;
     }
 
     public boolean dDown() {
-        return _joystick .getPOV() == 180;
+        return _joystick.getPOV() == 180;
     }
 
     public boolean dDownLeft() {
-        return _joystick .getPOV() == 225;
+        return _joystick.getPOV() == 225;
     }
 
     public boolean dLeft() {
-        return _joystick .getPOV() == 270;
+        return _joystick.getPOV() == 270;
     }
 
     public boolean dUpLeft() {
-        return _joystick .getPOV() == 315;
+        return _joystick.getPOV() == 315;
     }
 }

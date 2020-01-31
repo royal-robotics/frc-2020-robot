@@ -11,7 +11,7 @@ public class Revservo {
     }
 
     public void move(double direction) {
-        if(direction > 0.1) {
+        if (direction > 0.1) {
             _servo.setSpeed(1);
         } else if (direction < -0.1) {
             _servo.setSpeed(-1);

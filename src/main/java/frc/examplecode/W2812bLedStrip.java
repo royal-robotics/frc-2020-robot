@@ -38,11 +38,12 @@ public class W2812bLedStrip {
     }
 
     /// <summary>
-    /// Fills the buffer with a rainbow pattern that rotates each time the buffer is filled.
+    /// Fills the buffer with a rainbow pattern that rotates each time the buffer is
+    /// filled.
     /// </summary>
     private void fillBuffer() {
         // Pressing the right trigger lowers the saturation
-        var saturation = (int)(255.0 - (_controller.getRawAxis(3) * 255.0));
+        var saturation = (int) (255.0 - (_controller.getRawAxis(3) * 255.0));
 
         for (var ledIndex = 0; ledIndex < _ledBuffer.getLength(); ledIndex++) {
             // Hue used because its a linear representation of color spectrum
