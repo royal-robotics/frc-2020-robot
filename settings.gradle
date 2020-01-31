@@ -22,7 +22,6 @@ pluginManagement {
         maven {
             name 'frcHome'
             url frcHomeMaven
-            allowInsecureProtocol true
         }
     }
 }
