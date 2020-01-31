@@ -1,4 +1,4 @@
-package frc.robot.examplecode;
+package frc.examplecode;
 
 import java.text.*;
 import com.revrobotics.*;

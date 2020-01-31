@@ -3,8 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 
-import frc.robot.examplecode.*;
-import frc.robot.libs.controls.*;
+import frc.examplecode.*;
+import frc.libs.controls.*;
 
 public class Robot extends TimedRobot {
   private final LogitechController _controller;

@@ -1,4 +1,4 @@
-package frc.robot.examplecode;
+package frc.examplecode;
 
 import edu.wpi.first.wpilibj.*;
 
