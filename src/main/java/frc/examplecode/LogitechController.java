@@ -1,4 +1,4 @@
-package frc.libs.controls;
+package frc.examplecode;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.Joystick;
 // But there's some built in Joystick abstractions in the WPILib command library I want us
 // to try and use.
 public class LogitechController {
-
     private final Joystick _joystick;
     private final double _deadband;
 

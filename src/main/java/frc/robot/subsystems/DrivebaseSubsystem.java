@@ -3,27 +3,27 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.examplecode.*;
+import frc.libs.components.*;
+import frc.robot.Components;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 
 public class DrivebaseSubsystem extends SubsystemBase
 {
-    private final Neomotor left_motor1;
-    private final Neomotor left_motor2;
-    private final Neomotor right_motor1;
-    private final Neomotor right_motor2;
+    private final MotorGroup left_motors;
+    private final MotorGroup right_motors;
 
-    public DrivebaseSubsystem(int left_motor1_id, int left_motor2_id, int right_motor1_id, int right_motor2_id)
+    public DrivebaseSubsystem()
     {
-        left_motor1 = new Neomotor(left_motor1_id, MotorType.kBrushless);
-        left_motor2 = new Neomotor(left_motor2_id, MotorType.kBrushless);
-        right_motor1 = new Neomotor(right_motor1_id, MotorType.kBrushless);
-        right_motor2 = new Neomotor(right_motor2_id, MotorType.kBrushless);
+        left_motors = new MotorGroup (new Neomotor(Components.Drivebase.left_motor1),
+                        new Neomotor(Components.Drivebase.left_motor2));
+        right_motors = new MotorGroup (new Neomotor(Components.Drivebase.right_motor1),
+                        new Neomotor(Components.Drivebase.right_motor2));
     }
 
-    public void EncoderReset()
+    public void EncoderPositionReset()
     {
-
+        left_motors.ResetPositions();
+        right_motors.ResetPositions();
     }
 
     public void TankDrive()

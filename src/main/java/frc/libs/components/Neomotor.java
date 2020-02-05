@@ -1,4 +1,4 @@
-package frc.examplecode;
+package frc.libs.components;
 
 import java.text.*;
 import com.revrobotics.*;
@@ -10,8 +10,8 @@ public class Neomotor {
     private final CANEncoder _encoder;
     private final CANPIDController _pidController;
 
-    public Neomotor(int id, MotorType type) {
-        _motor = new CANSparkMax(id, type);
+    public Neomotor(CANSparkMax motor) {
+        _motor = motor;
         _encoder = _motor.getEncoder();
         _pidController = _motor.getPIDController();
         this.configurePidController();
@@ -35,5 +35,10 @@ public class Neomotor {
         _pidController.setIZone(0);
         _pidController.setFF(0);
         _pidController.setOutputRange(-1, 1);
+    }
+
+    public void resetPosition()
+    {
+        _encoder.setPosition(0);
     }
 }
