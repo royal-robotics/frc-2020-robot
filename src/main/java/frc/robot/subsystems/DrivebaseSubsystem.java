@@ -12,22 +12,20 @@ public final class DrivebaseSubsystem extends SubsystemBase
 
     public DrivebaseSubsystem()
     {
-        left_motors = new MotorGroup (new Neomotor(Components.Drivebase.left_motor1),
-                        new Neomotor(Components.Drivebase.left_motor2));
-        right_motors = new MotorGroup (new Neomotor(Components.Drivebase.right_motor1),
-                        new Neomotor(Components.Drivebase.right_motor2));
+        left_motors = new MotorGroup (Components.Drivebase.left_motor1, Components.Drivebase.left_motor2);
+        right_motors = new MotorGroup (Components.Drivebase.right_motor1, Components.Drivebase.right_motor2);
     }
 
     public void EncoderPositionReset()
     {
-        left_motors.ResetPositions();
-        right_motors.ResetPositions();
+        left_motors.resetPosition();
+        right_motors.resetPosition();
     }
 
     // Pass in axis values without inverting
     public void Move(double leftMotorsSpeed, double rightMotorsSpeed)
     {
-        left_motors.SetAll(leftMotorsSpeed);
-        right_motors.SetAll(-rightMotorsSpeed);
+        left_motors.setSpeed(leftMotorsSpeed);
+        right_motors.setSpeed(-rightMotorsSpeed);
     }
 }

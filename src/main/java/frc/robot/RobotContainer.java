@@ -13,14 +13,19 @@ public class RobotContainer
     private static Joystick operator = new Joystick(1);
 
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
+    private final ElevatorSubsystem elevator = new ElevatorSubsystem();
 
     public RobotContainer()
     {
-        drivebase.setDefaultCommand(new ManualDrive(drivebase, driver.getRawAxis(1), driver.getRawAxis(5)));
+        BindCommands();
+
+        drivebase.setDefaultCommand(new ManualDrive(drivebase, driver));
     }
 
     private void BindCommands()
     {
-        //new JoystickButton(operator, 1).whenPressed();
+        // Example: When operator joystick presses A or B, do something
+        new JoystickButton(operator, 1).whenPressed(new ExtendElevator(elevator));
+        new JoystickButton(operator, 2).whenPressed(new ExtendElevator(elevator));
     }
 }

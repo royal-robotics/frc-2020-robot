@@ -1,25 +1,24 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.*;
 
 public class ManualDrive extends CommandBase
 {
     private final DrivebaseSubsystem drivebase;
-    private final double left_speed;
-    private final double right_speed;
+    private final Joystick driver;
 
-    public ManualDrive(DrivebaseSubsystem subsystem, double left_speed, double right_speed)
+    public ManualDrive(DrivebaseSubsystem subsystem, Joystick driver)
     {
         drivebase = subsystem;
-        this.left_speed = left_speed;
-        this.right_speed = right_speed;
+        this.driver = driver;
         addRequirements(drivebase);
     }
 
 	@Override
     public void execute()
     {
-        drivebase.Move(left_speed, right_speed);
+        drivebase.Move(driver.getRawAxis(1), driver.getRawAxis(5));
     }
 }

@@ -2,7 +2,6 @@ package frc.libs.components;
 
 import java.text.*;
 import com.revrobotics.*;
-import com.revrobotics.CANSparkMaxLowLevel.*;
 
 public class Neomotor {
 
@@ -17,7 +16,7 @@ public class Neomotor {
         this.configurePidController();
     }
 
-    public void set(double percentSpeed) {
+    public void setSpeed(double percentSpeed) {
         // Set target rpm for pid control
         final var maxRPM = 5700.0;
         final var targetRpm = percentSpeed * maxRPM;
@@ -26,6 +25,10 @@ public class Neomotor {
         // Print actual motor output, and current shaft rpm
         final var df2 = new DecimalFormat("#.##");
         System.out.printf("%f %f", df2.format(_motor.get()), _encoder.getVelocity());
+    }
+
+    public void setPosition(double position) {
+        _pidController.setReference(position, ControlType.kPosition);
     }
 
     private void configurePidController() {

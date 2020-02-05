@@ -1,10 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
-import com.revrobotics.CANSparkMaxLowLevel.*;
 
 import frc.examplecode.*;
-import frc.libs.controls.*;
 
 import edu.wpi.first.wpilibj2.command.*;
 
@@ -32,6 +30,5 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        //final double motorSpeed = _controller.lYAxis();
     }
 }

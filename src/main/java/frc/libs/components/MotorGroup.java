@@ -1,34 +1,16 @@
 package frc.libs.components;
 
-import java.util.ArrayList;
-
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.*;
 
-public class MotorGroup
+public class MotorGroup extends Neomotor
 {
-    private int number_of_motors;
-    public Neomotor[] motors;
-
-    public MotorGroup(Neomotor ...motors)
+    public MotorGroup(CANSparkMax leader, CANSparkMax ...followers)
     {
-        number_of_motors = motors.length;
-        this.motors = motors;
-    }
+        super(leader);
 
-    public void SetAll(double percentSpeed)
-    {
-        for (int x = 0; x < motors.length; x++)
+        for(int x = 0; x < followers.length; x++)
         {
-            motors[x].set(percentSpeed);
-        }
-    }
-
-    public void ResetPositions()
-    {
-        for (int x = 0; x < motors.length; x++)
-        {
-            motors[x].resetPosition();
+            followers[x].follow(leader);
         }
     }
 }
