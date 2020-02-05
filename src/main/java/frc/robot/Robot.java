@@ -32,6 +32,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        final double motorSpeed = _controller.lYAxis();
+        //final double motorSpeed = _controller.lYAxis();
     }
 }

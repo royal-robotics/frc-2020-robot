@@ -1,11 +1,9 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.libs.components.*;
 import frc.robot.Components;
-import com.revrobotics.CANSparkMaxLowLevel.*;
 
 public class DrivebaseSubsystem extends SubsystemBase
 {
@@ -26,8 +24,23 @@ public class DrivebaseSubsystem extends SubsystemBase
         right_motors.ResetPositions();
     }
 
-    public void TankDrive()
+    public void ForwardLeft(double speed)
     {
+        right_motors.SetAll(speed);
+    }
 
+    public void ForwardRight(double speed)
+    {
+        right_motors.SetAll(-speed);
+    }
+
+    public void ReverseLeft(double speed)
+    {
+        left_motors.SetAll(-speed);
+    }
+
+    public void ReverseRight(double speed)
+    {
+        right_motors.SetAll(speed);
     }
 }
