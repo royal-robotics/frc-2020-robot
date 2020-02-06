@@ -1,0 +1,34 @@
+// TODO: Figure out how to abort this script if the jar doesn't exist
+buildscript {
+    dependencies {
+        // TODO: make this not crossplat friendly, use %public% too
+        // TODO: use %public%, might need to expand outside of url constructor
+        def jarPath = "C:/Users/Public/wpilib/2020/tools/PathWeaver.jar"
+        classpath files(jarPath)
+    }
+}
+import java.nio.file.*
+import edu.wpi.first.pathweaver.*
+
+// TODO: Make this a relative path (need to use a get script path type API)
+// Parse the properties for the pathweaver project
+def projectDirectory = "C:/dev/robotics/frc-2020-robot/tools/pathweaver"
+def projectPreferences = ProjectPreferences.getInstance(projectDirectory)
+
+// Make sure the output directory is created
+def output = projectPreferences.getOutputDir().toPath()
+Files.createDirectories(output);
+
+// Generate the trajectory for each file in the paths directory
+def pathsDirectory = projectDirectory + "/Paths/"
+def pathsFolder = new File(pathsDirectory);
+for (def pathName : pathsFolder.list()) {
+    def path = PathIOUtil.importPath(pathsDirectory, pathName);
+    def pathNameFile = output.resolve(path.getPathNameNoExtension());
+    if(!path.getSpline().writeToFile(pathNameFile)) {
+        println("failer!");
+    }
+    else {
+        println("Pathweaver: updated trajectory for $pathName")
+    }
+}

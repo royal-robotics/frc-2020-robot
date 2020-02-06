@@ -4,6 +4,7 @@
 	"recommendations": [
     "EditorConfig.EditorConfig",
     "shardulm94.trailing-spaces",
+    "naco-siren.gradle-language",
     "vscjava.vscode-java-pack",
     "wpilibsuite.vscode-wpilib"
 	]
