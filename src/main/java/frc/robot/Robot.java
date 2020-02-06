@@ -1,10 +1,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
-
-import frc.examplecode.*;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import edu.wpi.first.wpilibj2.command.*;
+
+import frc.examplecode.*;
 
 public class Robot extends TimedRobot {
     private final LogitechController _controller;
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic()
     {
         CommandScheduler.getInstance().run();
+        Shuffleboard.update();
     }
 
     @Override

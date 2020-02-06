@@ -1,6 +1,5 @@
 package frc.libs.components;
 
-import java.text.*;
 import com.revrobotics.*;
 
 public class Neomotor {
@@ -23,8 +22,8 @@ public class Neomotor {
         _pidController.setReference(targetRpm, ControlType.kVelocity);
 
         // Print actual motor output, and current shaft rpm
-        final var df2 = new DecimalFormat("#.##");
-        System.out.printf("%f %f", df2.format(_motor.get()), _encoder.getVelocity());
+        // final var df2 = new DecimalFormat("#.##");
+        //System.out.printf("%f %f", df2.format(_motor.get()), _encoder.getVelocity());
     }
 
     public void setPosition(double position) {
