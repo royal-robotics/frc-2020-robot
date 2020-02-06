@@ -24,6 +24,6 @@ public class RobotContainer
     {
         // Example: When operator joystick presses A or B, do something
         new JoystickButton(operator, 1).whenPressed(new ExtendElevator(elevator));
-        new JoystickButton(operator, 2).whenPressed(new ExtendElevator(elevator));
+        new JoystickButton(operator, 2).whenPressed(new RetractElevator(elevator));
     }
 }
