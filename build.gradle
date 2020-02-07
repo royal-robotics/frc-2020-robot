@@ -3,16 +3,25 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2020.2.2"
 }
 
-def pathWeaverJarFile = new File("${System.getenv("public")}/wpilib/2020/tools/PathWeaver.jar")
-if (pathWeaverJarFile.exists()) {
-    ext.pathWeaverJarFile = pathWeaverJarFile
-    apply from: "pathweaver.build.gradle"
-} else {
+try {
+    def pathWeaverJarFile = new File("${System.getenv("public")}/wpilib/2020/tools/PathWeaver.jar")
+    if (pathWeaverJarFile.exists()) {
+        ext.pathWeaverJarFile = pathWeaverJarFile
+        apply from: "pathweaver.build.gradle"
+    } else {
+        println('******* Warning *******')
+        println('Pathweaver not installed, trajectories will not be built.')
+        println('Get Connor to help you fix this.')
+        println('***********************')
+    }
+} catch (exception) {
     println('******* Warning *******')
-    println('Pathweaver not installed, trajectories will not be built.')
-    println('Get Connor to help you fix this.')
+    println('Pathweaver build threw, trajectories will not be built.')
+    println('Loading the pathweaver jar sometimes corrupts the gradle daemon.')
+    println('Try running \'gradlew build --no-daemon\' as a work around.')
     println('***********************')
 }
+
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
