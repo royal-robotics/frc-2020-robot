@@ -15,6 +15,15 @@ public class Neomotor {
         this.configurePidController();
     }
 
+    private void configurePidController() {
+        _pidController.setP(5e-5);
+        _pidController.setI(1e-6);
+        _pidController.setD(0);
+        _pidController.setIZone(0);
+        _pidController.setFF(0);
+        _pidController.setOutputRange(-1, 1);
+    }
+
     public void setSpeed(double percentSpeed) {
         // Set target rpm for pid control
         final var maxRPM = 5700.0;
@@ -30,13 +39,14 @@ public class Neomotor {
         _pidController.setReference(position, ControlType.kPosition);
     }
 
-    private void configurePidController() {
-        _pidController.setP(5e-5);
-        _pidController.setI(1e-6);
-        _pidController.setD(0);
-        _pidController.setIZone(0);
-        _pidController.setFF(0);
-        _pidController.setOutputRange(-1, 1);
+    public double getVelocity()
+    {
+        return _encoder.getVelocity();
+    }
+
+    public double getPosition()
+    {
+        return _encoder.getPosition();
     }
 
     public void resetPosition()

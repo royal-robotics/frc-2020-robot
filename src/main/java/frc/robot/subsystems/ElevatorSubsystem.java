@@ -1,11 +1,6 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.libs.components.*;
-import frc.robot.Components;
-
-public final class ElevatorSubsystem extends SubsystemBase
+public final class ElevatorSubsystem extends RoyalSubsystem
 {
     //private final MotorGroup elevator_motors;
 
