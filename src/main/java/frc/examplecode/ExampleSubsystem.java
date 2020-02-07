@@ -1,4 +1,6 @@
-package frc.robot.subsystems;
+package frc.examplecode;
+
+import frc.robot.subsystems.*;
 
 public class ExampleSubsystem extends RoyalSubsystem
 {

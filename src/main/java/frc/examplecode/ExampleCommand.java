@@ -1,8 +1,9 @@
-package frc.robot.commands;
+package frc.examplecode;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.subsystems.*;
 
+// Bind a new instance of this class to a JoystickButton class and it will run the execute
+// method when the desired trigger activates (i.e. when button X is pressed)
 public class ExampleCommand extends CommandBase
 {
     private final ExampleSubsystem subsystem;
@@ -16,5 +17,6 @@ public class ExampleCommand extends CommandBase
     @Override
     public void execute()
     {
+        System.out.println(subsystem.RandomNumber());
     }
 }

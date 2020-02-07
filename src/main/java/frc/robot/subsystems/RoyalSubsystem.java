@@ -9,15 +9,22 @@ public abstract class RoyalSubsystem extends SubsystemBase
 
     public RoyalSubsystem()
     {
-        _controlLoop = new Notifier(() -> controlLoop());
+        _controlLoop = new Notifier(() -> UpdateTableEntries());
+        AddTableEntries();
     }
 
-    protected void startDashboardLoop() {
+    protected void StartUpdateTableEntries() {
         final double ControlLoopIntervalMs = 100.0;
         _controlLoop.startPeriodic(ControlLoopIntervalMs / 1000.0);
     }
 
-    protected void controlLoop() {
+    public void AddTableEntries()
+    {
+
+    }
+
+    protected void UpdateTableEntries()
+    {
 
     }
 }

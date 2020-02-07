@@ -12,7 +12,6 @@ public class RobotContainer
 
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final ElevatorSubsystem elevator = new ElevatorSubsystem();
-    private final ExampleSubsystem subsystem = new ExampleSubsystem();
 
     public RobotContainer()
     {

@@ -6,19 +6,36 @@ import frc.robot.*;
 
 public final class DrivebaseSubsystem extends RoyalSubsystem
 {
+    //TODO: Check if initializing motors in fields gets called before super()
     private final static double deadband = 0.1;
     private final MotorGroup left_motors;
     private final MotorGroup right_motors;
 
-
     public DrivebaseSubsystem()
     {
-        super();
         left_motors = new MotorGroup (Components.Drivebase.left_motor1, Components.Drivebase.left_motor2);
         right_motors = new MotorGroup (Components.Drivebase.right_motor1, Components.Drivebase.right_motor2);
         EncoderPositionReset();
 
-        this.startDashboardLoop();
+        StartUpdateTableEntries();
+    }
+
+    @Override
+    public void AddTableEntries()
+    {
+        DataTable.MakeDoubleEntry("Raw Data", "Left Motors Velocity");
+        DataTable.MakeDoubleEntry("Raw Data", "Left Motors Position");
+        DataTable.MakeDoubleEntry("Raw Data", "Right Motors Velocity");
+        DataTable.MakeDoubleEntry("Raw Data", "Right Motors Position");
+    }
+
+    @Override
+    protected void UpdateTableEntries()
+    {
+        DataTable.Update("Left Motors Velocity", left_motors.getVelocity());
+        DataTable.Update("Left Motors Position", left_motors.getPosition());
+        DataTable.Update("Right Motors Velocity", right_motors.getVelocity());
+        DataTable.Update("Right Motors Position", right_motors.getPosition());
     }
 
     public void EncoderPositionReset()
@@ -47,14 +64,5 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         {
             right_motors.setSpeed(0);
         }
-    }
-
-    @Override
-    protected void controlLoop()
-    {
-        // DataDisplay.Update("Raw Data", "Left motors velocity", left_motors.getVelocity());
-        // DataDisplay.Update("Raw Data", "Left motors position", left_motors.getPosition());
-        // DataDisplay.Update("Raw Data", "Right motors velocity", right_motors.getVelocity());
-        // DataDisplay.Update("Raw Data", "Right motors position", right_motors.getPosition());
     }
 }
