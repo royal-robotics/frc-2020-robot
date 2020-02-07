@@ -1,34 +1,57 @@
-// TODO: Figure out how to abort this script if the jar doesn't exist
+// Load the pathweaver jar file into the groovy script execution classpath.
 buildscript {
     dependencies {
-        // TODO: make this not crossplat friendly, use %public% too
-        // TODO: use %public%, might need to expand outside of url constructor
-        def jarPath = "C:/Users/Public/wpilib/2020/tools/PathWeaver.jar"
-        classpath files(jarPath)
+        if (pathWeaverJarFile != null && pathWeaverJarFile instanceof java.io.File) {
+            classpath files(pathWeaverJarFile)
+        } else {
+            throw new Exception("\"pathWeaverJarFile\" must be defined")
+        }
     }
 }
+
 import java.nio.file.*
 import edu.wpi.first.pathweaver.*
 
-// TODO: Make this a relative path (need to use a get script path type API)
-// Parse the properties for the pathweaver project
-def projectDirectory = "C:/dev/robotics/frc-2020-robot/tools/pathweaver"
-def projectPreferences = ProjectPreferences.getInstance(projectDirectory)
+// Find the pathweaver project, and then parse its properties.
+def buildSrcRoot = project.buildscript.sourceFile.getParentFile()
+def projectFolderName = buildSrcRoot.toPath().resolve("tools/pathweaver").toRealPath().toString();
+def projectPreferences = ProjectPreferences.getInstance(projectFolderName)
 
 // Make sure the output directory is created
-def output = projectPreferences.getOutputDir().toPath()
-Files.createDirectories(output);
+def outputFolderPath = projectPreferences.getOutputDir().toPath()
+Files.createDirectories(outputFolderPath);
 
 // Generate the trajectory for each file in the paths directory
-def pathsDirectory = projectDirectory + "/Paths/"
-def pathsFolder = new File(pathsDirectory);
-for (def pathName : pathsFolder.list()) {
-    def path = PathIOUtil.importPath(pathsDirectory, pathName);
-    def pathNameFile = output.resolve(path.getPathNameNoExtension());
-    if(!path.getSpline().writeToFile(pathNameFile)) {
-        println("failer!");
+def pathsFolderName = projectFolderName + "/Paths/"
+def pathsFolderFile = new File(pathsFolderName);
+def pathsFolderFiles = pathsFolderFile.listFiles()
+for (def pathFile : pathsFolderFiles) {
+    def pathweaverPathName = pathFile.getName()
+    def pathweaverPath = PathIOUtil.importPath(pathsFolderName, pathweaverPathName)
+
+    def compileTemplateTask = task "PathWeaver Build ${pathweaverPathName}" {
+
+        // Set inputs and outputs to enable incremental build
+        inputs.file file(pathFile)
+        outputs.file "None"
+
+        doLast {
+            def outputPath = outputFolderPath.resolve(pathweaverPathName);
+            if(!pathweaverPath.getSpline().writeToFile(outputPath)) {
+                println("Failed to Update");
+                throw new Exception("Failed to output trajectory")
+            }
+
+            def outputFile = new File("${outputPath.toString()}.wpilib.json")
+            println "Built PathWeaver Path: ${pathweaverPathName}"
+            println "To target trajectory:  ${outputFile.toPath().toRealPath()}"
+        }
     }
-    else {
-        println("Pathweaver: updated trajectory for $pathName")
-    }
+    build.finalizedBy(compileTemplateTask)
+    tasks.deploy.dependsOn(compileTemplateTask)
+}
+
+println "Found ${pathsFolderFiles.size()} pathweaver path."
+for (def file : pathsFolderFiles) {
+    println("\t${file.getName()}")
 }
