@@ -3,8 +3,13 @@ package frc.robot;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+
 public final class Components
+
 {
+    public static DigitalInput compJumper = new DigitalInput(0);
+
     public static class Drivebase
     {
         public static CANSparkMax left_motor1 = new CANSparkMax(1, MotorType.kBrushless);
