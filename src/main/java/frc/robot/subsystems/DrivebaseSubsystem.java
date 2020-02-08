@@ -3,65 +3,66 @@ package frc.robot.subsystems;
 import frc.libs.components.*;
 import frc.robot.Components;
 import frc.robot.*;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.drive.*;
+import edu.wpi.first.wpilibj.geometry.*;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.kinematics.*;
 
 public final class DrivebaseSubsystem extends RoyalSubsystem
 {
-    private final static double deadband = 0.1;
-    private final MotorGroup left_motors;
-    private final MotorGroup right_motors;
+    private final MotorGroup _leftMotors;
+    private final MotorGroup _rightMotors;
+
+    private final DifferentialDriveOdometry _odometry;
+    private final Gyro _gyro;
 
     public DrivebaseSubsystem()
     {
-        left_motors = new MotorGroup (Components.Drivebase.left_motor1, Components.Drivebase.left_motor2);
-        right_motors = new MotorGroup (Components.Drivebase.right_motor1, Components.Drivebase.right_motor2);
-        EncoderPositionReset();
+        _leftMotors = new MotorGroup(Components.Drivebase.left_motor1, Components.Drivebase.left_motor2);
+        _rightMotors = new MotorGroup(Components.Drivebase.right_motor1, Components.Drivebase.right_motor2);
 
-        StartUpdateTableEntries();
+        _gyro = new ADXRS450_Gyro();
+        _gyro.reset();
+        _gyro.calibrate();
+
+        _leftMotors.resetPosition();
+        _rightMotors.resetPosition();
+
+        _odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     }
 
     @Override
-    public void AddTableEntries()
-    {
-        DataTable.MakeDoubleEntry("Raw Data", "Left Motors Velocity");
-        DataTable.MakeDoubleEntry("Raw Data", "Left Motors Position");
-        DataTable.MakeDoubleEntry("Raw Data", "Right Motors Velocity");
-        DataTable.MakeDoubleEntry("Raw Data", "Right Motors Position");
+    public void periodic() {
+        final var gyroAngle = Rotation2d.fromDegrees(getHeading());
+        final var leftDistance = _leftMotors.getPosition();
+        final var rightDistance = _rightMotors.getPosition();
+        _odometry.update(gyroAngle, leftDistance, rightDistance);
     }
 
-    @Override
-    protected void UpdateTableEntries()
-    {
-        DataTable.Update("Raw Data", "Left Motors Velocity", left_motors.getVelocity());
-        DataTable.Update("Raw Data", "Left Motors Position", left_motors.getPosition());
-        DataTable.Update("Raw Data", "Right Motors Velocity", right_motors.getVelocity());
-        DataTable.Update("Raw Data", "Right Motors Position", right_motors.getPosition());
+    public void setPower(double leftPower, double rightPower) {
+        _leftMotors.setSpeed(-leftPower);
+        _rightMotors.setSpeed(rightPower);
     }
 
-    public void EncoderPositionReset()
-    {
-        left_motors.resetPosition();
-        right_motors.resetPosition();
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        _leftMotors.setVoltage(leftVolts);
+        _rightMotors.setVoltage(-rightVolts);
+        // m_drive.feed();
     }
 
-    // Pass in axis values without inverting
-    public void Move(double left_joystick, double right_joystick)
-    {
-        if (left_joystick > deadband || left_joystick < -deadband)
-        {
-            left_motors.setSpeed(-left_joystick);
-        }
-        else
-        {
-            left_motors.setSpeed(0);
-        }
+    public double getHeading() {
+        final boolean isGyroReversed = false;
+        return Math.IEEEremainder(_gyro.getAngle(), 360) * (isGyroReversed ? -1.0 : 1.0);
+    }
 
-        if (right_joystick > deadband || right_joystick < -deadband)
-        {
-            right_motors.setSpeed(right_joystick);
-        }
-        else
-        {
-            right_motors.setSpeed(0);
-        }
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        final var leftRate = _leftMotors.getVelocity();
+        final var rightRate = _rightMotors.getVelocity();
+        return new DifferentialDriveWheelSpeeds(leftRate, rightRate);
+    }
+
+    public Pose2d getPose() {
+        return _odometry.getPoseMeters();
     }
 }

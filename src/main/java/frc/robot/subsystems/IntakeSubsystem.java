@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.libs.components.*;
-import frc.robot.Components;
 import frc.robot.*;
 
 public class IntakeSubsystem extends RoyalSubsystem
@@ -12,7 +11,7 @@ public class IntakeSubsystem extends RoyalSubsystem
     {
         ball_sensor = new BallSensor(0);
 
-        StartUpdateTableEntries();
+        initialize();
     }
 
     @Override

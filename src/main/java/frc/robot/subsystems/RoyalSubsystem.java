@@ -13,7 +13,7 @@ public abstract class RoyalSubsystem extends SubsystemBase
         AddTableEntries();
     }
 
-    protected void StartUpdateTableEntries() {
+    protected void initialize() {
         final double ControlLoopIntervalMs = 100.0;
         _controlLoop.startPeriodic(ControlLoopIntervalMs / 1000.0);
     }

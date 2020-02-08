@@ -19,6 +19,6 @@ public class ManualDrive extends CommandBase
 	@Override
     public void execute()
     {
-        drivebase.Move(driver.getRawAxis(1), driver.getRawAxis(5));
+        drivebase.setPower(driver.getRawAxis(1), driver.getRawAxis(5));
     }
 }
