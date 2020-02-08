@@ -6,7 +6,6 @@ import frc.robot.*;
 
 public final class DrivebaseSubsystem extends RoyalSubsystem
 {
-    //TODO: Check if initializing motors in fields gets called before super()
     private final static double deadband = 0.1;
     private final MotorGroup left_motors;
     private final MotorGroup right_motors;
@@ -32,10 +31,10 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     @Override
     protected void UpdateTableEntries()
     {
-        DataTable.Update("Left Motors Velocity", left_motors.getVelocity());
-        DataTable.Update("Left Motors Position", left_motors.getPosition());
-        DataTable.Update("Right Motors Velocity", right_motors.getVelocity());
-        DataTable.Update("Right Motors Position", right_motors.getPosition());
+        DataTable.Update("Raw Data", "Left Motors Velocity", left_motors.getVelocity());
+        DataTable.Update("Raw Data", "Left Motors Position", left_motors.getPosition());
+        DataTable.Update("Raw Data", "Right Motors Velocity", right_motors.getVelocity());
+        DataTable.Update("Raw Data", "Right Motors Position", right_motors.getPosition());
     }
 
     public void EncoderPositionReset()
