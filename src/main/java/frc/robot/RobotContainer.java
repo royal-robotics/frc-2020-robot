@@ -14,17 +14,20 @@ public class RobotContainer
     private final ElevatorSubsystem elevator = new ElevatorSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
 
+    private final HatchSubsystem hatch = new HatchSubsystem();
+    private final OldDrivebaseSubsystem old_drivebase = new OldDrivebaseSubsystem();
+
     public RobotContainer()
     {
         BindCommands();
 
-        drivebase.setDefaultCommand(new ManualDrive(drivebase, driver));
+        //drivebase.setDefaultCommand(new ManualDrive(drivebase, driver));
+        old_drivebase.setDefaultCommand(new OldManualDrive(old_drivebase, driver));
     }
 
     private void BindCommands()
     {
-        // Example: When operator joystick presses A or B, do something
-        new JoystickButton(operator, 1).whenPressed(new ExtendElevator(elevator));
-        new JoystickButton(operator, 2).whenPressed(new RetractElevator(elevator));
+        new JoystickButton(operator, 1).whenHeld(new GrabHatch(hatch));
+        new JoystickButton(operator, 1).whenReleased(new ReleaseHatch(hatch));
     }
 }
