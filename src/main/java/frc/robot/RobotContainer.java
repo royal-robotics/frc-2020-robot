@@ -16,7 +16,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer
 {
     private static Joystick driver = new Joystick(0);
-    private static Joystick operator = new Joystick(1);
+    // private static Joystick operator = new Joystick(1);
 
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final ElevatorSubsystem elevator = new ElevatorSubsystem();
@@ -32,12 +32,13 @@ public class RobotContainer
     private void BindCommands()
     {
         // Example: When operator joystick presses A or B, do something
-        new JoystickButton(operator, 1).whenPressed(new ExtendElevator(elevator));
-        new JoystickButton(operator, 2).whenPressed(new RetractElevator(elevator));
+        // new JoystickButton(operator, 1).whenPressed(new ExtendElevator(elevator));
+        // new JoystickButton(operator, 2).whenPressed(new RetractElevator(elevator));
+
+        new JoystickButton(driver, 1).whenPressed(getAutonomousCommand());
     }
 
     public Command getAutonomousCommand() {
-
         // TODO: Tune these values
         final var ksVolts = 0.22;
         final var kvVoltSecondsPerMeter = 1.98;
@@ -84,6 +85,22 @@ public class RobotContainer
     }
 
     // TODO: Get this from the pathweaver files.
+    // private final Trajectory getTrajectory(TrajectoryConfig config) {
+    //     // An example trajectory to follow.  All units in meters.
+    //     return TrajectoryGenerator.generateTrajectory(
+    //         // Start at the origin facing the +X direction
+    //         new Pose2d(0, 0, new Rotation2d(0)),
+    //         // Pass through these two interior waypoints, making an 's' curve path
+    //         List.of(
+    //             new Translation2d(1, 1),
+    //             new Translation2d(2, -1)
+    //         ),
+    //         // End 3 meters straight ahead of where we started, facing forward
+    //         new Pose2d(3, 0, new Rotation2d(0)),
+    //         // Pass config
+    //         config
+    //     );
+    // }
     private final Trajectory getTrajectory(TrajectoryConfig config) {
         // An example trajectory to follow.  All units in meters.
         return TrajectoryGenerator.generateTrajectory(
@@ -91,8 +108,7 @@ public class RobotContainer
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
             List.of(
-                new Translation2d(1, 1),
-                new Translation2d(2, -1)
+                // new Translation2d(50, 0)
             ),
             // End 3 meters straight ahead of where we started, facing forward
             new Pose2d(3, 0, new Rotation2d(0)),
@@ -100,4 +116,5 @@ public class RobotContainer
             config
         );
     }
+
 }
