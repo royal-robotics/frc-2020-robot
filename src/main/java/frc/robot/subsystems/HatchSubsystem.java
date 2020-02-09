@@ -15,6 +15,11 @@ public class HatchSubsystem extends RoyalSubsystem
         _carriageArm = Components.HatchManipulator.carriageArm;
     }
 
+    public Value fingerPosition()
+    {
+        return _carriageFingers.get();
+    }
+
     public void openFingers()
     {
         _carriageFingers.set(Value.kForward);
@@ -25,7 +30,12 @@ public class HatchSubsystem extends RoyalSubsystem
         _carriageFingers.set(Value.kReverse);
     }
 
-    public void pushArm()
+    public Value armPosition()
+    {
+        return _carriageArm.get();
+    }
+
+    public void extendArm()
     {
         _carriageArm.set(Value.kForward);
     }
