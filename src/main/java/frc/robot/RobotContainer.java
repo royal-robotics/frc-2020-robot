@@ -39,28 +39,16 @@ public class RobotContainer
     }
 
     public Command getAutonomousCommand() {
-        // TODO: Tune these values
+        // TODO: Run the robot drive charactisation to get these numbers.
         final var ksVolts = 0.22;
         final var kvVoltSecondsPerMeter = 1.98;
         final var kaVoltSecondsSquaredPerMeter = 0.2;
         final var motorFeedforward = new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
 
-        // TODO: Tune these values
-        final double kTrackwidthMeters = 0.69;
+        final double kTrackwidthMeters = 0.69; // TODO: Measure the distance between the wheels.
         final var kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
 
-        // TODO: Tune these values
-        final var maxVoltage = 10.0;
-        final var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(motorFeedforward, kDriveKinematics, maxVoltage);
-
-        // TODO: Tune these values
-        final var kMaxSpeedMetersPerSecond = 12.0;
-        final var kMaxAccelerationMetersPerSecondSquared = 12.0;
-        final var config = new TrajectoryConfig(kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(kDriveKinematics)
-            .addConstraint(autoVoltageConstraint);
-
-        final var exampleTrajectory = getTrajectory(config);
+        final var exampleTrajectory = getTrajectory(kDriveKinematics, motorFeedforward);
 
         // TODO: Tune these values
         final var kPDriveVel = 8.5;
@@ -85,30 +73,24 @@ public class RobotContainer
     }
 
     // TODO: Get this from the pathweaver files.
-    // private final Trajectory getTrajectory(TrajectoryConfig config) {
-    //     // An example trajectory to follow.  All units in meters.
-    //     return TrajectoryGenerator.generateTrajectory(
-    //         // Start at the origin facing the +X direction
-    //         new Pose2d(0, 0, new Rotation2d(0)),
-    //         // Pass through these two interior waypoints, making an 's' curve path
-    //         List.of(
-    //             new Translation2d(1, 1),
-    //             new Translation2d(2, -1)
-    //         ),
-    //         // End 3 meters straight ahead of where we started, facing forward
-    //         new Pose2d(3, 0, new Rotation2d(0)),
-    //         // Pass config
-    //         config
-    //     );
-    // }
-    private final Trajectory getTrajectory(TrajectoryConfig config) {
+    private final Trajectory getTrajectory(DifferentialDriveKinematics kDriveKinematics, SimpleMotorFeedforward motorFeedforward) {
+        final var maxVoltage = 10.0; // TODO: Tune this?
+        final var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(motorFeedforward, kDriveKinematics, maxVoltage);
+
+        final var kMaxSpeedMetersPerSecond = 12.0;
+        final var kMaxAccelerationMetersPerSecondSquared = 12.0;
+        final var config = new TrajectoryConfig(kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared)
+            .setKinematics(kDriveKinematics)
+            .addConstraint(autoVoltageConstraint);
+
         // An example trajectory to follow.  All units in meters.
         return TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
             List.of(
-                // new Translation2d(50, 0)
+                // new Translation2d(1, 1),
+                // new Translation2d(2, -1)
             ),
             // End 3 meters straight ahead of where we started, facing forward
             new Pose2d(3, 0, new Rotation2d(0)),
@@ -116,5 +98,4 @@ public class RobotContainer
             config
         );
     }
-
 }
