@@ -6,7 +6,7 @@ public class BallSensor {
     private final DigitalInput _sensor;
 
     public BallSensor(int channel) {
-        // TODO: This DigitalInput should come from the static Components class
+        // TODO: DigitalInput should be passed in from static Components class.
         _sensor = new DigitalInput(channel);
     }
 

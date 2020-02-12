@@ -1,6 +1,11 @@
 package frc.libs.controls;
 
 public class Controllers {
+    public enum Controller {
+        Driver,
+        Operator
+    }
+
     public enum Logitech310Button {
         A (1),
         B (2),

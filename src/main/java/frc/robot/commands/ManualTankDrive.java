@@ -1,36 +1,26 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
+import frc.libs.controls.*;
+import frc.libs.controls.Controllers.*;
 import frc.robot.subsystems.*;
 
-public class ManualTankDrive extends CommandBase
-{
+public class ManualTankDrive extends CommandBase {
     private final DrivebaseSubsystem _drivebase;
-    private final Joystick _driver;
+    private final Axis _leftAxis;
+    private final Axis _rightAxis;
 
-    public ManualTankDrive(DrivebaseSubsystem driverbase, Joystick driver)
-    {
+    public ManualTankDrive(DrivebaseSubsystem driverbase, ControlsFactory controlsFactory) {
         _drivebase = driverbase;
         addRequirements(_drivebase);
 
-        _driver = driver;
+        _leftAxis = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.LeftStickY);
+        _rightAxis = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.RightStickY);
+
     }
 
 	@Override
-    public void execute()
-    {
-        double deadband = 0.1;
-        double leftPower = _driver.getRawAxis(1);
-        double rightPower = _driver.getRawAxis(5);
-
-        if (leftPower < deadband || leftPower > -deadband) {
-            leftPower = 0;
-        }
-        if (rightPower < deadband || rightPower > -deadband) {
-            rightPower = 0;
-        }
-
-        _drivebase.setPower(leftPower, rightPower);
+    public void execute() {
+        _drivebase.setPower(_leftAxis.get(), _rightAxis.get());
     }
 }

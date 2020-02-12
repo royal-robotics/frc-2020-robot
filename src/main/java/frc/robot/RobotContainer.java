@@ -1,7 +1,8 @@
 package frc.robot;
 
 import java.util.List;
-import edu.wpi.first.wpilibj.*;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.controller.*;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.*;
@@ -10,28 +11,31 @@ import edu.wpi.first.wpilibj.trajectory.*;
 import edu.wpi.first.wpilibj.trajectory.constraint.*;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.libs.controls.ControlsFactory;
+import frc.libs.controls.Controllers.Controller;
+import frc.libs.controls.Controllers.Logitech310Button;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.shuffleboard.*;
 
 public class RobotContainer
 {
-    private static Joystick driver = new Joystick(0);
-    // private static Joystick operator = new Joystick(1);
-
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
-
+    private final ControlsFactory _controlsFactory;
     private final LiveWindow liveWindowTab = new LiveWindow(drivebase, intake);
     private final RawData rawDataTab = new RawData(drivebase, intake);
 
     public RobotContainer()
     {
+        final var driver = new Joystick(0);
+        final var operator = new Joystick(1);
+        _controlsFactory = new ControlsFactory(driver, operator);
+
         BindCommands();
 
         //TODO: Check shuffleboard config to change drive type. Also make it check periodically
-        drivebase.setDefaultCommand(new ManualTankDrive(drivebase, driver));
-        //old_drivebase.setDefaultCommand(new OldManualDrive(old_drivebase, driver));
+        drivebase.setDefaultCommand(new ManualTankDrive(drivebase, _controlsFactory));
     }
 
     private void BindCommands()
@@ -44,7 +48,8 @@ public class RobotContainer
         // new JoystickButton(operator, 1).whenPressed(new ExtendElevator(elevator));
         // new JoystickButton(operator, 2).whenPressed(new RetractElevator(elevator));
 
-        new JoystickButton(driver, 1).whenPressed(getAutonomousCommand());
+        // TODO: Instead of using a joystick button put this in shuffleboard button.
+        _controlsFactory.createButton(Controller.Driver, Logitech310Button.A).whenPressed(getAutonomousCommand());
     }
 
     public Command getAutonomousCommand() {

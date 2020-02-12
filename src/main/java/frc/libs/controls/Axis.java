@@ -1,42 +1,24 @@
 package frc.libs.controls;
 
+import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.*;
 import static frc.libs.controls.Controllers.*;
 
-public class Axis implements IButton {
-    private Joystick joystick;
-    private Logitech310Axis axisIndex;
-    private double deadband;
-
-    private double lastReading = 0.0;
+// TODO: We can make this a trigger if we need, or another class called AxisTrigger
+public class Axis {
+    private final Supplier<Double> _rawAxis;
+    private final double _deadband;
 
     public Axis(Joystick joystick, Logitech310Axis axisIndex, double deadband) {
-        this.joystick = joystick;
-        this.axisIndex = axisIndex;
-        this.deadband = deadband;
+        _rawAxis = () -> joystick.getRawAxis(axisIndex.id);
+        _deadband = deadband;
     }
 
-    public double getValue() {
-        double value = joystick.getRawAxis(axisIndex.id);
-        if (value < deadband && value > -deadband) {
-            value = 0.0;
+    public double get() {
+        final var rawAxis = _rawAxis.get();
+        if (Math.abs(rawAxis) < _deadband) {
+            return 0.0;
         }
-        lastReading = value;
-        return lastReading;
-    }
-
-    public boolean isPressed() {
-        return isPressed(deadband);
-    }
-
-    public boolean isPressed(double edge) {
-        return Math.abs(getValue()) > edge;
-    }
-
-    public boolean isToggled(double edge) {
-        double previousValue = lastReading;
-        double currentValue = getValue();
-        boolean value = previousValue < edge && currentValue > edge;
-        return value;
+        return rawAxis;
     }
 }
