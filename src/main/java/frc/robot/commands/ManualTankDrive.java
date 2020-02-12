@@ -6,22 +6,23 @@ import frc.robot.subsystems.*;
 
 public class ManualTankDrive extends CommandBase
 {
-    private final DrivebaseSubsystem drivebase;
-    private final Joystick driver;
+    private final DrivebaseSubsystem _drivebase;
+    private final Joystick _driver;
 
-    public ManualTankDrive(DrivebaseSubsystem subsystem, Joystick driver)
+    public ManualTankDrive(DrivebaseSubsystem driverbase, Joystick driver)
     {
-        drivebase = subsystem;
-        this.driver = driver;
-        addRequirements(drivebase);
+        _drivebase = driverbase;
+        addRequirements(_drivebase);
+
+        _driver = driver;
     }
 
 	@Override
     public void execute()
     {
         double deadband = 0.1;
-        double leftPower = driver.getRawAxis(1);
-        double rightPower = driver.getRawAxis(5);
+        double leftPower = _driver.getRawAxis(1);
+        double rightPower = _driver.getRawAxis(5);
 
         if (leftPower < deadband || leftPower > -deadband) {
             leftPower = 0;
@@ -30,6 +31,6 @@ public class ManualTankDrive extends CommandBase
             rightPower = 0;
         }
 
-        drivebase.Move(leftPower, rightPower);
+        _drivebase.setPower(leftPower, rightPower);
     }
 }

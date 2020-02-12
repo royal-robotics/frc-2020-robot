@@ -35,6 +35,10 @@ public class Neomotor {
         //System.out.printf("%f %f", df2.format(_motor.get()), _encoder.getVelocity());
     }
 
+    public void setVoltage(double voltage) {
+        _pidController.setReference(voltage, ControlType.kVoltage);
+    }
+
     public void setPosition(double position) {
         _pidController.setReference(position, ControlType.kPosition);
     }
