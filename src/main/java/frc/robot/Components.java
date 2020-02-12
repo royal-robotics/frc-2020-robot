@@ -1,26 +1,18 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
-import com.ctre.phoenix.motorcontrol.can.*;
-import edu.wpi.first.wpilibj.*;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 
-public final class Components
-
-{
+public final class Components {
     public static DigitalInput compJumper = new DigitalInput(0);
 
-    public static class Drivebase
-    {
-        public static CANSparkMax _leftMotor1 = new CANSparkMax(1, MotorType.kBrushless);
-        public static CANSparkMax _leftMotor2 = new CANSparkMax(2, MotorType.kBrushless);
-        public static CANSparkMax _rightMotor1 = new CANSparkMax(3, MotorType.kBrushless);
-        public static CANSparkMax _rightMotor2 = new CANSparkMax(4, MotorType.kBrushless);
+    public static class Drivebase {
+        public static CANSparkMax leftMotor1 = new CANSparkMax(1, MotorType.kBrushless);
+        public static CANSparkMax leftMotor2 = new CANSparkMax(2, MotorType.kBrushless);
+        public static CANSparkMax rightMotor1 = new CANSparkMax(3, MotorType.kBrushless);
+        public static CANSparkMax rightMotor2 = new CANSparkMax(4, MotorType.kBrushless);
     }
 
     // **********************************2019 robot motors*******************************

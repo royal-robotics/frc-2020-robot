@@ -15,38 +15,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public final class DrivebaseSubsystem extends RoyalSubsystem
 {
-    // TODO: Convert MotorGroup+NeoMotor -> Gearbox
-    private final DriveGearbox2019 _leftGearbox;
-    private final DriveGearbox2019 _rightGearbox;
+    private final DriveGearbox _leftGearbox;
+    private final DriveGearbox _rightGearbox;
     private final Gyro _gyro;
 
     private final DifferentialDriveOdometry _odometry;
 
-    // public double getLeftVelocity () {
-    //     return left_motors.getVelocity();
-    // }
-
-    // public double getLeftPosition() {
-    //     return left_motors.getPosition();
-    // }
-
-    // public double getRightVelocity() {
-    //     return right_motors.getVelocity();
-    // }
-
-    // public double getRightPosition() {
-    //     return right_motors.getPosition();
-    // }
-
-
     public DrivebaseSubsystem() {
-        // Components.Drivebase.leftDrive1.setNeutralMode(NeutralMode.Brake);
-        // Components.Drivebase.leftDrive2.setNeutralMode(NeutralMode.Brake);
-        // Components.Drivebase.rightDrive1.setNeutralMode(NeutralMode.Brake);
-        // Components.Drivebase.rightDrive2.setNeutralMode(NeutralMode.Brake);
+        // TODO: Set motors to coast (via the gearbox) when entering manual commands, set to break when entering auto ones
+        // Components.Drivebase.leftMotor1.setNeutralMode(NeutralMode.Brake);
+        // Components.Drivebase.leftMotor2.setNeutralMode(NeutralMode.Brake);
+        // Components.Drivebase.rightMotor1.setNeutralMode(NeutralMode.Brake);
+        // Components.Drivebase.rightMotor2.setNeutralMode(NeutralMode.Brake);
 
-        _leftGearbox = null;//new DriveGearbox2019(Components.Drivebase.leftDrive1, Components.Drivebase.leftEncoder, Components.Drivebase.leftDrive2, Components.Drivebase.leftDrive3);
-        _rightGearbox = null;//new DriveGearbox2019(Components.Drivebase.rightDrive1, Components.Drivebase.rightEncoder, Components.Drivebase.rightDrive2, Components.Drivebase.rightDrive3);
+        _leftGearbox = new DriveGearbox(Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
+        _rightGearbox = new DriveGearbox(Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
 
         _gyro = new ADXRS450_Gyro();
         _gyro.reset();
