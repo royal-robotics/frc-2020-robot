@@ -1,10 +1,10 @@
-package frc.robot.subsystems;
+package frc.examplecode;
 
 import frc.robot.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.*;
 
-public class HatchSubsystem extends RoyalSubsystem
+public class HatchSubsystem //extends RoyalSubsystem
 {
     private DoubleSolenoid _carriageFingers;
     private DoubleSolenoid _carriageArm;

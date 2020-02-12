@@ -1,4 +1,5 @@
-package frc.robot.commands.hatchcommands;
+package frc.examplecode.hatchcommands;
+import frc.examplecode.*;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.*;

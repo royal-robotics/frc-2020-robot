@@ -15,15 +15,8 @@ public class IntakeSubsystem extends RoyalSubsystem
         StartUpdateTableEntries();
     }
 
-    @Override
-    public void AddTableEntries()
+    public int getNumBalls()
     {
-        DataTable.MakeBooleanEntry("Raw Data", "Ball Sensor");
-    }
-
-    @Override
-    protected void UpdateTableEntries()
-    {
-        DataTable.Update("Raw Data", "Ball Sensor", ball_sensor.isBallDetected());
+        return 0;
     }
 }

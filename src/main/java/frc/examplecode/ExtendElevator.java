@@ -1,22 +1,21 @@
-package frc.robot.commands;
+package frc.examplecode;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.*;
 
 // TODO: Edit this for 2019 robot test
-public class RetractElevator extends CommandBase
+public class ExtendElevator extends CommandBase
 {
     private final ElevatorSubsystem elevator;
 
-    public RetractElevator(ElevatorSubsystem subsystem)
+    public ExtendElevator(ElevatorSubsystem subsystem)
     {
         elevator = subsystem;
-        addRequirements(elevator);
     }
 
 	@Override
     public void execute()
     {
-        elevator.SetElevatorHeight(0);
+        elevator.SetElevatorHeight(28);
     }
 }

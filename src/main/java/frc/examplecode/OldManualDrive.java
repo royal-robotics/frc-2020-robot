@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.examplecode;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
@@ -13,7 +13,6 @@ public class OldManualDrive extends CommandBase
     {
         drivebase = subsystem;
         this.driver = driver;
-        addRequirements(drivebase);
     }
 
 	@Override

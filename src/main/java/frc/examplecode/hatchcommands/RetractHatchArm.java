@@ -1,14 +1,14 @@
-package frc.robot.commands.hatchcommands;
-
+package frc.examplecode.hatchcommands;
+import frc.examplecode.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class ExtendHatchArm extends CommandBase
+public class RetractHatchArm extends CommandBase
 {
     private HatchSubsystem _hatch;
 
-    public ExtendHatchArm(HatchSubsystem subsystem)
+    public RetractHatchArm(HatchSubsystem subsystem)
     {
         _hatch = subsystem;
     }
@@ -16,13 +16,13 @@ public class ExtendHatchArm extends CommandBase
     @Override
     public void execute()
     {
-        _hatch.extendArm();
+        _hatch.retractArm();
     }
 
     @Override
     public boolean isFinished()
     {
-        if (_hatch.armPosition() == Value.kForward)
+        if (_hatch.armPosition() == Value.kReverse)
         {
             return true;
         }

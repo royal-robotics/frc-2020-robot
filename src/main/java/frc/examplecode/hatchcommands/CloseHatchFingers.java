@@ -1,14 +1,15 @@
-package frc.robot.commands.hatchcommands;
+package frc.examplecode.hatchcommands;
+import frc.examplecode.*;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class RetractHatchArm extends CommandBase
+public class CloseHatchFingers extends CommandBase
 {
     private HatchSubsystem _hatch;
 
-    public RetractHatchArm(HatchSubsystem subsystem)
+    public CloseHatchFingers(HatchSubsystem subsystem)
     {
         _hatch = subsystem;
     }
@@ -16,7 +17,7 @@ public class RetractHatchArm extends CommandBase
     @Override
     public void execute()
     {
-        _hatch.retractArm();
+        _hatch.closeFingers();
     }
 
     @Override
