@@ -5,14 +5,23 @@ import com.revrobotics.*;
 
 public class DriveGearbox {
     private final SpeedController _motor;
+    private final EncoderGroup _encoder;
 
-    public DriveGearbox(CANSparkMax leader, CANSparkMax ...followers)
-    {
+    public DriveGearbox(boolean inverted, CANSparkMax leader, CANSparkMax ...followers) {
         _motor = leader;
+        leader.setInverted(inverted);
 
         for (var follower : followers) {
             follower.follow(leader);
         }
+
+        // Setup encoders
+        var encoders = new CANEncoder[followers.length + 1];
+        encoders[0] = leader.getEncoder();
+        for (var i = 0; i < followers.length; i++) {
+            encoders[i + 1] = followers[i].getEncoder();
+        }
+        _encoder = new EncoderGroup(calculateFinalDriveRatio(), inverted, encoders);
     }
 
     public void setPower(double power) {
@@ -24,20 +33,26 @@ public class DriveGearbox {
     }
 
     public double getPosition() {
-        // TODO: make a royal encoder that takes all the CanSparkMaxs and averages their readings.
-        // return _encoder.getDistance();
-        return 0.0;
+        return _encoder.getPosition();
     }
 
-    public double getWheelSpeed() {
-        // return _encoder.getRate();
-        return 0.0;
+    public double getVelocity() {
+        return _encoder.getVelocity();
     }
 
-    public void resetPosition(double distancePerPulse, boolean reversedDirection) {
-        // _encoder.setDistancePerPulse(distancePerPulse);
-        // _encoder.setReverseDirection(reversedDirection);
+    public void reset() {
+        _encoder.reset();
+    }
 
-        // _encoder.reset();
+    private static double calculateFinalDriveRatio() {
+        final double CompositeRatio1 = 58 / 13;
+        final double CompositeRatio2 = 34 / 22;
+        final double CompositeRatio3 = 38 / 28;
+        final double GearRatio = CompositeRatio1 * CompositeRatio2 * CompositeRatio3;
+
+        final double WheelDiameter = 6.0;
+        final double WheelCircumference = Math.PI * WheelDiameter;
+
+        return GearRatio * WheelCircumference;
     }
 }
