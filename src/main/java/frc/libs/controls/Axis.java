@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.*;
 import static frc.libs.controls.Controllers.*;
 
-// TODO: We can make this a trigger if we need, or another class called AxisTrigger
+// Note: We can make this a trigger if we need, or another class called AxisTrigger
 public class Axis {
     private final Supplier<Double> _rawAxis;
     private final double _deadband;
