@@ -1,19 +1,18 @@
 package frc.robot.shuffleboard;
 
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.shuffleboard.*;
 import frc.robot.subsystems.*;
 
-public class RawData extends RoyalShuffleTab {
-    private final NetworkTable table;
+public class RawDataTab extends RoyalShuffleTab {
     private final DrivebaseSubsystem _drivebaseSubsystem;
     private final IntakeSubsystem _intakeSubsystem;
 
-    public RawData(DrivebaseSubsystem drivebaseSubsystem, IntakeSubsystem intakeSubsystem) {
-        table = NetworkTableInstance.getDefault().getTable("RawData");
+    public RawDataTab(DrivebaseSubsystem drivebaseSubsystem, IntakeSubsystem intakeSubsystem) {
+        super("Driver");
         _drivebaseSubsystem = drivebaseSubsystem;
         _intakeSubsystem = intakeSubsystem;
 
-        // tart
         this.initialize();
     }
 
