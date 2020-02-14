@@ -23,8 +23,9 @@ public class RobotContainer
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
     private final ControlsFactory _controlsFactory;
-    // private final LiveWindowTab liveWindowTab = new LiveWindowTab(drivebase, intake);
-    // private final RawDataTab rawDataTab = new RawDataTab(drivebase, intake);
+    private final DriverTab driverTab = new DriverTab(drivebase, intake);
+    private final ConfigsTab configsTab = new ConfigsTab(drivebase, intake);
+    private final RawDataTab rawDataTab = new RawDataTab(drivebase, intake);
 
     public RobotContainer()
     {
