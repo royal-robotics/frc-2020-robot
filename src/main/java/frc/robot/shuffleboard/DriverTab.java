@@ -1,9 +1,7 @@
 package frc.robot.shuffleboard;
 
-import edu.wpi.cscore.VideoCamera;
-import edu.wpi.cscore.VideoSource;
-import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.shuffleboard.*;
+import frc.robot.Components;
 import frc.robot.subsystems.*;
 
 public class DriverTab extends RoyalShuffleTab {
@@ -15,7 +13,7 @@ public class DriverTab extends RoyalShuffleTab {
         _drivebaseSubsystem = drivebaseSubsystem;
         _intakeSubsystem = intakeSubsystem;
 
-        tab.add("Limelight", 0).withWidget(BuiltInWidgets.kCameraStream);
+        tab.add(Components.Camera.limelight).withWidget(BuiltInWidgets.kCameraStream);
         this.initialize();
     }
 
