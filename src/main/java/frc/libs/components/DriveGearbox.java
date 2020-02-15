@@ -6,10 +6,12 @@ import com.revrobotics.*;
 public class DriveGearbox {
     private final SpeedController _motor;
     private final EncoderGroup _encoder;
+    private final boolean _inverted;
 
     public DriveGearbox(boolean inverted, CANSparkMax leader, CANSparkMax ...followers) {
         _motor = leader;
-        leader.setInverted(inverted);
+        _inverted = inverted;
+        leader.setInverted(_inverted);
 
         for (var follower : followers) {
             follower.follow(leader);
@@ -25,7 +27,12 @@ public class DriveGearbox {
     }
 
     public void setPower(double power) {
-        _motor.set(power);
+        if (_inverted) {
+            _motor.set(-power);
+        }
+        else {
+            _motor.set(power);
+        }
     }
 
     public void setVoltage(double voltage) {

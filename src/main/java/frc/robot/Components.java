@@ -16,6 +16,6 @@ public final class Components {
     }
 
     public static class Camera {
-        public static VideoSource limelight = CameraServer.getInstance().getServer("limelight").getSource();
+        // public static VideoSource limelight = CameraServer.getInstance().getServer("limelight").getSource();
     }
 }

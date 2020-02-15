@@ -13,7 +13,7 @@ public class DriverTab extends RoyalShuffleTab {
         _drivebaseSubsystem = drivebaseSubsystem;
         _intakeSubsystem = intakeSubsystem;
 
-        tab.add(Components.Camera.limelight).withWidget(BuiltInWidgets.kCameraStream);
+        // tab.add(Components.Camera.limelight).withWidget(BuiltInWidgets.kCameraStream);
         this.initialize();
     }
 

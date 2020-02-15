@@ -11,7 +11,7 @@ public class EncoderGroup {
         for(var encoder : _encoders) {
             encoder.setPositionConversionFactor(inchesPerTurn);
             encoder.setVelocityConversionFactor(inchesPerTurn);
-            encoder.setInverted(inverted);
+            // encoder.setInverted(inverted);
             encoder.setPosition(0.0);
         }
     }
