@@ -27,12 +27,7 @@ public class DriveGearbox {
     }
 
     public void setPower(double power) {
-        if (_inverted) {
-            _motor.set(-power);
-        }
-        else {
-            _motor.set(power);
-        }
+        _motor.set(power);
     }
 
     public void setVoltage(double voltage) {

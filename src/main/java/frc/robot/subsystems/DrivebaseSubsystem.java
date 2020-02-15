@@ -50,7 +50,7 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     }
 
     public void setPower(double leftPower, double rightPower) {
-        _leftGearbox.setPower(-leftPower);
+        _leftGearbox.setPower(leftPower);
         _rightGearbox.setPower(rightPower);
     }
 
