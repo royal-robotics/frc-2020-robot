@@ -19,7 +19,7 @@ public final class Components {
 
     public static class Intake {
         public final static WPI_TalonSRX ballIn = new WPI_TalonSRX(11); // Grabs ball
-        public final static WPI_TalonSRX conveyer = new WPI_TalonSRX(7); // Feeds ball
+        public final static WPI_TalonSRX conveyer = new WPI_TalonSRX(8); // Feeds ball
     }
 
     public static class Turret {
@@ -29,7 +29,13 @@ public final class Components {
     }
 
     public static class ColorWheel {
+        public final static WPI_TalonSRX wheel = new WPI_TalonSRX(9);
+    }
 
+    public static class Climber {
+        public final static CANSparkMax elevator1 = new CANSparkMax(6, MotorType.kBrushless);
+        public final static CANSparkMax elevator2 = new CANSparkMax(7, MotorType.kBrushless);
+        public final static WPI_TalonSRX balance = new WPI_TalonSRX(10);
     }
 
     public static class Camera {
