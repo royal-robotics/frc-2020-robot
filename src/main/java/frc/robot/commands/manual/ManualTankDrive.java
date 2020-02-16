@@ -3,6 +3,7 @@ package frc.robot.commands.manual;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.libs.controls.*;
 import frc.libs.controls.Controllers.*;
+import frc.robot.Controls;
 import frc.robot.subsystems.*;
 
 public class ManualTankDrive extends CommandBase {
@@ -10,12 +11,12 @@ public class ManualTankDrive extends CommandBase {
     private final Axis _leftAxis;
     private final Axis _rightAxis;
 
-    public ManualTankDrive(DrivebaseSubsystem driverbase, ControlsFactory controlsFactory) {
+    public ManualTankDrive(DrivebaseSubsystem driverbase) {
         _drivebase = driverbase;
         addRequirements(_drivebase);
 
-        _leftAxis = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.LeftStickY);
-        _rightAxis = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.RightStickY);
+        _leftAxis = Controls.TankDrive.leftAxis;
+        _rightAxis = Controls.TankDrive.rightAxis;
 
     }
 

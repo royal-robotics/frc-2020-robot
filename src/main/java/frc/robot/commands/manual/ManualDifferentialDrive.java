@@ -5,6 +5,7 @@ import frc.libs.controls.*;
 import frc.libs.controls.ControlsFactory;
 import frc.libs.controls.Controllers.Controller;
 import frc.libs.controls.Controllers.Logitech310Axis;
+import frc.robot.Controls;
 import frc.robot.subsystems.*;
 
 public class ManualDifferentialDrive extends CommandBase
@@ -13,12 +14,12 @@ public class ManualDifferentialDrive extends CommandBase
     private final Axis _throttle;
     private final Axis _steer;
 
-    public ManualDifferentialDrive(DrivebaseSubsystem drivebase, ControlsFactory controlsFactory) {
+    public ManualDifferentialDrive(DrivebaseSubsystem drivebase) {
         _drivebase = drivebase;
         addRequirements(_drivebase);
 
-        _throttle = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.LeftStickY);
-        _steer = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.RightStickX);
+        _throttle = Controls.DifferentialDrive.throttle;
+        _steer = Controls.DifferentialDrive.steer;
     }
 
 	@Override
