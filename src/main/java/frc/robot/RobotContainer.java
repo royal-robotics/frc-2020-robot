@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.defaults.*;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
+import frc.robot.subsystems.drivebase.*;
 import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
@@ -21,6 +22,6 @@ public class RobotContainer {
         intake.setDefaultCommand(new IntakeControl(intake));
         turret.setDefaultCommand(new TurretControl(turret));
         climber.setDefaultCommand(new ClimberControl(climber));
-        // colorWheel.setDefaultCommand(new ColorWheelControl(climber));
+        colorWheel.setDefaultCommand(new ColorWheelControl(colorWheel));
     }
 }

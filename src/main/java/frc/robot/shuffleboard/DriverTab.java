@@ -1,6 +1,7 @@
 package frc.robot.shuffleboard;
 
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.drivebase.*;
 
 public class DriverTab extends RoyalShuffleTab {
     private final DrivebaseSubsystem _drivebaseSubsystem;

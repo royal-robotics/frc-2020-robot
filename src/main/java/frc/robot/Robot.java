@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.authnomous.*;
+import frc.robot.autonomous.*;
 
 public class Robot extends TimedRobot {
     private final RobotContainer _robotContainer;
