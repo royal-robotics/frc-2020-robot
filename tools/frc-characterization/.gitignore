@@ -1,3 +1,0 @@
-# Don't commit characterization-project directories
-# They can be generated using the frc-characterization utility
-characterization-project/
