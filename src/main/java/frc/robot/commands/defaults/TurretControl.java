@@ -12,8 +12,8 @@ public class TurretControl extends CommandBase {
     private final Axis _wheelThrottle;
 
     public TurretControl(TurretSubsystem turret) {
+        addRequirements(turret);
         _turret = turret;
-        addRequirements(_turret);
 
         _platformTurner = Controls.Turret.platformTurner;
         // _arcAngler = Controls.Turret.arcAngler;

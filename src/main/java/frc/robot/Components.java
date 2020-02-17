@@ -6,6 +6,8 @@ import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.interfaces.*;
 
+import com.revrobotics.ColorSensorV3;
+
 public final class Components {
 
     public static class Drivebase {
@@ -30,6 +32,7 @@ public final class Components {
 
     public static class ColorWheel {
         public final static WPI_TalonSRX wheel = new WPI_TalonSRX(9);
+        public final static ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     }
 
     public static class Climber {

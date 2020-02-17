@@ -33,12 +33,14 @@ public final class Controls {
     }
 
     public static class ColorWheel {
-        public final static JoystickButton turnWheel = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
+        public final static JoystickButton turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftStickPress);
+        public final static JoystickButton turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightStickPress);
     }
 
     public static class Climber {
         public final static JoystickButton setBottom = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
         public final static JoystickButton setTop = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
+        public final static JoystickButton balance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
     }
 
     public static class DriveBase {

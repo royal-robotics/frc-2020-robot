@@ -8,6 +8,7 @@ public class ElevatorMoveCommand extends CommandBase {
     private final double _heightInches;
 
     public ElevatorMoveCommand(ClimberSubsystem climber, double heightInches) {
+        addRequirements(climber);
         _climber = climber;
         _heightInches = heightInches;
     }

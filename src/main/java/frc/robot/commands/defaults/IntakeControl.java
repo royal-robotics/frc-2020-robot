@@ -11,8 +11,8 @@ public class IntakeControl extends CommandBase {
     private final Axis _conveyerThrottle;
 
     public IntakeControl(IntakeSubsystem intake) {
+        addRequirements(intake);
         _intake = intake;
-        addRequirements(_intake);
 
         _ballInThrottle = Controls.Intake.ballInThrottle;
         _conveyerThrottle = Controls.Intake.conveyerThrottle;

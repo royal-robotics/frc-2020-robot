@@ -8,8 +8,8 @@ public class DrivebaseControl extends CommandBase {
     private final DrivebaseSubsystem _drivebase;
 
     public DrivebaseControl(DrivebaseSubsystem driverbase) {
+        addRequirements(driverbase);
         _drivebase = driverbase;
-        addRequirements(_drivebase);
     }
 
 	@Override
