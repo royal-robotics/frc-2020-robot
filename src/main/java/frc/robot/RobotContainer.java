@@ -1,6 +1,6 @@
 package frc.robot;
 
-import frc.robot.commands.manual.*;
+import frc.robot.commands.defaults.*;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
 import frc.robot.shuffleboard.*;
@@ -16,8 +16,7 @@ public class RobotContainer {
     private final RawDataTab rawDataTab = new RawDataTab(drivebase, intake);
 
     public RobotContainer() {
-        //TODO: Check shuffleboard config to change drive type. Also make it update periodically
-        drivebase.setDefaultCommand(new ManualTankDrive(drivebase));
+        drivebase.setDefaultCommand(new DrivebaseControl(drivebase));
         intake.setDefaultCommand(new IntakeControl(intake));
         turret.setDefaultCommand(new TurretControl(turret));
         climber.setDefaultCommand(new ClimberControl(climber));
