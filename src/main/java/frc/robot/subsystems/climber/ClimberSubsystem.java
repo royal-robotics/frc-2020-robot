@@ -3,7 +3,6 @@ package frc.robot.subsystems.climber;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.libs.components.*;
 import frc.robot.*;
 import frc.robot.subsystems.*;

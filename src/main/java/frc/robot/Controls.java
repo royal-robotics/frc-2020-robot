@@ -31,7 +31,7 @@ public final class Controls {
     }
 
     public static class ColorWheel {
-
+        public final static JoystickButton turnWheel = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
     }
 
     public static class Climber {
