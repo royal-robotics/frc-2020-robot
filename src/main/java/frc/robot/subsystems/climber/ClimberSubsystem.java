@@ -6,13 +6,13 @@ import frc.robot.*;
 import frc.robot.subsystems.*;
 
 public class ClimberSubsystem extends RoyalSubsystem {
-    public final Elevator elevator;
+    // public final Elevator elevator;
     public final Balancer balancer;
 
     private final PWM _lock;
 
     public ClimberSubsystem() {
-        elevator = new Elevator();
+        // elevator = new Elevator();
         balancer = new Balancer();
         _lock = Components.Climber.lock;
     }
@@ -26,7 +26,7 @@ public class ClimberSubsystem extends RoyalSubsystem {
 
     @Override
     public void periodic() {
-        elevator.updateControlLoop();
+        // elevator.updateControlLoop();
         balancer.updateControlLoop();
 
         balancer.updateDiagnostics();

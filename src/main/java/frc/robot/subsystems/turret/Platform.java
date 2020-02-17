@@ -1,8 +1,10 @@
 package frc.robot.subsystems.turret;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Components;
 
 //13
@@ -29,6 +31,10 @@ public class Platform {
         _platform.set(0.0);
     }
 
+    public void setPower(double power) {
+        _platform.set(ControlMode.PercentOutput, power);
+    }
+
     public void setGoalAngle(double targetAngle) {
         _platformPID.setSetpoint(targetAngle);
     }
@@ -43,5 +49,12 @@ public class Platform {
 
     public void updateControlLoop() {
         _platform.set(_platformPID.calculate(getAngle()));
+    }
+
+    public void updateDiagnostics() {
+        SmartDashboard.putNumber("Turret/Platform/Power", _platform.get());
+        SmartDashboard.putNumber("Turret/Platform/Degrees", getAngle());
+        SmartDashboard.putNumber("Turret/Platform/Setpoint", _platformPID.getSetpoint());
+        SmartDashboard.putBoolean("Turret/Platform/OnTarget", _platformPID.atSetpoint());
     }
 }

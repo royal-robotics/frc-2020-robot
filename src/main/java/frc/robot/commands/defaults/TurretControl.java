@@ -20,5 +20,12 @@ public class TurretControl extends CommandBase {
 
 	@Override
     public void execute() {
+        if (Controls.Turret.moveLeft.get()) {
+            _turret.platform.setPower(0.4);
+        } else if (Controls.Turret.moveRight.get()) {
+            _turret.platform.setPower(-0.4);
+        } else {
+            _turret.platform.setPower(0.0);
+        }
     }
 }

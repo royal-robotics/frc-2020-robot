@@ -27,4 +27,9 @@ public class MoveTurretAngle extends CommandBase {
         }
         return false;
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        _turret.platform.stop();
+    }
 }

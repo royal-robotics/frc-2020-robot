@@ -31,9 +31,15 @@ public final class Controls {
         public final static Axis hoodAngler = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
         public final static Axis wheelThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
 
-        public final static JoystickButton turnToRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Right);
-        public final static JoystickButton turnToLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.Left);
-        public final static JoystickButton turnToCenter = controlsFactory.createButton(Controller.Operator, Logitech310Button.Up);
+
+        public final static JoystickButton moveLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
+        public final static JoystickButton moveRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
+        // public final static JoystickButton turnToRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Right);
+        // public final static JoystickButton turnToLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.Left);
+        // public final static JoystickButton turnToCenter = controlsFactory.createButton(Controller.Operator, Logitech310Button.Up);
+        public final static JoystickButton turnToRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Back);
+        public final static JoystickButton turnToLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.Start);
+        public final static JoystickButton turnToCenter = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
     }
 
     public static class ColorWheel {
@@ -42,9 +48,9 @@ public final class Controls {
     }
 
     public static class Climber {
-        public final static JoystickButton setBottom = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
-        public final static JoystickButton setTop = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
-        public final static JoystickButton balance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
+        // public final static JoystickButton setBottom = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
+        // public final static JoystickButton setTop = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
+        // public final static JoystickButton balance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
     }
 
     public static class DriveBase {

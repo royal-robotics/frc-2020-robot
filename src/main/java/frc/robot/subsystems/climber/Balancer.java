@@ -37,7 +37,9 @@ public class Balancer {
     }
 
     public void updateControlLoop() {
-        _balance.set(_balancerPID.calculate(getXAngle()));
+        if (_isEnabled) {
+            _balance.set(_balancerPID.calculate(getXAngle()));
+        }
     }
 
     public void updateDiagnostics() {
