@@ -26,9 +26,7 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         _leftGearbox = new DriveGearbox(true, Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
         _rightGearbox = new DriveGearbox(false, Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
 
-        _gyro = new ADXRS450_Gyro();
-        _gyro.reset();
-        _gyro.calibrate();
+        _gyro = Components.Drivebase.gyro;
 
         _odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     }

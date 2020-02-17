@@ -7,12 +7,13 @@ import frc.robot.subsystems.*;
 
 public class ClimberSubsystem extends RoyalSubsystem {
     public final Elevator elevator;
-    private final WPI_TalonSRX _balance;
+    public final Balancer balancer;
+
     private final PWM _lock;
 
     public ClimberSubsystem() {
         elevator = new Elevator();
-        _balance = Components.Climber.balance;
+        balancer = new Balancer();
         _lock = Components.Climber.lock;
     }
 
@@ -26,5 +27,8 @@ public class ClimberSubsystem extends RoyalSubsystem {
     @Override
     public void periodic() {
         elevator.updateControlLoop();
+        balancer.updateControlLoop();
+
+        balancer.updateDiagnostics();
     }
 }

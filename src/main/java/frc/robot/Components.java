@@ -4,13 +4,16 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.interfaces.*;
 
 public final class Components {
+
     public static class Drivebase {
         public final static CANSparkMax leftMotor1 = new CANSparkMax(3, MotorType.kBrushless);
         public final static CANSparkMax leftMotor2 = new CANSparkMax(4, MotorType.kBrushless);
         public final static CANSparkMax rightMotor1 = new CANSparkMax(1, MotorType.kBrushless);
         public final static CANSparkMax rightMotor2 = new CANSparkMax(2, MotorType.kBrushless);
+        public final static Gyro gyro = new ADXRS450_Gyro();
     }
 
     public static class Intake {
@@ -33,7 +36,9 @@ public final class Components {
         public final static CANSparkMax elevator1 = new CANSparkMax(6, MotorType.kBrushless);
         public final static CANSparkMax elevator2 = new CANSparkMax(7, MotorType.kBrushless);
         public final static WPI_TalonSRX balance = new WPI_TalonSRX(10);
+        public final static BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
         public final static PWM lock = new PWM(1);
+
     }
 
     public static class Camera {
