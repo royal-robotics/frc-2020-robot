@@ -30,6 +30,10 @@ public final class Controls {
         public final static Axis hoodAnglerForward = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
         public final static Axis hoodAngler = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
         public final static Axis wheelThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
+
+        public final static JoystickButton turnToRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Right);
+        public final static JoystickButton turnToLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.Left);
+        public final static JoystickButton turnToCenter = controlsFactory.createButton(Controller.Operator, Logitech310Button.Up);
     }
 
     public static class ColorWheel {

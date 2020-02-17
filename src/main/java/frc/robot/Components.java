@@ -26,7 +26,11 @@ public final class Components {
 
     public static class Turret {
         public final static WPI_TalonSRX platform = new WPI_TalonSRX(12); // Turns the shooter
+        public final static Encoder platformEncoder = new Encoder(14, 15); // Enc3 (?)
+
         public final static PWM hood = new PWM(0); // Angles the shooter
+        public final static Encoder hoodEncoder = new Encoder(16, 17); // Enc4 (?)
+
         public final static CANSparkMax shooterWheel = new CANSparkMax(5, MotorType.kBrushless); // Shoots ball
     }
 
