@@ -5,10 +5,12 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.libs.controls.Axis;
 import frc.libs.controls.ControlsFactory;
 import frc.libs.controls.Controllers.Controller;
 import frc.libs.controls.Controllers.Logitech310Axis;
+import frc.libs.controls.Controllers.Logitech310Button;
 
 public final class Controls {
     private final static Joystick driver = new Joystick(0);
@@ -38,5 +40,10 @@ public final class Controls {
 
     public static class ColorWheel {
 
+    }
+
+    public static class Climber {
+        public final static JoystickButton setBottom = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
+        public final static JoystickButton setTop = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
     }
 }

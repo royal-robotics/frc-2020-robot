@@ -26,14 +26,19 @@ public class ClimberSubsystem extends RoyalSubsystem {
         _balance = Components.Climber.balance;
 
         _elevatorPID = new ElevatorPidController();
+        _elevatorPID.setTolerance(1.0);
     }
 
-    public void setHeight(double heightInches) {
+    public void setGoalHeight(double heightInches) {
         _elevatorPID.setSetpoint(heightInches);
     }
 
     public double getHeight() {
         return _elevatorEncoder.getPosition();
+    }
+
+    public boolean atGoalHeight() {
+        return _elevatorPID.atSetpoint();
     }
 
     public void reinitializeHeight(double heightInches) {
