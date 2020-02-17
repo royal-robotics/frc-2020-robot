@@ -1,52 +1,30 @@
 package frc.robot.subsystems.climber;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
-
-import frc.libs.components.*;
+import edu.wpi.first.wpilibj.PWM;
 import frc.robot.*;
 import frc.robot.subsystems.*;
 
 public class ClimberSubsystem extends RoyalSubsystem {
-    private final CANSparkMax _elevator;
-    private final EncoderGroup _elevatorEncoder;
+    public final Elevator elevator;
     private final WPI_TalonSRX _balance;
-
-    private final ElevatorPidController _elevatorPID;
+    private final PWM _lock;
 
     public ClimberSubsystem() {
-        _elevator = Components.Climber.elevator1;
-        final var elevator2 = Components.Climber.elevator2;
-        elevator2.follow(_elevator);
-
-        final var inchesPerTurn = 0.0; // TODO: calculate this
-        _elevatorEncoder = new EncoderGroup(inchesPerTurn, false, _elevator.getEncoder(), elevator2.getEncoder());
-
+        elevator = new Elevator();
         _balance = Components.Climber.balance;
-
-        _elevatorPID = new ElevatorPidController();
-        _elevatorPID.setTolerance(1.0);
+        _lock = Components.Climber.lock;
     }
 
-    public void setGoalHeight(double heightInches) {
-        _elevatorPID.setSetpoint(heightInches);
-    }
-
-    public double getHeight() {
-        return _elevatorEncoder.getPosition();
-    }
-
-    public boolean atGoalHeight() {
-        return _elevatorPID.atSetpoint();
-    }
-
-    public void reinitializeHeight(double heightInches) {
-        _elevatorPID.reset();
-        _elevatorPID.setSetpoint(heightInches);
+    public void setLock(boolean isLocked) {
+        // TODO: figure out servo positions
+        final var openPosition = 200.0;
+        final var lockPosition = 150.0;
+        _lock.setPosition(isLocked ? lockPosition : openPosition);
     }
 
     @Override
     public void periodic() {
-        _elevator.set(_elevatorPID.calculate(getHeight()));
+        elevator.updateControlLoop();
     }
 }

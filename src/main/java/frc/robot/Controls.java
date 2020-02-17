@@ -26,7 +26,9 @@ public final class Controls {
 
     public static class Turret {
         public final static Axis platformTurner = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickX);
-        // public final static Axis arcAngler = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightStickY);
+        // TODO: HELP FIX COLLISIONS
+        public final static Axis hoodAnglerForward = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
+        public final static Axis hoodAngler = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
         public final static Axis wheelThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
     }
 
