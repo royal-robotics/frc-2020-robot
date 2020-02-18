@@ -2,6 +2,7 @@ package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.controller.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.libs.components.RoyalPidController;
 import frc.robot.*;
 import frc.robot.subsystems.*;
@@ -13,6 +14,8 @@ public class Hood extends RoyalArcSubsystem {
         super(Components.Shooter.hoodEncoder, new HoodPidController(), new SimpleMotorFeedforward(0.451, 0.102, 0.000757));
         _motor = Components.Shooter.hood;
         gearsRatio(256.0, 1.57, 54.98);
+        setMinAngle(42.5);
+        setMaxAngle(69.75);
     }
 
     @Override
@@ -32,8 +35,19 @@ public class Hood extends RoyalArcSubsystem {
 
     @Override
     protected void updateDiagnostics() {
-        // TODO Auto-generated method stub
+        SmartDashboard.putNumber("Shooter/Hood/Power", _motor.getSpeed());
+        SmartDashboard.putNumber("Shooter/Hood/Angle", getAngle());
 
+    }
+
+    @Override
+    protected String getSettingFileName() {
+        return "hood-position-v4.txt";
+    }
+
+    @Override
+    protected double getDefaultEncoderPosition() {
+        return 42.5;
     }
 
     private static class HoodPidController extends RoyalPidController {

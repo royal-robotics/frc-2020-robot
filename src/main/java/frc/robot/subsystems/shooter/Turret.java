@@ -42,6 +42,16 @@ public class Turret extends RoyalArcSubsystem {
         SmartDashboard.putBoolean("Shooter/Turret/OnTarget", _pidController.atSetpoint());
     }
 
+    @Override
+    protected String getSettingFileName() {
+        return "turret-position-v4.txt";
+    }
+
+    @Override
+    protected double getDefaultEncoderPosition() {
+        return 0.0;
+    }
+
     private static class TurretPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
         private static final double P = 0.02;

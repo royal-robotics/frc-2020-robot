@@ -57,6 +57,10 @@ public abstract class RoyalArcSubsystem extends RoyalSubsystem {
 
     protected abstract void setMotorOutput(double power);
 
+    protected abstract String getSettingFileName();
+
+    protected abstract double getDefaultEncoderPosition();
+
     // Set maximum angle
     public void setMaxAngle(double angle) {
         maxAngle = angle;
@@ -91,7 +95,7 @@ public abstract class RoyalArcSubsystem extends RoyalSubsystem {
             settingsDirectory.mkdirs();
         }
 
-        final var settingsFileName = Paths.get(settingsDirectory.getAbsolutePath(), "turret-position-v3.txt");
+        final var settingsFileName = Paths.get(settingsDirectory.getAbsolutePath(), getSettingFileName());
         final var settingsFile = settingsFileName.toFile();
         try {
             final var fstream = new FileWriter(settingsFile, false);
@@ -112,13 +116,13 @@ public abstract class RoyalArcSubsystem extends RoyalSubsystem {
             settingsDirectory.mkdirs();
         }
 
-        final var settingsFileName = Paths.get(settingsDirectory.getAbsolutePath(), "turret-position-v3.txt");
+        final var settingsFileName = Paths.get(settingsDirectory.getAbsolutePath(), getSettingFileName());
         final var settingsFile = settingsFileName.toFile();
         try {
             try(final var settingsReader = new Scanner(settingsFile)) {
                 if (!settingsReader.hasNextDouble()) {
                     System.out.println("Warning: Corrupt settings file");
-                    return 0.0;
+                    return getDefaultEncoderPosition();
                 }
 
                 final var position = settingsReader.nextDouble();
@@ -127,7 +131,7 @@ public abstract class RoyalArcSubsystem extends RoyalSubsystem {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Warning: No turrent position to load");
-            return 0.0;
+            return getDefaultEncoderPosition();
         }
     }
 

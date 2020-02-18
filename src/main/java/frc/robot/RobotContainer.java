@@ -34,5 +34,6 @@ public class RobotContainer {
 
     public final void storeState() {
         shooter.turret.savePosition();
+        shooter.hood.savePosition();
     }
 }
