@@ -26,7 +26,7 @@ public class HoodDefault extends CommandBase {
         // If we're entering the deadband state we want to save the current position.
         final var inDeadband = _moveHood.inDeadband();
         if (!_wasInDeadband && inDeadband) {
-            _hood.savePosition();
+            _hood.save();
         }
 
         _wasInDeadband = inDeadband;

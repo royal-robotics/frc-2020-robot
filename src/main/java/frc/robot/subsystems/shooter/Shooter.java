@@ -24,7 +24,6 @@ public class Shooter {
     }
 
     public void bindCommands() {
-        // TODO: Cancel when released
-        Controls.Turret.autoTrackShooter.whenPressed(new MoveTurretAngle(turret, 0.0));
+        Controls.Turret.autoTrackShooter.whenHeld(new MoveTurretAngle(turret, 0.0));
     }
 }

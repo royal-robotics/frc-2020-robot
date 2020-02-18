@@ -15,7 +15,6 @@ public class TurretDefault extends CommandBase {
     public TurretDefault(Turret turret) {
         addRequirements(turret);
         _turret = turret;
-
         _moveTurret = Controls.Turret.moveTurret;
     }
 
@@ -27,7 +26,7 @@ public class TurretDefault extends CommandBase {
         // If we're entering the deadband state we want to save the current position.
         final var inDeadband = _moveTurret.inDeadband();
         if (!_wasInDeadband && inDeadband) {
-            _turret.savePosition();
+            _turret.save();
         }
 
         _wasInDeadband = inDeadband;

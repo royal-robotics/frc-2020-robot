@@ -1,60 +1,91 @@
 package frc.robot.subsystems.shooter;
 
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.controller.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.libs.components.RoyalPidController;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import frc.libs.components.*;
+import frc.libs.subsystems.*;
+import frc.libs.utils.*;
 import frc.robot.*;
-import frc.robot.subsystems.*;
 
-public class Hood extends RoyalArcSubsystem {
+public class Hood extends PositionConstrainedSubsystem {
     private final PWM _motor;
+    private final Encoder _encoder;
+
+    private Double _lastStoredMeasure = null;
+
+    private static final String positionSettingName = "hood-position-v4.txt";
 
     public Hood() {
-        super(Components.Shooter.hoodEncoder, new HoodPidController(), new SimpleMotorFeedforward(0.451, 0.102, 0.000757));
+        super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 0.5);
         _motor = Components.Shooter.hood;
-        gearsRatio(256.0, 1.57, 54.98);
-        setMinAngle(42.5);
-        setMaxAngle(69.75);
+        _encoder = Components.Shooter.hoodEncoder;
+
+        final var PulsesPerRotation = 256.0;
+        final var FinalGearRatio  = 1.57;
+        final var TurretCircumference = 54.98;
+        final var DistancePerPulse = FinalGearRatio / PulsesPerRotation;
+        final var DistancePerDegree = TurretCircumference / 360.0;
+        final var DegreesPerPulse = DistancePerPulse / DistancePerDegree;
+        _encoder.setDistancePerPulse(DegreesPerPulse);
     }
 
-    @Override
-    public void stop() {
-        _motor.setSpeed(0.0);
-    }
-
-    @Override
     public void setPower(double power) {
+        disable();
+        power = clampOnConstraints(power);
+        updateSave(power);
         _motor.setSpeed(power);
     }
 
     @Override
-    protected void setMotorOutput(double power) {
-        setPower(power);
+    protected void setOutput(double pidError, double setpoint) {
+        // final var feedforwardHelper = new SimpleMotorFeedforward(0.451, 0.102, 0.000757);
+        // final var feedforwardVelocity = getMeasurement() < setpoint ? 30.0 : -30.0;
+        // final var feedforward = feedforwardHelper.calculate(feedforwardVelocity);
+        final var feedforward = 0.0;
+
+        var power = clampOnConstraints(feedforward + pidError);
+        updateSave(power);
+        _motor.setSpeed(power);
+    }
+
+    private void updateSave(double power) {
+        if (power == 0.0) {
+            final var measure = getMeasurement();
+            if (_lastStoredMeasure != null && Math.abs(_lastStoredMeasure - measure) > 0.1) {
+                save();
+                _lastStoredMeasure = measure;
+            }
+        }
     }
 
     @Override
-    protected void updateDiagnostics() {
-        SmartDashboard.putNumber("Shooter/Hood/Power", _motor.getSpeed());
-        SmartDashboard.putNumber("Shooter/Hood/Angle", getAngle());
+    protected double getRelativeMeasurement() {
+        return _encoder.getDistance();
+    }
 
+    public void save() {
+        Settings.save(positionSettingName, getMeasurement());
     }
 
     @Override
-    protected String getSettingFileName() {
-        return "hood-position-v4.txt";
+    public void periodic() {
+        super.periodic();
+        updateDiagnostics();
     }
 
-    @Override
-    protected double getDefaultEncoderPosition() {
-        return 42.5;
+    private void updateDiagnostics() {
+        SmartDashboard.putNumber("Shooter/Turret/Power", _motor.getSpeed());
+        SmartDashboard.putNumber("Shooter/Turret/Degrees", getMeasurement());
+        SmartDashboard.putNumber("Shooter/Turret/Setpoint", _pidController.getSetpoint());
+        SmartDashboard.putBoolean("Shooter/Turret/OnTarget", isAtSetpoint());
     }
 
     private static class HoodPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
-        private static final double P = 0.02;
-        private static final double I = 0.001 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.002;
+        private static final double P = 0.1;
+        private static final double I = 0.01 / (1000.0 / LoopIntervalMs);
+        private static final double D = 0.03;
 
         public HoodPidController() {
             super(P, I, D);

@@ -15,8 +15,8 @@ public class MoveTurretAngle extends CommandBase {
 
     @Override
     public void initialize() {
-        _turret.reset();
-        _turret.setTargetAngle(_angle);
+        _turret.setSetpoint(_angle);
+        _turret.enable();
     }
 
     @Override
@@ -25,11 +25,11 @@ public class MoveTurretAngle extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return _turret.atTargetAngle();
+        return _turret.isAtSetpoint();
     }
 
     @Override
     public void end(boolean interrupted) {
-        _turret.stop();
+        _turret.disable();
     }
 }

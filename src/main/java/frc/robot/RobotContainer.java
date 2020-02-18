@@ -24,8 +24,8 @@ public class RobotContainer {
         // Calibrate the gyro once when the robot turns on.
         // It's very important the robot is motionless until
         // this calibration is complete.
-        // Components.Drivebase.gyro.calibrate();
-        // Components.Drivebase.gyro.reset();
+        Components.Drivebase.gyro.calibrate();
+        Components.Drivebase.gyro.reset();
 
         drivebase.setDefaultCommand(new DrivebaseControl(drivebase));
         intake.setDefaultCommand(new IntakeControl(intake));
@@ -33,7 +33,7 @@ public class RobotContainer {
     }
 
     public final void storeState() {
-        shooter.turret.savePosition();
-        shooter.hood.savePosition();
+        shooter.turret.save();
+        shooter.hood.save();
     }
 }
