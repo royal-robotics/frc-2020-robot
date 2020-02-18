@@ -7,14 +7,14 @@ import frc.robot.*;
 
 public class IntakeSubsystem extends RoyalSubsystem {
     private final WPI_TalonSRX _ballIn;
-    private final WPI_TalonSRX _ballConvery;
+    private final WPI_TalonSRX _ballConveyor;
     private final DigitalInput _ballSensor;
 
     private boolean _autoBallIntakeEnabled = false;
 
     public IntakeSubsystem() {
         _ballIn = Components.Intake.ballIn;
-        _ballConvery = Components.Intake.conveyer;
+        _ballConveyor = Components.Intake.conveyer;
         _ballSensor = Components.Intake.ballSensor;
     }
 
@@ -23,7 +23,7 @@ public class IntakeSubsystem extends RoyalSubsystem {
     }
 
     public void setConveyerPower(double power) {
-        _ballConvery.set(ControlMode.PercentOutput, power);
+        _ballConveyor.set(ControlMode.PercentOutput, power);
     }
 
     @Override

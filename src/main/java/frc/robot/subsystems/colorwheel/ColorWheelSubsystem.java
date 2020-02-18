@@ -1,9 +1,7 @@
 package frc.robot.subsystems.colorwheel;
 
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.revrobotics.*;
 
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.*;
 import frc.robot.subsystems.*;
 
