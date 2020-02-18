@@ -10,7 +10,7 @@ import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
-    // private final IntakeSubsystem intake = new IntakeSubsystem();
+    private final IntakeSubsystem intake = new IntakeSubsystem();
     private final TurretSubsystem turret = new TurretSubsystem();
     // private final ClimberSubsystem climber = new ClimberSubsystem();
     // private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
@@ -28,7 +28,7 @@ public class RobotContainer {
         // Components.Drivebase.gyro.reset();
 
         drivebase.setDefaultCommand(new DrivebaseControl(drivebase));
-        // intake.setDefaultCommand(new IntakeControl(intake));
+        intake.setDefaultCommand(new IntakeControl(intake));
         turret.setDefaultCommand(new TurretControl(turret));
         // climber.setDefaultCommand(new ClimberControl(climber));
         // colorWheel.setDefaultCommand(new ColorWheelControl(colorWheel));

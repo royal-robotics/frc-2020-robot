@@ -24,4 +24,9 @@ public class ControlsFactory {
         final var joystick = controller == Controller.Driver ? _driver : _operator;
         return new JoystickButton(joystick, button.id);
     }
+
+    public DPadButton createDPadButton(Controller controller, DPadButton.Direction direction) {
+        final var joystick = controller == Controller.Driver ? _driver : _operator;
+        return new DPadButton(joystick, direction);
+    }
 }

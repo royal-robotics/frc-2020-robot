@@ -1,18 +1,12 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.*;
-import com.revrobotics.*;
-import com.revrobotics.CANSparkMaxLowLevel.*;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.libs.controls.Axis;
-import frc.libs.controls.ControlsFactory;
-import frc.libs.controls.Controllers.Controller;
-import frc.libs.controls.Controllers.Logitech310Axis;
-import frc.libs.controls.Controllers.Logitech310Button;
+import edu.wpi.first.wpilibj2.command.button.*;
+import frc.libs.controls.*;
+import frc.libs.controls.Controllers.*;
+import frc.libs.controls.DPadButton.Direction;
 import frc.libs.models.*;
-import frc.robot.shuffleboard.Configs;
+import frc.robot.shuffleboard.*;
 
 public final class Controls {
     private final static Joystick driver = new Joystick(0);
@@ -20,37 +14,35 @@ public final class Controls {
     private final static ControlsFactory controlsFactory = new ControlsFactory(driver, operator);
 
     public static class Intake {
-        public final static Axis ballInThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickY);
-        public final static Axis conveyerThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightStickY);
+        public final static Button runBallIntake = controlsFactory.createButton(Controller.Operator, Logitech310Button.B);
+        public final static Button shootBall = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
+
+        // Normally this is controller by a sensor.
+        public final static Button runConveyorUp = controlsFactory.createDPadButton(Controller.Operator, Direction.Up);
     }
 
     public static class Turret {
-        public final static Axis platformTurner = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickX);
-        // TODO: HELP FIX COLLISIONS
-        public final static Axis hoodAnglerForward = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
-        public final static Axis hoodAngler = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
+        // Manual controls, hopefully not needed much.
+        public final static Axis movePlatform = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickX);
+        public final static Axis moveHood = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickY);
         public final static Axis wheelThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
 
-
-        public final static JoystickButton moveLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
-        public final static JoystickButton moveRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
-        // public final static JoystickButton turnToRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Right);
-        // public final static JoystickButton turnToLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.Left);
-        // public final static JoystickButton turnToCenter = controlsFactory.createButton(Controller.Operator, Logitech310Button.Up);
-        public final static JoystickButton turnToRight = controlsFactory.createButton(Controller.Operator, Logitech310Button.Back);
-        public final static JoystickButton turnToLeft = controlsFactory.createButton(Controller.Operator, Logitech310Button.Start);
-        public final static JoystickButton turnToCenter = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
+        // Currently moves the platform to the center position.
+        public final static Button autoTrackShooter = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
     }
 
     public static class ColorWheel {
-        public final static JoystickButton turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftStickPress);
-        public final static JoystickButton turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightStickPress);
+        // We'll make these controls something else later, leaving it for now because it'll be funny.
+        public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftStickPress);
+        public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightStickPress);
     }
 
     public static class Climber {
-        // public final static JoystickButton setBottom = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
-        // public final static JoystickButton setTop = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
-        // public final static JoystickButton balance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
+        public final static Axis moveElevator = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightStickY);
+        public final static Button quickMoveElevatorTop = controlsFactory.createDPadButton(Controller.Operator, Direction.Left);
+        public final static Button quickMoveElevatorBottom = controlsFactory.createDPadButton(Controller.Operator, Direction.Right);
+
+        public final static Button autoBalance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
     }
 
     public static class DriveBase {

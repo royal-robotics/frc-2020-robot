@@ -15,17 +15,20 @@ public class MoveTurretAngle extends CommandBase {
 
     @Override
     public void initialize() {
-        _turret.platform.setGoalAngle(_angle);
+        System.out.println("auto move init! " + _angle);
+        _turret.platform.reset();
+        _turret.platform.setTargetAngle(_angle);
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("auto move!");
     }
 
     @Override
     public boolean isFinished() {
-        if (_turret.platform.atGoalAngle())
-        {
-            _turret.platform.stop();
-            return true;
-        }
-        return false;
+        System.out.println("At target? " + _turret.platform.atTargetAngle());
+        return _turret.platform.atTargetAngle();
     }
 
     @Override

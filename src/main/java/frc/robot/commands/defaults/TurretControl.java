@@ -1,9 +1,8 @@
 package frc.robot.commands.defaults;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.libs.controls.*;
-import frc.robot.Controls;
-import frc.robot.commands.MoveTurretAngle;
+import frc.robot.*;
+import frc.robot.commands.*;
 import frc.robot.subsystems.turret.*;
 
 public class TurretControl extends CommandBase {
@@ -13,19 +12,21 @@ public class TurretControl extends CommandBase {
         addRequirements(turret);
         _turret = turret;
 
-        Controls.Turret.turnToCenter.whenPressed(new MoveTurretAngle(_turret, 0));
-        Controls.Turret.turnToRight.whenPressed(new MoveTurretAngle(_turret, 45));
-        Controls.Turret.turnToLeft.whenPressed(new MoveTurretAngle(_turret, -45));
+        // TODO: Cancel when released
+        Controls.Turret.autoTrackShooter.whenPressed(new MoveTurretAngle(_turret, 0.0));
     }
 
 	@Override
     public void execute() {
-        if (Controls.Turret.moveLeft.get()) {
-            _turret.platform.setPower(0.4);
-        } else if (Controls.Turret.moveRight.get()) {
-            _turret.platform.setPower(-0.4);
-        } else {
-            _turret.platform.setPower(0.0);
-        }
+        // System.out.println("Default");
+        final var platformPower = Controls.Turret.movePlatform.get();
+        _turret.platform.setPower(-platformPower);
+
+
+        final var hoodPower = Controls.Turret.moveHood.get();
+        _turret.setHoodPower(hoodPower);
+
+        final var wheelPower = Controls.Turret.wheelThrottle.get();
+        _turret.setShooterPower(wheelPower);
     }
 }

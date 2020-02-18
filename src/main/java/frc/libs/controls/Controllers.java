@@ -18,6 +18,7 @@ public class Controllers {
         LeftStickPress (9),
         RightStickPress (10),
 
+        // TODO: Get rid of the DPad stuff, we have another class for that.
         Up(0, true),
         TopRight(45, true),
         Right(90, true),

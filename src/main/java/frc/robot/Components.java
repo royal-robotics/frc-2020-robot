@@ -31,7 +31,7 @@ public final class Components {
         public final static PWM hood = new PWM(0); // Angles the shooter
         public final static Encoder hoodEncoder = new Encoder(16, 17); // Enc4 (?)
 
-        // public final static CANSparkMax shooterWheel = new CANSparkMax(5, MotorType.kBrushless); // Shoots ball
+        public final static CANSparkMax shooterWheel = new CANSparkMax(5, MotorType.kBrushless); // Shoots ball
     }
 
     public static class ColorWheel {
