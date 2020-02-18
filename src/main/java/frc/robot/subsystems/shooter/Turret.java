@@ -35,11 +35,11 @@ public class Turret extends RoyalArcSubsystem {
 
     @Override
     protected void updateDiagnostics() {
-        SmartDashboard.putNumber("Turret/Platform/Power", _motor.get());
-        SmartDashboard.putNumber("Turret/Platform/Voltage", _motor.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Turret/Platform/Degrees", getAngle());
-        SmartDashboard.putNumber("Turret/Platform/Setpoint", _pidController.getSetpoint());
-        SmartDashboard.putBoolean("Turret/Platform/OnTarget", _pidController.atSetpoint());
+        SmartDashboard.putNumber("Shooter/Turret/Power", _motor.get());
+        SmartDashboard.putNumber("Shooter/Turret/Voltage", _motor.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Shooter/Turret/Degrees", getAngle());
+        SmartDashboard.putNumber("Shooter/Turret/Setpoint", _pidController.getSetpoint());
+        SmartDashboard.putBoolean("Shooter/Turret/OnTarget", _pidController.atSetpoint());
     }
 
     private static class TurretPidController extends RoyalPidController {
