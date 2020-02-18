@@ -11,7 +11,7 @@ import frc.robot.shuffleboard.*;
 public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
-    private final ShooterSubsystem shooter = new ShooterSubsystem();
+    private final Shooter shooter = new Shooter();
     // private final ClimberSubsystem climber = new ClimberSubsystem();
     // private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
@@ -29,8 +29,6 @@ public class RobotContainer {
 
         drivebase.setDefaultCommand(new DrivebaseControl(drivebase));
         intake.setDefaultCommand(new IntakeControl(intake));
-        shooter.setDefaultCommand(new ShooterControl(shooter));
-        // climber.setDefaultCommand(new ClimberControl(climber));
-        // colorWheel.setDefaultCommand(new ColorWheelControl(colorWheel));
+        shooter.bindDefaultCommands();
     }
 }

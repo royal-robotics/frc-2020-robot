@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.controller.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.*;
+import frc.robot.subsystems.RoyalSubsystem;
 
-public class Turret {
+public class Turret extends RoyalSubsystem {
     private final WPI_TalonSRX _motor;
     private final Encoder _encoder;
     private final TurretPidController _pidController;
@@ -56,17 +57,19 @@ public class Turret {
         _pidController.reset();
     }
 
-    public void updateControlLoop() {
+    @Override
+    public void periodic() {
         if (_underPidControl) {
-            System.out.println("underPidControl");
             final var feed = _feedforward.calculate(getAngle() > _pidController.getSetpoint() ? -30.0 : 30.0);
 
             final var pidError = _pidController.calculate(getAngle());
             _motor.setVoltage(pidError + feed);
         }
+
+        updateDiagnostics();
     }
 
-    public void updateDiagnostics() {
+    private void updateDiagnostics() {
         SmartDashboard.putNumber("Turret/Platform/Power", _motor.get());
         SmartDashboard.putNumber("Turret/Platform/Voltage", _motor.getMotorOutputVoltage());
         SmartDashboard.putNumber("Turret/Platform/Degrees", getAngle());
