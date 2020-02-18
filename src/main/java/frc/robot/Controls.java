@@ -23,7 +23,7 @@ public final class Controls {
 
     public static class Turret {
         // Manual controls, hopefully not needed much.
-        public final static Axis movePlatform = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickX);
+        public final static Axis moveTurret = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickX);
         public final static Axis moveHood = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftStickY);
         public final static Axis wheelThrottle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightTrigger);
 

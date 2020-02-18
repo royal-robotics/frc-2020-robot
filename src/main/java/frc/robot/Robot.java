@@ -31,4 +31,9 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         Shuffleboard.update();
     }
+
+    @Override
+    public void disabledInit() {
+        _robotContainer.storeState();
+    }
 }

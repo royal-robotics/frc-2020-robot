@@ -31,4 +31,8 @@ public class RobotContainer {
         intake.setDefaultCommand(new IntakeControl(intake));
         shooter.bindDefaultCommands();
     }
+
+    public final void storeState() {
+        shooter.turret.savePosition();
+    }
 }

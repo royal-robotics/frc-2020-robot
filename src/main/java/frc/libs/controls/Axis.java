@@ -15,10 +15,15 @@ public class Axis {
     }
 
     public double get() {
-        final var rawAxis = _rawAxis.get();
-        if (Math.abs(rawAxis) < _deadband) {
+        if (inDeadband()) {
             return 0.0;
         }
+        final var rawAxis = _rawAxis.get();
         return rawAxis;
+    }
+
+    public boolean inDeadband() {
+        final var rawAxis = _rawAxis.get();
+        return Math.abs(rawAxis) < _deadband;
     }
 }
