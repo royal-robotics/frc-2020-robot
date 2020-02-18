@@ -1,23 +1,22 @@
-package frc.robot.subsystems.turret;
+package frc.robot.subsystems.shooter;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 import frc.robot.subsystems.*;
 
-public class TurretSubsystem extends RoyalSubsystem {
-    public final Platform platform;
+public class ShooterSubsystem extends RoyalSubsystem {
+    public final Turret turret;
     private final PWM _hood;
     private final CANSparkMax _shooter;
     private final CANEncoder _shooterEncoder;
 
-    public TurretSubsystem() {
-        platform = new Platform();
-        _hood = Components.Turret.hood;
-        _shooter = Components.Turret.shooterWheel;
+    public ShooterSubsystem() {
+        turret = new Turret();
+        _hood = Components.Shooter.hood;
+        _shooter = Components.Shooter.shooterWheel;
         _shooterEncoder = _shooter.getEncoder();
     }
     public void setHoodPower(double speed) {
@@ -30,8 +29,8 @@ public class TurretSubsystem extends RoyalSubsystem {
 
     @Override
     public void periodic() {
-        platform.updateControlLoop();
-        platform.updateDiagnostics();
+        turret.updateControlLoop();
+        turret.updateDiagnostics();
         // SmartDashboard.putNumber("Turret/Shooter/Velocity", _shooterEncoder.getVelocity());
     }
 }

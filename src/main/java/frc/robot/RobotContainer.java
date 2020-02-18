@@ -5,13 +5,13 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.colorwheel.*;
 import frc.robot.subsystems.drivebase.*;
-import frc.robot.subsystems.turret.*;
+import frc.robot.subsystems.shooter.*;
 import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
-    private final TurretSubsystem turret = new TurretSubsystem();
+    private final ShooterSubsystem shooter = new ShooterSubsystem();
     // private final ClimberSubsystem climber = new ClimberSubsystem();
     // private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
@@ -29,7 +29,7 @@ public class RobotContainer {
 
         drivebase.setDefaultCommand(new DrivebaseControl(drivebase));
         intake.setDefaultCommand(new IntakeControl(intake));
-        turret.setDefaultCommand(new TurretControl(turret));
+        shooter.setDefaultCommand(new ShooterControl(shooter));
         // climber.setDefaultCommand(new ClimberControl(climber));
         // colorWheel.setDefaultCommand(new ColorWheelControl(colorWheel));
     }

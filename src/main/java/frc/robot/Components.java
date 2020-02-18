@@ -24,14 +24,14 @@ public final class Components {
         public final static DigitalInput ballSensor = new DigitalInput(0);
     }
 
-    public static class Turret {
-        public final static WPI_TalonSRX platform = new WPI_TalonSRX(12); // Turns the shooter
-        public final static Encoder platformEncoder = new Encoder(14, 15); // Enc3 (?)
+    public static class Shooter {
+        public final static WPI_TalonSRX turret = new WPI_TalonSRX(12); // Turns the shooter
+        public final static Encoder turretEncoder = new Encoder(14, 15); // Enc3
 
         public final static PWM hood = new PWM(0); // Angles the shooter
-        public final static Encoder hoodEncoder = new Encoder(16, 17); // Enc4 (?)
+        public final static Encoder hoodEncoder = new Encoder(16, 17); // Enc4
 
-        public final static CANSparkMax shooterWheel = new CANSparkMax(5, MotorType.kBrushless); // Shoots ball
+        public final static CANSparkMax shooterWheel = new CANSparkMax(5, MotorType.kBrushless);
     }
 
     public static class ColorWheel {
