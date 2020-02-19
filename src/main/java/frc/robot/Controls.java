@@ -17,8 +17,9 @@ public final class Controls {
         public final static Button runBallIntake = controlsFactory.createButton(Controller.Operator, Logitech310Button.B);
         public final static Button shootBall = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
 
-        // Normally this is controller by a sensor.
-        public final static Button runConveyorUp = controlsFactory.createDPadButton(Controller.Operator, Direction.Up);
+        // Overrides, ideally these aren't part of a normal match.
+        public final static Button forceIntakeIn = controlsFactory.createDPadButton(Controller.Operator, Direction.Up);
+        public final static Button forceIntakeOut = controlsFactory.createDPadButton(Controller.Operator, Direction.Down);
     }
 
     public static class Turret {
@@ -33,14 +34,14 @@ public final class Controls {
 
     public static class ColorWheel {
         // We'll make these controls something else later, leaving it for now because it'll be funny.
-        public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftStickPress);
-        public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightStickPress);
+        public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
+        public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
     }
 
     public static class Climber {
         public final static Axis moveElevator = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightStickY);
-        public final static Button quickMoveElevatorTop = controlsFactory.createDPadButton(Controller.Operator, Direction.Left);
-        public final static Button quickMoveElevatorBottom = controlsFactory.createDPadButton(Controller.Operator, Direction.Right);
+        public final static Button quickMoveElevatorBottom = controlsFactory.createDPadButton(Controller.Operator, Direction.Left);
+        public final static Button quickMoveElevatorTop = controlsFactory.createDPadButton(Controller.Operator, Direction.Right);
 
         public final static Button autoBalance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
     }

@@ -5,12 +5,12 @@ import frc.robot.subsystems.drivebase.*;
 
 public class DriverTab extends RoyalShuffleTab {
     private final DrivebaseSubsystem _drivebaseSubsystem;
-    private final IntakeSubsystem _intakeSubsystem;
+    private final Intake _intake;
 
-    public DriverTab(DrivebaseSubsystem drivebaseSubsystem, IntakeSubsystem intakeSubsystem) {
+    public DriverTab(DrivebaseSubsystem drivebaseSubsystem, Intake intake) {
         super("Driver");
         _drivebaseSubsystem = drivebaseSubsystem;
-        _intakeSubsystem = intakeSubsystem;
+        _intake = intake;
 
         // tab.add(Components.Camera.limelight).withWidget(BuiltInWidgets.kCameraStream);
         this.initialize();

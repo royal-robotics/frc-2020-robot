@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.defaults.*;
+import frc.robot.commands.intake.*;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.colorwheel.*;
@@ -10,7 +11,7 @@ import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
-    private final IntakeSubsystem intake = new IntakeSubsystem();
+    private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
     // private final ClimberSubsystem climber = new ClimberSubsystem();
     // private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
