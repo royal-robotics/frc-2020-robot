@@ -1,6 +1,8 @@
 package frc.robot.subsystems.shooter;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.controller.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -12,6 +14,8 @@ import frc.robot.*;
 public class Turret extends PositionConstrainedSubsystem {
     private final WPI_TalonSRX _motor;
     private final Encoder _encoder;
+    private final DigitalInput _leftLimit;
+    private final DigitalInput _rightLimit;
 
     private Double _lastStoredMeasure = null;
 
@@ -21,6 +25,8 @@ public class Turret extends PositionConstrainedSubsystem {
         super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 3.0);
         _motor = Components.Shooter.turret;
         _encoder = Components.Shooter.turretEncoder;
+        _leftLimit = Components.Shooter.leftLimit;
+        _rightLimit = Components.Shooter.rightlimit;
 
         final var PulsesPerRotation = 256.0;
         final var IdlerCircumference  = 4.71;
@@ -83,6 +89,8 @@ public class Turret extends PositionConstrainedSubsystem {
         SmartDashboard.putNumber("Shooter/Turret/Degrees", getMeasurement());
         SmartDashboard.putNumber("Shooter/Turret/Setpoint", _pidController.getSetpoint());
         SmartDashboard.putBoolean("Shooter/Turret/OnTarget", _pidController.atSetpoint());
+        SmartDashboard.putBoolean("Shooter/Turret/LeftLimit", _leftLimit.get());
+        SmartDashboard.putBoolean("Shooter/Turret/RightLimit", _rightLimit.get());
     }
 
     private static class TurretPidController extends RoyalPidController {

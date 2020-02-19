@@ -21,12 +21,14 @@ public final class Components {
     public static class Intake {
         public final static WPI_TalonSRX ballIn = new WPI_TalonSRX(11); // Grabs ball
         public final static WPI_TalonSRX conveyer = new WPI_TalonSRX(8); // Feeds ball
-        public final static DigitalInput ballSensor = new DigitalInput(0);
+        public final static DigitalInput ballSensor = new DigitalInput(2);
     }
 
     public static class Shooter {
         public final static WPI_TalonSRX turret = new WPI_TalonSRX(12); // Turns the shooter
         public final static Encoder turretEncoder = new Encoder(14, 15); // Enc3
+        public final static DigitalInput leftLimit = new DigitalInput(1);
+        public final static DigitalInput rightlimit = new DigitalInput(0);
 
         public final static PWM hood = new PWM(0); // Angles the shooter
         public final static Encoder hoodEncoder = new Encoder(16, 17); // Enc4
