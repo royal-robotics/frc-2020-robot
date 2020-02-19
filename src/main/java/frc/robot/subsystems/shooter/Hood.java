@@ -56,7 +56,7 @@ public class Hood extends PositionConstrainedSubsystem {
     protected double clampOnConstraints(double value) {
         // Something is a little wrong with the cordinantes of the BaseClass+Turret :(
         // And this was the easiest fix :(
-        return super.clampOnConstraints(-value);
+        return -super.clampOnConstraints(-value);
     }
 
     private void updateSave(double power) {
