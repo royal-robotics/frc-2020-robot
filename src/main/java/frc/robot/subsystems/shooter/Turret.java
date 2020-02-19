@@ -19,10 +19,10 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "turret-position-v5";
+    private static final String positionSettingName = "turret-position-v6";
 
     public Turret() {
-        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 3.0);
+        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 1.0);
         _motor = Components.Shooter.turret;
         _encoder = Components.Shooter.turretEncoder;
         _leftLimit = Components.Shooter.leftLimit;
@@ -49,13 +49,26 @@ public class Turret extends PositionConstrainedSubsystem {
 
     @Override
     protected void setOutput(double pidError, double setpoint) {
-        final var feedforwardHelper = new SimpleMotorFeedforward(0.451, 0.102, 0.000757);
-        final var feedforwardVelocity = getMeasurement() < setpoint ? 30.0 : -30.0;
-        final var feedforward = feedforwardHelper.calculate(feedforwardVelocity);
+        // final var feedforwardHelper = new SimpleMotorFeedforward(0.451, 0.102, 0.000757);
+        // final var feedforwardVelocity = getMeasurement() < setpoint ? 30.0 : -30.0;
+        // final var feedforward = feedforwardHelper.calculate(feedforwardVelocity);
+        final var feedforward = 0.0;
 
         var voltage = clampOnConstraints(feedforward + pidError);
         updateSave(voltage);
         _motor.setVoltage(voltage);
+    }
+
+    @Override
+    protected double clampOnConstraints(double value) {
+        value = super.clampOnConstraints(value);
+        if (_leftLimit.get() && value > 0.0) {
+            value = 0.0;
+        } else if (_rightLimit.get() && value < 0.0) {
+            value = 0.0;
+        }
+
+        return value;
     }
 
     private void updateSave(double power) {
@@ -81,6 +94,22 @@ public class Turret extends PositionConstrainedSubsystem {
     public void periodic() {
         super.periodic();
         updateDiagnostics();
+
+        // If one of the limit switches is hit reset the position of the turret
+        if (_leftLimit.get()) {
+            updatePosition(90.0);
+        } else if (_rightLimit.get()) {
+            updatePosition(-90.0);
+        }
+    }
+
+
+    private void updatePosition(double position) {
+        final var newInitialPosition = position - getRelativeMeasurement();
+        if (Math.abs(_initialPosition - newInitialPosition) > 0.1) {
+            _initialPosition = newInitialPosition;
+            save();
+        }
     }
 
     private void updateDiagnostics() {
@@ -95,9 +124,9 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private static class TurretPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
-        private static final double P = 0.02;
-        private static final double I = 0.001 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.002;
+        private static final double P = 0.05 * 12.0;
+        private static final double I = 0.05 / (1000.0 / LoopIntervalMs);
+        private static final double D = 0.05;
 
         public TurretPidController() {
             super(P, I, D);

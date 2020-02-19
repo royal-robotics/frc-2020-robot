@@ -5,7 +5,7 @@ import frc.libs.components.*;
 
 public abstract class PositionConstrainedSubsystem extends PIDSubsystem {
     protected final RoyalPidController _pidController;
-    protected final double _initialPosition;
+    protected double _initialPosition;
     protected final double _minPosition;
     protected final double _maxPosition;
     protected final double _tolerance;

@@ -31,11 +31,6 @@ public class PitchingWheel extends RoyalSubsystem {
     }
 
     private void updateDiagnostics() {
-
-        if (Math.abs(_motor.get()) > 0.1) {
-            System.out.println("Velocity: " + _encoder.getVelocity());
-        }
-
         SmartDashboard.putNumber("Shooter/PitchingWheel/Power", _motor.get());
         SmartDashboard.putNumber("Shooter/PitchingWheel/Velocity", _encoder.getVelocity());
     }
