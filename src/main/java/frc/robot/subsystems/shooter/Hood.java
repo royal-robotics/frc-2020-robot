@@ -31,7 +31,10 @@ public class Hood extends PositionConstrainedSubsystem {
     }
 
     public void setPower(double power) {
-        disable();
+        if (isEnabled()) {
+            disable();
+        }
+
         power = clampOnConstraints(power);
         updateSave(power);
         _motor.setSpeed(power);
@@ -47,6 +50,13 @@ public class Hood extends PositionConstrainedSubsystem {
         var power = clampOnConstraints(feedforward + pidError);
         updateSave(power);
         _motor.setSpeed(power);
+    }
+
+    @Override
+    protected double clampOnConstraints(double value) {
+        // Something is a little wrong with the cordinantes of the BaseClass+Turret :(
+        // And this was the easiest fix :(
+        return super.clampOnConstraints(-value);
     }
 
     private void updateSave(double power) {
