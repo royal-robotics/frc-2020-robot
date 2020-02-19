@@ -75,10 +75,10 @@ public class Hood extends PositionConstrainedSubsystem {
     }
 
     private void updateDiagnostics() {
-        SmartDashboard.putNumber("Shooter/Turret/Power", _motor.getSpeed());
-        SmartDashboard.putNumber("Shooter/Turret/Degrees", getMeasurement());
-        SmartDashboard.putNumber("Shooter/Turret/Setpoint", _pidController.getSetpoint());
-        SmartDashboard.putBoolean("Shooter/Turret/OnTarget", isAtSetpoint());
+        SmartDashboard.putNumber("Shooter/Hood/Power", _motor.getSpeed());
+        SmartDashboard.putNumber("Shooter/Hood/Degrees", getMeasurement());
+        SmartDashboard.putNumber("Shooter/Hood/Setpoint", _pidController.getSetpoint());
+        SmartDashboard.putBoolean("Shooter/Hood/OnTarget", isAtSetpoint());
     }
 
     private static class HoodPidController extends RoyalPidController {

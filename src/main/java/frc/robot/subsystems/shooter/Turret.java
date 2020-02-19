@@ -15,10 +15,10 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "turret-position-v4.txt";
+    private static final String positionSettingName = "turret-position-v5";
 
     public Turret() {
-        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -90.0, 90.0, 3.0);
+        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 3.0);
         _motor = Components.Shooter.turret;
         _encoder = Components.Shooter.turretEncoder;
 
@@ -32,7 +32,10 @@ public class Turret extends PositionConstrainedSubsystem {
     }
 
     public void setPower(double power) {
-        disable();
+        if (isEnabled()) {
+            disable();
+        }
+
         power = clampOnConstraints(power);
         updateSave(power);
         _motor.set(power);

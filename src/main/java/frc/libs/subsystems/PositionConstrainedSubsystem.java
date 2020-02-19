@@ -52,12 +52,6 @@ public abstract class PositionConstrainedSubsystem extends PIDSubsystem {
             return;
         }
 
-        // TODO: this might not be needed.
-        if (isWithinConstraints()) {
-            // Don't set the output if its not within the constaints.
-            return;
-        }
-
         setOutput(pidError, setpoint);
     }
 
