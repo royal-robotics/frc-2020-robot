@@ -29,11 +29,11 @@ public class IntakeControl extends CommandBase {
         if (_runBallIntake.get()) {
             _intake.intakeOn();
         } else if (_shootBall.get()) {
-            _intake.setPower(1.0);
+            _intake.setPower(-1.0);
         } else if (_forceIntakeIn.get()) {
-            _intake.setPower(0.8);
+            _intake.setPower(-0.8);
         } else if (_forceIntakeOut.get()) {
-            _intake.setPower(-8.0);
+            _intake.setPower(8.0);
         } else {
             _intake.setPower(0.0);
         }
