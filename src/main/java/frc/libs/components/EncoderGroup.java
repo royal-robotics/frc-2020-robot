@@ -4,9 +4,11 @@ import com.revrobotics.*;
 
 public class EncoderGroup {
     private final CANEncoder[] _encoders;
+    private final boolean _inverted;
 
     public EncoderGroup(double inchesPerTurn, boolean inverted, CANEncoder ...encoders) {
         _encoders = encoders;
+        _inverted = inverted;
 
         for(var encoder : _encoders) {
             encoder.setPositionConversionFactor(inchesPerTurn);
@@ -20,7 +22,8 @@ public class EncoderGroup {
         for(var encoder : _encoders) {
             sum += encoder.getPosition();
         }
-        return sum / _encoders.length;
+        final var position = sum / _encoders.length;
+        return _inverted ? -position : position;
     }
 
     public double getVelocity() {
@@ -28,7 +31,8 @@ public class EncoderGroup {
         for(var encoder : _encoders) {
             sum += encoder.getVelocity();
         }
-        return sum / _encoders.length;
+        final var velocity = sum / _encoders.length;
+        return _inverted ? -velocity : velocity;
     }
 
     public void reset() {

@@ -15,12 +15,16 @@ public class ElevatorMoveCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        // _climber.elevator.setGoalHeight(_heightInches);
+        _elevator.setHeight(_heightInches);
     }
 
     @Override
     public boolean isFinished() {
-        return true;
-        // return _climber.elevator.atGoalHeight();
+        return _elevator.isAtSetpoint();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        _elevator.stop();
     }
 }

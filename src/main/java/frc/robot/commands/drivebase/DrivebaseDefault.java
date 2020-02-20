@@ -10,8 +10,6 @@ public class DrivebaseDefault extends CommandBase {
     public DrivebaseDefault(DrivebaseSubsystem drivebase) {
         addRequirements(drivebase);
         _drivebase = drivebase;
-
-        drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
     }
 
 	@Override

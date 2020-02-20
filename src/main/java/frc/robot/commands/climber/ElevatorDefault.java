@@ -1,10 +1,8 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.*;
-import edu.wpi.first.wpilibj2.command.button.*;
 import frc.libs.controls.Axis;
 import frc.robot.*;
-import frc.robot.commands.*;
 import frc.robot.subsystems.climber.*;
 
 public class ElevatorDefault extends CommandBase {
@@ -20,7 +18,12 @@ public class ElevatorDefault extends CommandBase {
 
     @Override
     public void execute() {
-        final var elevatorPower = _moveElevator.get();
-        _elevator.setPower(elevatorPower);
+
+        if (_moveElevator.inDeadband()) {
+            _elevator.stop();
+        } else {
+            final var elevatorPower = _moveElevator.get();
+            _elevator.setPower(elevatorPower);
+        }
     }
 }

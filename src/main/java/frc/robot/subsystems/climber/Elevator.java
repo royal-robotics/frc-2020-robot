@@ -18,13 +18,13 @@ public class Elevator extends PIDSubsystem {
         elevator2.follow(_motor);
 
         // We assume that when the robot turns on, the elevator will be at the bottom.
-        final var CompositeRatio1 = 58 / 13;
-        final var CompositeRatio2 = 34 / 22;
+        final var CompositeRatio1 = 13.0 / 58.0;
+        final var CompositeRatio2 = 22.0 / 34.0;
         final var GearRatio = CompositeRatio1 * CompositeRatio2;
         final var OutputPitchDiameter = 1.880;
         final var OutputPulleyCircumference = Math.PI * OutputPitchDiameter;
         final var InchesPerTurn = OutputPulleyCircumference * GearRatio;
-        _encoder = new EncoderGroup(InchesPerTurn, false, _motor.getEncoder(), elevator2.getEncoder());
+        _encoder = new EncoderGroup(InchesPerTurn, true, _motor.getEncoder(), elevator2.getEncoder());
     }
 
     public void setHeight(double height) {
@@ -38,6 +38,15 @@ public class Elevator extends PIDSubsystem {
         }
 
         _motor.set(clampOutputAtBounds(power));
+    }
+
+    public void stop() {
+        // If the setpoint isn't where we are, move it there.
+        if (!isAtSetpoint()) {
+            this.setSetpoint(getMeasurement());
+        }
+
+        enable();
     }
 
     public boolean isAtSetpoint() {

@@ -33,7 +33,7 @@ public final class Controls {
     }
 
     public static class ColorWheel {
-        // We'll make these controls something else later, leaving it for now because it'll be funny.
+        public final static Axis throttle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
         public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
         public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
     }

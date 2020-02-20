@@ -31,7 +31,7 @@ public class Climber {
 
         elevator.setDefaultCommand(new ElevatorDefault(elevator));
 
-        Controls.Climber.quickMoveElevatorBottom.whenPressed(new ElevatorMoveCommand(elevator, 0.0));
-        Controls.Climber.quickMoveElevatorTop.whenPressed(new ElevatorMoveCommand(elevator, 12.0));
+        Controls.Climber.quickMoveElevatorBottom.whileHeld(new ElevatorMoveCommand(elevator, 0.0));
+        Controls.Climber.quickMoveElevatorTop.whileHeld(new ElevatorMoveCommand(elevator, 12.0));
     }
 }
