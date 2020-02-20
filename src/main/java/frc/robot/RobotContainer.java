@@ -21,7 +21,6 @@ public class RobotContainer {
     // private final RawDataTab rawDataTab = new RawDataTab(drivebase, intake);
 
     public RobotContainer() {
-
         // Calibrate the gyro once when the robot turns on.
         // It's very important the robot is motionless until
         // this calibration is complete.
