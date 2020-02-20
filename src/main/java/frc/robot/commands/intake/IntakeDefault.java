@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Controls;
 import frc.robot.subsystems.*;
 
-public class IntakeControl extends CommandBase {
+public class IntakeDefault extends CommandBase {
     private final Intake _intake;
     private final Button _runBallIntake;
     private final Button _shootBall;
@@ -13,7 +13,7 @@ public class IntakeControl extends CommandBase {
     private final Button _forceIntakeOut;
 
 
-    public IntakeControl(Intake intake) {
+    public IntakeDefault(Intake intake) {
         addRequirements(intake);
         _intake = intake;
 

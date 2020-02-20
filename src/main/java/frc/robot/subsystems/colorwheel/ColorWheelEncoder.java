@@ -16,10 +16,10 @@ public class ColorWheelEncoder {
     public ColorWheelEncoder() {
         _colorSensor = Components.ColorWheel.colorSensor;
 
-        _colorMatcher.addColorMatch(ColorWheel.Blue);
-        _colorMatcher.addColorMatch(ColorWheel.Green);
-        _colorMatcher.addColorMatch(ColorWheel.Red);
-        _colorMatcher.addColorMatch(ColorWheel.Yellow);
+        _colorMatcher.addColorMatch(ColorWheelConsts.Blue);
+        _colorMatcher.addColorMatch(ColorWheelConsts.Green);
+        _colorMatcher.addColorMatch(ColorWheelConsts.Red);
+        _colorMatcher.addColorMatch(ColorWheelConsts.Yellow);
     }
 
     public Color getColor() {
@@ -27,7 +27,7 @@ public class ColorWheelEncoder {
     }
 
     public double getTurns() {
-        return _sliceCount / ColorWheel.WheelSlices;
+        return _sliceCount / ColorWheelConsts.WheelSlices;
     }
 
     public void reset() {

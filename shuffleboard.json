@@ -1,9 +1,45 @@
 {
-  "tabPane": [],
+  "tabPane": [
+    {
+      "title": "Diagnostics",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/Shooter",
+              "_title": "SmartDashboard/Shooter"
+            }
+          },
+          "6,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/Climber",
+              "_title": "SmartDashboard/Climber"
+            }
+          }
+        }
+      }
+    }
+  ],
   "windowGeometry": {
     "x": -10.0,
-    "y": -10.0,
-    "width": 1382.0,
-    "height": 744.0
+    "y": 0.0,
+    "width": 1623.5,
+    "height": 850.5
   }
 }

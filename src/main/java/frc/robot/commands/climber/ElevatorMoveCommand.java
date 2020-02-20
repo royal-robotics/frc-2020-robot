@@ -1,15 +1,15 @@
-package frc.robot.commands;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.climber.*;
 
 public class ElevatorMoveCommand extends CommandBase {
-    private final ClimberSubsystem _climber;
+    private final Elevator _elevator;
     private final double _heightInches;
 
-    public ElevatorMoveCommand(ClimberSubsystem climber, double heightInches) {
-        addRequirements(climber);
-        _climber = climber;
+    public ElevatorMoveCommand(Elevator elevator, double heightInches) {
+        addRequirements(elevator);
+        _elevator = elevator;
         _heightInches = heightInches;
     }
 

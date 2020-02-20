@@ -14,7 +14,7 @@ public class PitchingWheel extends RoyalSubsystem {
         _motor = Components.Shooter.shooterWheel;
         _encoder = _motor.getEncoder();
 
-        final var CompositeRatio1 = 14.0 / 30.0;
+        final var CompositeRatio1 = 16.0 / 30.0;
         final var CompositeRatio2 = 56.0 / 18.0;
         final var GearRatio = CompositeRatio1 * CompositeRatio2;
         _encoder.setPositionConversionFactor(GearRatio);

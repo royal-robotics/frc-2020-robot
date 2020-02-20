@@ -1,6 +1,7 @@
 package frc.robot;
 
-import frc.robot.commands.defaults.*;
+import frc.robot.commands.colorwheel.*;
+import frc.robot.commands.drivebase.*;
 import frc.robot.commands.intake.*;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
@@ -13,8 +14,8 @@ public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
-    // private final ClimberSubsystem climber = new ClimberSubsystem();
-    // private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
+    private final Climber climber = new Climber();
+    private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
     // private final DriverTab driverTab = new DriverTab(drivebase, intake);
     // private final ConfigsTab configsTab = new ConfigsTab(drivebase, intake);
@@ -27,9 +28,9 @@ public class RobotContainer {
         Components.Drivebase.gyro.calibrate();
         Components.Drivebase.gyro.reset();
 
-        drivebase.setDefaultCommand(new DrivebaseControl(drivebase));
-        intake.setDefaultCommand(new IntakeControl(intake));
-        shooter.bindDefaultCommands();
+        drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
+        intake.setDefaultCommand(new IntakeDefault(intake));
+        colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
     }
 
     public final void storeState() {

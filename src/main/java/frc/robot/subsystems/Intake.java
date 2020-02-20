@@ -39,7 +39,7 @@ public class Intake extends RoyalSubsystem {
     }
 
     public void setPower(double power) {
-        _ballIn.set(ControlMode.PercentOutput, power);
+        _ballIn.set(ControlMode.PercentOutput, -power);
         _ballConveyor.set(ControlMode.PercentOutput, power);
     }
 

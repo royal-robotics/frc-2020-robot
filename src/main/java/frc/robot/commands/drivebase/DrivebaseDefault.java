@@ -1,15 +1,17 @@
-package frc.robot.commands.defaults;
+package frc.robot.commands.drivebase;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Controls;
 import frc.robot.subsystems.drivebase.*;
 
-public class DrivebaseControl extends CommandBase {
+public class DrivebaseDefault extends CommandBase {
     private final DrivebaseSubsystem _drivebase;
 
-    public DrivebaseControl(DrivebaseSubsystem driverbase) {
-        addRequirements(driverbase);
-        _drivebase = driverbase;
+    public DrivebaseDefault(DrivebaseSubsystem drivebase) {
+        addRequirements(drivebase);
+        _drivebase = drivebase;
+
+        drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
     }
 
 	@Override

@@ -17,13 +17,12 @@ public class Shooter {
         bindCommands();
     }
 
-    public void bindDefaultCommands() {
+    public void bindCommands() {
         turret.setDefaultCommand(new TurretDefault(turret));
         hood.setDefaultCommand(new HoodDefault(hood));
         pitchingWheel.setDefaultCommand(new PitchingWheelDefault(pitchingWheel));
-    }
 
-    public void bindCommands() {
         Controls.Turret.autoTrackShooter.whenHeld(new MoveTurretAngle(turret, 0.0));
+
     }
 }
