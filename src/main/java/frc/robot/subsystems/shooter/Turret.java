@@ -19,7 +19,7 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "turret-position-v6";
+    private static final String positionSettingName = "turret-position-7";
 
     public Turret() {
         super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 1.0);

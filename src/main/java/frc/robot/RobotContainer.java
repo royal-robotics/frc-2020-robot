@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.colorwheel.*;
 import frc.robot.commands.drivebase.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.shooter.TurretDefault;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.colorwheel.*;
@@ -14,7 +15,7 @@ public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
-    private final Climber climber = new Climber();
+    //private final Climber climber = new Climber();
     private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
     // private final DriverTab driverTab = new DriverTab(drivebase, intake);
@@ -31,6 +32,7 @@ public class RobotContainer {
         drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
         intake.setDefaultCommand(new IntakeDefault(intake));
         colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
+        shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
     }
 
     public final void storeState() {
