@@ -16,6 +16,11 @@ public class ElevatorMoveCommand extends CommandBase {
     @Override
     public void initialize() {
         _elevator.setHeight(_heightInches);
+
+        if (!_elevator.isEnabled()) {
+            _elevator.enable();
+        }
+        _elevator.periodic();
     }
 
     @Override
@@ -25,6 +30,5 @@ public class ElevatorMoveCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        _elevator.stop();
     }
 }
