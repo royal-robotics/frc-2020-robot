@@ -8,4 +8,8 @@ public class TankThrottleValues {
         this.left = left;
         this.right = right;
     }
+
+    public TankThrottleValues withScaleFactor(double scaleFactor) {
+        return new TankThrottleValues(left * scaleFactor, right * scaleFactor);
+    }
 }

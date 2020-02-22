@@ -1,17 +1,18 @@
 package frc.robot.subsystems.drivebase;
 
-import edu.wpi.first.wpilibj.*;
 import frc.libs.components.*;
-
 import com.revrobotics.*;
+import com.revrobotics.CANSparkMax.*;
 
 public class DriveGearbox {
-    private final SpeedController _motor;
+    private final CANSparkMax _motor;
+    private final CANSparkMax[] _followers;
     private final EncoderGroup _encoder;
     private final boolean _inverted;
 
     public DriveGearbox(boolean inverted, CANSparkMax leader, CANSparkMax ...followers) {
         _motor = leader;
+        _followers = followers;
         _inverted = inverted;
         leader.setInverted(_inverted);
 
@@ -42,6 +43,14 @@ public class DriveGearbox {
 
     public double getVelocity() {
         return _encoder.getVelocity();
+    }
+
+    public void setBreakMode(boolean breakModeOn) {
+        final var mode = breakModeOn ? IdleMode.kBrake : IdleMode.kCoast;
+        _motor.setIdleMode(mode);
+        for (var i = 0; i < _followers.length; i++) {
+            _followers[i].setIdleMode(mode);
+        }
     }
 
     public void reset() {

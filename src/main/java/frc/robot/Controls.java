@@ -47,6 +47,8 @@ public final class Controls {
     }
 
     public static class DriveBase {
+        public final static Button snailSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.RightBumper);
+
         public static TankThrottleValues getThrottleValues() {
             switch (Configs.getDriveControlType()) {
                 case "TankDrive":

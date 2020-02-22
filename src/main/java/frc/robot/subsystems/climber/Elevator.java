@@ -12,23 +12,29 @@ public class Elevator extends PIDSubsystem {
     private final EncoderGroup _encoder;
 
     public Elevator() {
-        super(new ElevatorPidController());
+        super(new ElevatorPidController(), 0.0);
         _motor = Components.Climber.elevator1;
         final var elevator2 = Components.Climber.elevator2;
         elevator2.follow(_motor);
+        _motor.setInverted(true);
+        elevator2.setInverted(true);
 
         // We assume that when the robot turns on, the elevator will be at the bottom.
-        final var CompositeRatio1 = 13.0 / 58.0;
-        final var CompositeRatio2 = 22.0 / 34.0;
+        final var CompositeRatio1 = 13.0 / 60.0;
+        final var CompositeRatio2 = 18.0 / 36.0;
         final var GearRatio = CompositeRatio1 * CompositeRatio2;
         final var OutputPitchDiameter = 1.880;
         final var OutputPulleyCircumference = Math.PI * OutputPitchDiameter;
         final var InchesPerTurn = OutputPulleyCircumference * GearRatio;
-        _encoder = new EncoderGroup(InchesPerTurn, true, _motor.getEncoder(), elevator2.getEncoder());
+        _encoder = new EncoderGroup(InchesPerTurn, false, _motor.getEncoder(), elevator2.getEncoder());
     }
 
     public void setHeight(double height) {
         this.setSetpoint(height);
+    }
+
+    public double getHeight() {
+        return getMeasurement();
     }
 
     public void setPower(double power) {
@@ -38,15 +44,6 @@ public class Elevator extends PIDSubsystem {
         }
 
         _motor.set(clampOutputAtBounds(power));
-    }
-
-    public void stop() {
-        // If the setpoint isn't where we are, move it there.
-        if (!isAtSetpoint()) {
-            this.setSetpoint(getMeasurement());
-        }
-
-        enable();
     }
 
     public boolean isAtSetpoint() {
@@ -76,6 +73,7 @@ public class Elevator extends PIDSubsystem {
 
     @Override
     public void periodic() {
+        super.periodic();
         updateDiagnostics();
     }
 
@@ -84,6 +82,7 @@ public class Elevator extends PIDSubsystem {
         SmartDashboard.putNumber("Climber/Elevator/Voltage", _motor.getAppliedOutput());
         SmartDashboard.putNumber("Climber/Elevator/Position", getMeasurement());
         SmartDashboard.putNumber("Climber/Elevator/Setpoint", m_controller.getSetpoint());
+        SmartDashboard.putBoolean("Climber/Elevator/PidControlEnabled", isEnabled());
     }
 
     private static class ElevatorPidController extends PIDController {
@@ -91,9 +90,9 @@ public class Elevator extends PIDSubsystem {
         private static final double LoopInterval = LoopIntervalMs / 1000.0;
 
         // Output/Input Units: power per inch
-        private static final double P = 0.28;
-        private static final double I = 0.1 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.05;
+        private static final double P = 0.05;
+        private static final double I = 0.000 / (1000.0 / LoopIntervalMs);
+        private static final double D = 0.01;
 
         public ElevatorPidController() {
             super(P, I, D, LoopInterval);
