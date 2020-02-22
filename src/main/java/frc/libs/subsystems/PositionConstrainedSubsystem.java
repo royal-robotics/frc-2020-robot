@@ -66,5 +66,9 @@ public abstract class PositionConstrainedSubsystem extends PIDSubsystem {
         return value;
     }
 
+    public void setRelativePosition(double angle) {
+        setSetpoint(getMeasurement() + angle);
+    }
+
     protected abstract void setOutput(double pidError, double setpoint);
 }

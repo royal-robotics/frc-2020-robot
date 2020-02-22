@@ -5,6 +5,7 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.interfaces.*;
+import frc.libs.components.Limelight;
 
 import com.revrobotics.ColorSensorV3;
 
@@ -55,6 +56,6 @@ public final class Components {
     }
 
     public static class Camera {
-        // public static VideoSource limelight = CameraServer.getInstance().getServer("limelight").getSource();
+        public final static Limelight limelight = new Limelight();
     }
 }

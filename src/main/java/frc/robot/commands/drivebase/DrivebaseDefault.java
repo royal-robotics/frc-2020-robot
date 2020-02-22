@@ -15,6 +15,6 @@ public class DrivebaseDefault extends CommandBase {
 	@Override
     public void execute() {
         final var tankThrottleValues = Controls.DriveBase.getThrottleValues();
-        _drivebase.setPower(tankThrottleValues.left, tankThrottleValues.right);
+        _drivebase.setPower(tankThrottleValues.left * 0.75, tankThrottleValues.right * 0.75);
     }
 }
