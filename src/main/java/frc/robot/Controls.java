@@ -43,6 +43,8 @@ public final class Controls {
         public final static Button quickMoveElevatorBottom = controlsFactory.createDPadButton(Controller.Operator, Direction.Left);
         public final static Button quickMoveElevatorTop = controlsFactory.createDPadButton(Controller.Operator, Direction.Right);
 
+        public final static Button toggleLock = controlsFactory.createButton(Controller.Operator, Logitech310Button.Back);
+
         public final static Button autoBalance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
     }
 
