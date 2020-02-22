@@ -90,9 +90,9 @@ public class Elevator extends PIDSubsystem {
         private static final double LoopInterval = LoopIntervalMs / 1000.0;
 
         // Output/Input Units: power per inch
-        private static final double P = 0.05;
+        private static final double P = 0.07;
         private static final double I = 0.000 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.01;
+        private static final double D = 0.015;
 
         public ElevatorPidController() {
             super(P, I, D, LoopInterval);
