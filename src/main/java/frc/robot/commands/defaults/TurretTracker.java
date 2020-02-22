@@ -16,7 +16,7 @@ public class TurretTracker extends CommandBase {
 
     @Override
     public void initialize() {
-        // _limelight.setLedMode(3);
+        _limelight.setLedMode(3);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class TurretTracker extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        // _limelight.setLedMode(1);
+        _limelight.setLedMode(1);
     }
 }

@@ -13,7 +13,7 @@ public class StartIntake extends CommandBase {
 
     @Override
     public void execute() {
-        _intake.setIntakePower(0.8);
+        _intake.setIntakePower(0.7);
     }
 
     @Override
