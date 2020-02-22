@@ -24,9 +24,11 @@ public class TurretTracker extends CommandBase {
         // Turn turret 0.186 degrees per pixel we are off on the x-axis
         // Target takes up 7.98% of the screen at 56.184" away
         // Distance = squirt(25204.3/% of image)
-        double xtarget = _limelight.xTarget();
+        if (_limelight.hasTarget()) {
+            double xtarget = _limelight.xTarget();
 
-        _turret.setRelativePosition(-xtarget);
+            _turret.setRelativePosition(-xtarget);
+        }
     }
 
     @Override
