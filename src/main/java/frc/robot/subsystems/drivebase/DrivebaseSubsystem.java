@@ -48,6 +48,11 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         _rightGearbox.setPower(rightPower);
     }
 
+    public void setBreakMode(boolean breakModeOn) {
+        _leftGearbox.setBreakMode(breakModeOn);
+        _rightGearbox.setBreakMode(breakModeOn);
+    }
+
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         // TODO: I think RamsetCommand assumes left and right are swapped? Or somethings weird.
         // _leftGearbox.setVoltage(-leftVolts);
