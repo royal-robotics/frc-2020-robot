@@ -16,7 +16,7 @@ public class TurretTracker extends CommandBase {
 
     @Override
     public void initialize() {
-        // _limelight.setLedMode(3);
+        _limelight.setLedMode(3);
     }
 
     @Override
@@ -24,13 +24,15 @@ public class TurretTracker extends CommandBase {
         // Turn turret 0.186 degrees per pixel we are off on the x-axis
         // Target takes up 7.98% of the screen at 56.184" away
         // Distance = squirt(25204.3/% of image)
-        double xtarget = _limelight.xTarget();
 
-        _turret.setRelativePosition(-xtarget);
+        if (_limelight.hasTarget()) {
+            double xtarget = _limelight.xTarget();
+            _turret.setRelativePosition(-xtarget);
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
-        // _limelight.setLedMode(1);
+        _limelight.setLedMode(1);
     }
 }

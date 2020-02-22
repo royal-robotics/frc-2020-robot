@@ -48,6 +48,14 @@ public class Intake extends RoyalSubsystem {
         _ballConveyor.set(ControlMode.PercentOutput, power);
     }
 
+    public boolean isBallAtTop() {
+        return !_ballSensorTop.get();
+    }
+
+    public boolean isBallAtBottom() {
+        return !_ballSensorBottom.get();
+    }
+
     @Override
     public void periodic() {
         updateDiagnostics();
@@ -56,7 +64,9 @@ public class Intake extends RoyalSubsystem {
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Intake/BallIn/Power", _ballIn.get());
         SmartDashboard.putNumber("Intake/Conveyor/Power", _ballConveyor.get());
-        SmartDashboard.putBoolean("Intake/Conveyor/BottomSensor", Components.Intake.getBottomBallSensor());
-        SmartDashboard.putBoolean("Intake/Conveyor/TopSensor", Components.Intake.getTopBallSensor());
+        // SmartDashboard.putBoolean("Intake/Conveyor/BottomSensor", Components.Intake.getBottomBallSensor());
+        // SmartDashboard.putBoolean("Intake/Conveyor/TopSensor", Components.Intake.getTopBallSensor());
+        SmartDashboard.putBoolean("Intake/Conveyor/BottomSensor", isBallAtBottom());
+        SmartDashboard.putBoolean("Intake/Conveyor/TopSensor", isBallAtTop());
     }
 }
