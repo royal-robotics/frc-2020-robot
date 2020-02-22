@@ -19,6 +19,8 @@ public class Intake extends RoyalSubsystem {
         _ballConveyor = Components.Intake.conveyer;
         _ballSensorBottom = Components.Intake.ballSensorBottom;
         _ballSensorTop = Components.Intake.ballSensorTop;
+
+        _ballConveyor.setInverted(true);
     }
 
     public void intakeOn() {
@@ -38,8 +40,11 @@ public class Intake extends RoyalSubsystem {
         }
     }
 
-    public void setPower(double power) {
-        _ballIn.set(ControlMode.PercentOutput, -power);
+    public void setIntakePower(double power) {
+        _ballIn.set(ControlMode.PercentOutput, power);
+    }
+
+    public void setConveyorPower(double power){
         _ballConveyor.set(ControlMode.PercentOutput, power);
     }
 
@@ -51,5 +56,7 @@ public class Intake extends RoyalSubsystem {
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Intake/BallIn/Power", _ballIn.get());
         SmartDashboard.putNumber("Intake/Conveyor/Power", _ballConveyor.get());
+        SmartDashboard.putBoolean("Intake/Conveyor/BottomSensor", Components.Intake.getBottomBallSensor());
+        SmartDashboard.putBoolean("Intake/Conveyor/TopSensor", Components.Intake.getTopBallSensor());
     }
 }
