@@ -17,6 +17,9 @@ public class Limelight {
     public double xTarget() {
         return _table.getEntry("tx").getNumber(0.0).doubleValue();
     }
+    public double areaTarget() {
+        return _table.getEntry("ta").getNumber(0.0).doubleValue();
+    }
 
     public double yTarget() {
         return _table.getEntry("ty").getNumber(0.0).doubleValue();

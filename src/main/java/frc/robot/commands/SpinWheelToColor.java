@@ -22,6 +22,7 @@ public class SpinWheelToColor extends CommandBase {
         _timeoutTimer.reset();
         _timeoutTimer.start();
         _colorWheel.setPower(1.0);
+        System.out.println("Warning: initialize");
     }
 
     @Override

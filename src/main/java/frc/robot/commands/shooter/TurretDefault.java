@@ -18,7 +18,7 @@ public class TurretDefault extends CommandBase {
         _turret = turret;
         _moveTurret = Controls.Turret.moveTurret;
 
-        Controls.Turret.autoTrackShooter.whenHeld(new TurretTracker(_turret));
+        // Controls.Turret.autoTrackShooter.whenHeld(new TurretTracker(_turret));
     }
 
 	@Override

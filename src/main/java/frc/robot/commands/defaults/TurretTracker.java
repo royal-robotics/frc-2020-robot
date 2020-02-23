@@ -10,6 +10,7 @@ public class TurretTracker extends CommandBase {
     private final Limelight _limelight;
 
     public TurretTracker(Turret turret) {
+        addRequirements(turret);
         _turret = turret;
         _limelight = Components.Camera.limelight;
     }
@@ -28,6 +29,10 @@ public class TurretTracker extends CommandBase {
             double xtarget = _limelight.xTarget();
 
             _turret.setRelativePosition(-xtarget);
+            if (!_turret.isEnabled()) {
+                _turret.enable();
+            }
+        } else {
         }
     }
 

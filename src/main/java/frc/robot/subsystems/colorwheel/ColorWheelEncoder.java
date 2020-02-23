@@ -1,6 +1,7 @@
 package frc.robot.subsystems.colorwheel;
 
 import com.revrobotics.*;
+import com.revrobotics.ColorSensorV3.*;
 
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Components;
@@ -24,6 +25,10 @@ public class ColorWheelEncoder {
         _colorMatcher.addColorMatch(_blue);
         _colorMatcher.addColorMatch(_green);
         _colorMatcher.addColorMatch(_yellow);
+    }
+
+    public Color getActualColor() {
+        return _colorSensor.getColor();
     }
 
     public Color getColor() {
@@ -55,7 +60,7 @@ public class ColorWheelEncoder {
 
     public void updateControlLoop() {
         final var matchResult = _colorMatcher.matchClosestColor(_colorSensor.getColor());
-        if (matchResult.confidence < 0.8) {
+        if (matchResult.confidence < 0.9) {
             // We're not looking at the color wheel.
             return;
         }

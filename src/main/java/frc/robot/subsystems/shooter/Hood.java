@@ -14,7 +14,7 @@ public class Hood extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "hood-position-v4.txt";
+    private static final String positionSettingName = "hood-position-v5";
 
     public Hood() {
         super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 0.5);
@@ -56,7 +56,8 @@ public class Hood extends PositionConstrainedSubsystem {
     protected double clampOnConstraints(double value) {
         // Something is a little wrong with the cordinantes of the BaseClass+Turret :(
         // And this was the easiest fix :(
-        return -super.clampOnConstraints(-value);
+        // return -super.clampOnConstraints(-value);
+        return -super.clampOnConstraints(value);
     }
 
     private void updateSave(double power) {
@@ -93,8 +94,8 @@ public class Hood extends PositionConstrainedSubsystem {
 
     private static class HoodPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
-        private static final double P = 0.1;
-        private static final double I = 0.01 / (1000.0 / LoopIntervalMs);
+        private static final double P = 0.3;
+        private static final double I = 0.03 / (1000.0 / LoopIntervalMs);
         private static final double D = 0.03;
 
         public HoodPidController() {
