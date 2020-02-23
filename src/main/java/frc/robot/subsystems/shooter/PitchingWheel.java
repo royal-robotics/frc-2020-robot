@@ -33,5 +33,7 @@ public class PitchingWheel extends RoyalSubsystem {
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Shooter/PitchingWheel/Power", _motor.get());
         SmartDashboard.putNumber("Shooter/PitchingWheel/Velocity", _encoder.getVelocity());
+        SmartDashboard.putNumber("Shooter/PitchingWheel/BusVoltage", _motor.getBusVoltage());
+        SmartDashboard.putNumber("Shooter/PitchingWheel/Current", _motor.getOutputCurrent());
     }
 }
