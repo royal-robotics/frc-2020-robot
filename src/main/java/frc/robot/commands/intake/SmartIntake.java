@@ -1,11 +1,13 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Components;
 import frc.robot.subsystems.Intake;
 
 public class SmartIntake extends CommandBase {
     private final Intake _intake;
+
+    private boolean _extraConveyor = false;
+    private int _extraFrames = 0;
 
     public SmartIntake(Intake intake) {
         _intake = intake;
@@ -21,10 +23,18 @@ public class SmartIntake extends CommandBase {
             _intake.setIntakePower(0.8);
 
             // Only run the intake if there's a ball visible.
-            if (_intake.isBallAtBottom()) {
-                _intake.setConveyorPower(0.9);
+            if (_intake.isBallAtBottom() || (_extraConveyor && (_extraFrames <= 3))) {
+                _intake.setConveyorPower(0.8);
+                _extraConveyor = true;
+
+                if (!_intake.isBallAtBottom() && _extraConveyor) {
+                    System.out.println("ExtraFrames: " + _extraFrames);
+                    _extraFrames++;
+                }
             } else {
                 _intake.setConveyorPower(0.0);
+                _extraFrames = 0;
+                _extraConveyor = false;
             }
         }
     }
