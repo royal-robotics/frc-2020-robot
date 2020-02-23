@@ -1,6 +1,7 @@
 package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.*;
 
@@ -24,5 +25,10 @@ public class Lock extends SubsystemBase {
     public void toggle() {
         System.out.println("Toggle! " + _lock.getPosition());
         set(!get());
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("Climber/Lock/Enabled", get());
     }
 }

@@ -15,8 +15,8 @@ public class ColorWheelDefault extends CommandBase {
         _colorWheel = colorWheel;
 
         _throttle = Controls.ColorWheel.throttle;
-        // Controls.ColorWheel.turnWheelSetTimes.whenPressed(new SpinWheelNumTimes(_colorWheel, 4));
-        // Controls.ColorWheel.turnWheelToColor.whenPressed(new SpinWheelToColor(_colorWheel, ColorWheel.Blue));
+        Controls.ColorWheel.turnWheelSetTimes.whenPressed(new SpinWheelNumTimes(_colorWheel, 3));
+        Controls.ColorWheel.turnWheelToColor.whenPressed(new SpinWheelToColor(_colorWheel, ColorWheelConsts.spinToColor(ColorWheelConsts.Blue)));
     }
 
 	@Override

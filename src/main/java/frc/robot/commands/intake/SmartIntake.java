@@ -12,16 +12,20 @@ public class SmartIntake extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        _intake.setIntakePower(0.8);
-    }
-
-    @Override
     public void execute() {
-        if (Components.Intake.getBottomBallSensor() && !Components.Intake.getTopBallSensor()) {
-            _intake.setConveyorPower(0.8);
-        } else {
+        if (_intake.isBallAtTop()) {
+            // We can't intake more balls if there's one at the top already.
             _intake.setConveyorPower(0.0);
+            _intake.setIntakePower(0.0);
+        } else {
+            _intake.setIntakePower(0.8);
+
+            // Only run the intake if there's a ball visible.
+            if (_intake.isBallAtBottom()) {
+                _intake.setConveyorPower(0.9);
+            } else {
+                _intake.setConveyorPower(0.0);
+            }
         }
     }
 

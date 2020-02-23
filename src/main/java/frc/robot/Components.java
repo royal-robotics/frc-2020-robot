@@ -24,10 +24,6 @@ public final class Components {
         public final static WPI_TalonSRX conveyer = new WPI_TalonSRX(8); // Feeds ball
         public final static DigitalInput ballSensorBottom = new DigitalInput(2);
         public final static DigitalInput ballSensorTop = new DigitalInput(3);
-
-        // TODO: these should be members of Intake.
-        public final static boolean getBottomBallSensor() { return !ballSensorBottom.get(); }
-        public final static boolean getTopBallSensor() { return !ballSensorTop.get(); }
     }
 
     public static class Shooter {

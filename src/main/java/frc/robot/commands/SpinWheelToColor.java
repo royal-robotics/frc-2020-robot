@@ -21,14 +21,14 @@ public class SpinWheelToColor extends CommandBase {
     public void initialize() {
         _timeoutTimer.reset();
         _timeoutTimer.start();
-        _colorWheel.setPower(0.8);
+        _colorWheel.setPower(1.0);
     }
 
     @Override
     public boolean isFinished() {
         // Turn the motor off if some idiot hit the button
         // and we're not at the color wheel.
-        final var TimeoutSeconds = 5.0;
+        final var TimeoutSeconds = 15.0;
         if (_timeoutTimer.hasPeriodPassed(TimeoutSeconds)) {
             System.out.println("Warning: Sping wheel timeout");
             return true;

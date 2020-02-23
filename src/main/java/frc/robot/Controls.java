@@ -18,6 +18,7 @@ public final class Controls {
         public final static Button shootBall = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
 
         // Overrides, ideally these aren't part of a normal match.
+        public final static Button forceBallInBackwards = controlsFactory.createButton(Controller.Operator, Logitech310Button.Start);
         public final static Button forceIntakeIn = controlsFactory.createDPadButton(Controller.Operator, Direction.Up);
         public final static Button forceIntakeOut = controlsFactory.createDPadButton(Controller.Operator, Direction.Down);
     }

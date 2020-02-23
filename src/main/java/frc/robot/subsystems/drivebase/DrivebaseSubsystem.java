@@ -17,12 +17,6 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     private final DifferentialDriveOdometry _odometry;
 
     public DrivebaseSubsystem() {
-        // TODO: Set motors to coast (via the gearbox) when entering manual commands, set to break when entering auto ones
-        // Components.Drivebase.leftMotor1.setNeutralMode(NeutralMode.Brake);
-        // Components.Drivebase.leftMotor2.setNeutralMode(NeutralMode.Brake);
-        // Components.Drivebase.rightMotor1.setNeutralMode(NeutralMode.Brake);
-        // Components.Drivebase.rightMotor2.setNeutralMode(NeutralMode.Brake);
-
         _leftGearbox = new DriveGearbox(true, Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
         _rightGearbox = new DriveGearbox(false, Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
 
