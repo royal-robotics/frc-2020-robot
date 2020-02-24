@@ -23,9 +23,6 @@ public class Climber {
     }
 
     public void bindCommands() {
-        elevator.setDefaultCommand(new ElevatorDefault(elevator));
-        balancer.setDefaultCommand(new BalancerDefault(balancer));
-
         Controls.Climber.quickMoveElevatorBottom.whileHeld(new ElevatorMoveCommand(elevator, 0.0));
         Controls.Climber.quickMoveElevatorTop.whileHeld(new ElevatorMoveCommand(elevator, 29.0));
         _toggleLock.toggleWhenPressed(new InstantCommand(() -> lock.toggle()));

@@ -23,14 +23,11 @@ public class SmartIntake extends CommandBase {
             _intake.setIntakePower(0.8);
 
             // Only run the intake if there's a ball visible.
-            if (_intake.isBallAtBottom() || (_extraConveyor && (_extraFrames <= 3))) {
+            if (_intake.isBallAtBottom()) {
                 _intake.setConveyorPower(0.8);
                 _extraConveyor = true;
-
-                if (!_intake.isBallAtBottom() && _extraConveyor) {
-                    System.out.println("ExtraFrames: " + _extraFrames);
-                    _extraFrames++;
-                }
+            } else if (_extraConveyor && (_extraFrames <= 3)) {
+                _extraFrames++;
             } else {
                 _intake.setConveyorPower(0.0);
                 _extraFrames = 0;

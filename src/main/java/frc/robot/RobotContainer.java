@@ -33,7 +33,10 @@ public class RobotContainer {
         intake.setDefaultCommand(new IntakeDefault(intake));
         colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
+        shooter.hood.setDefaultCommand(new HoodDefault(shooter.hood));
+        shooter.pitchingWheel.setDefaultCommand(new PitchingWheelDefault(shooter.pitchingWheel));
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
+        climber.balancer.setDefaultCommand(new BalancerDefault(climber.balancer));
     }
 
     public final void storeState() {

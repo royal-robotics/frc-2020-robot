@@ -21,10 +21,6 @@ public class Shooter {
     }
 
     public void bindCommands() {
-        turret.setDefaultCommand(new TurretDefault(turret));
-        hood.setDefaultCommand(new HoodDefault(hood));
-        pitchingWheel.setDefaultCommand(new PitchingWheelDefault(pitchingWheel));
-
         final var moveTurrent = new TurretTracker(turret);
         final var setPitchingWheel = new RunCommand(() -> {
             if (_limelight.hasTarget()) {
