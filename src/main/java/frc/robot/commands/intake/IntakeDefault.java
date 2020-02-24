@@ -7,7 +7,6 @@ import frc.robot.subsystems.intake.*;
 
 public class IntakeDefault extends CommandBase {
     private final Intake _intake;
-    // private final Button _runBallIntake;
     private final Button _shootBall;
     private final Button _forceIntakeIn;
     private final Button _forceIntakeOut;
@@ -18,9 +17,6 @@ public class IntakeDefault extends CommandBase {
         addRequirements(intake);
         _intake = intake;
 
-        // Controls.Intake.shootBall.whenHeld(new ShootBallConveyor(_intake));
-
-        // _runBallIntake = Controls.Intake.runBallIntake;
         _shootBall = Controls.Intake.shootBall;
         _forceIntakeIn = Controls.Intake.forceIntakeIn;
         _forceIntakeOut = Controls.Intake.forceIntakeOut;

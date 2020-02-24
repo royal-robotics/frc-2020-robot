@@ -16,7 +16,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
     private final Climber climber = new Climber();
-    private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
+    private final ColorWheel colorWheel = new ColorWheel();
 
     // private final DriverTab driverTab = new DriverTab(drivebase, intake);
     // private final ConfigsTab configsTab = new ConfigsTab(drivebase, intake);

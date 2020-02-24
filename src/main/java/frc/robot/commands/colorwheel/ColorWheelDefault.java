@@ -6,10 +6,10 @@ import frc.robot.*;
 import frc.robot.subsystems.colorwheel.*;
 
 public class ColorWheelDefault extends CommandBase {
-    private final ColorWheelSubsystem _colorWheel;
+    private final ColorWheel _colorWheel;
     private final Axis _throttle;
 
-    public ColorWheelDefault(ColorWheelSubsystem colorWheel) {
+    public ColorWheelDefault(ColorWheel colorWheel) {
         addRequirements(colorWheel);
         _colorWheel = colorWheel;
 

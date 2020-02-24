@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.*;
 
-public class ColorWheelSubsystem extends SubsystemBase {
+public class ColorWheel extends SubsystemBase {
     private final ColorWheelEncoder _encoder;
     private final WPI_TalonSRX _wheel;
 
-    public ColorWheelSubsystem() {
+    public ColorWheel() {
         _encoder = new ColorWheelEncoder();
         _wheel = Components.ColorWheel.wheel;
     }
