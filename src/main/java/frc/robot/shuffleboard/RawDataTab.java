@@ -1,6 +1,6 @@
 package frc.robot.shuffleboard;
 
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.drivebase.*;
 
 public class RawDataTab extends RoyalShuffleTab {

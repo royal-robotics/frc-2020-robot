@@ -2,11 +2,11 @@ package frc.robot.subsystems.shooter;
 
 import com.revrobotics.*;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.*;
-import frc.robot.subsystems.RoyalSubsystem;
 
-public class PitchingWheel extends RoyalSubsystem {
+public class PitchingWheel extends SubsystemBase {
     private final CANSparkMax _motor;
     private final CANEncoder _encoder;
     private final CANPIDController _controller;

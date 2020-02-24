@@ -1,18 +1,15 @@
 package frc.robot.subsystems.shooter;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.libs.components.Limelight;
 import frc.robot.*;
-import frc.robot.commands.*;
-import frc.robot.commands.defaults.TurretTracker;
 import frc.robot.commands.shooter.*;
 
 public class Shooter {
     public final Turret turret;
     public final Hood hood;
     public final PitchingWheel pitchingWheel;
-    private final Limelight _limelight; // TODO: Move this into a command
+    private final Limelight _limelight; // TODO: Move this into a subsystem?
 
     public Shooter() {
         turret = new Turret();

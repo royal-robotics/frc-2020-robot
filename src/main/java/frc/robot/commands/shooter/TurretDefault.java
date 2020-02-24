@@ -3,7 +3,6 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.libs.controls.*;
 import frc.robot.*;
-import frc.robot.commands.defaults.TurretTracker;
 import frc.robot.subsystems.shooter.*;
 
 public class TurretDefault extends CommandBase {

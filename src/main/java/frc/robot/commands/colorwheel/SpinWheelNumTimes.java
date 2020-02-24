@@ -1,19 +1,17 @@
-package frc.robot.commands;
+package frc.robot.commands.colorwheel;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.util.*;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.colorwheel.*;
 
-public class SpinWheelToColor extends CommandBase {
+public class SpinWheelNumTimes extends CommandBase {
     private final ColorWheelSubsystem _colorWheel;
-    private final Color _color;
+    private final int _numSpins;
     private final Timer _timeoutTimer;
 
-    public SpinWheelToColor(ColorWheelSubsystem colorWheel, Color color) {
-        addRequirements(colorWheel);
+    public SpinWheelNumTimes(ColorWheelSubsystem colorWheel, int numSpins) {
         _colorWheel = colorWheel;
-        _color = color;
+        _numSpins = numSpins;
         _timeoutTimer = new Timer();
     }
 
@@ -21,8 +19,8 @@ public class SpinWheelToColor extends CommandBase {
     public void initialize() {
         _timeoutTimer.reset();
         _timeoutTimer.start();
+        _colorWheel.getEncoder().reset();
         _colorWheel.setPower(1.0);
-        System.out.println("Warning: initialize");
     }
 
     @Override
@@ -35,9 +33,8 @@ public class SpinWheelToColor extends CommandBase {
             return true;
         }
 
-        return _colorWheel.getEncoder().getColor().equals(_color);
+        return _colorWheel.getEncoder().getTurns() >= _numSpins;
     }
-
 
     @Override
     public void end(boolean interrupted) {

@@ -1,16 +1,15 @@
 package frc.robot;
 
-import frc.robot.commands.climber.ElevatorDefault;
+import frc.robot.commands.climber.*;
 import frc.robot.commands.colorwheel.*;
 import frc.robot.commands.drivebase.*;
 import frc.robot.commands.intake.*;
-import frc.robot.commands.shooter.TurretDefault;
-import frc.robot.subsystems.*;
+import frc.robot.commands.shooter.*;
 import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.colorwheel.*;
 import frc.robot.subsystems.drivebase.*;
+import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.shooter.*;
-import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
     private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();

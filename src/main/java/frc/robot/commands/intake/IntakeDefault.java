@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Controls;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.intake.*;
 
 public class IntakeDefault extends CommandBase {
     private final Intake _intake;

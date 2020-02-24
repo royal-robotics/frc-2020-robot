@@ -1,12 +1,13 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.*;
 
-public class Intake extends RoyalSubsystem {
+public class Intake extends SubsystemBase {
     private final WPI_TalonSRX _ballIn;
     private final WPI_TalonSRX _ballConveyor;
     private final DigitalInput _ballSensorBottom;

@@ -1,11 +1,11 @@
 package frc.robot.subsystems.colorwheel;
 
 import com.ctre.phoenix.motorcontrol.can.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.*;
-import frc.robot.subsystems.*;
 
-public class ColorWheelSubsystem extends RoyalSubsystem {
+public class ColorWheelSubsystem extends SubsystemBase {
     private final ColorWheelEncoder _encoder;
     private final WPI_TalonSRX _wheel;
 

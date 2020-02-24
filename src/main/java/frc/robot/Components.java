@@ -5,7 +5,7 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.interfaces.*;
-import frc.libs.components.Limelight;
+import frc.libs.components.*;
 
 import com.revrobotics.ColorSensorV3;
 

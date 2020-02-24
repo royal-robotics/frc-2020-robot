@@ -2,8 +2,7 @@ package frc.robot.commands.colorwheel;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.libs.controls.*;
-import frc.robot.Controls;
-import frc.robot.commands.*;
+import frc.robot.*;
 import frc.robot.subsystems.colorwheel.*;
 
 public class ColorWheelDefault extends CommandBase {

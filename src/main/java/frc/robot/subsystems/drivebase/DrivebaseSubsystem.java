@@ -1,15 +1,13 @@
 package frc.robot.subsystems.drivebase;
 
-import frc.robot.Components;
-import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.*;
+import frc.robot.*;
 import edu.wpi.first.wpilibj.geometry.*;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.*;
 
-public final class DrivebaseSubsystem extends RoyalSubsystem
-{
+public final class DrivebaseSubsystem extends SubsystemBase {
     private final DriveGearbox _leftGearbox;
     private final DriveGearbox _rightGearbox;
     private final Gyro _gyro;
@@ -32,7 +30,6 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         final var rightDistance = _rightGearbox.getPosition();
         _odometry.update(gyroAngle, leftDistance, rightDistance);
 
-        final var wheelSpeeds = getWheelSpeeds();
         SmartDashboard.putNumber("drive/left/velocity", getWheelSpeeds().leftMetersPerSecond);
         SmartDashboard.putNumber("drive/right/velocity", getWheelSpeeds().rightMetersPerSecond);
     }
