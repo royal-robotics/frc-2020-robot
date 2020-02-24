@@ -69,15 +69,15 @@ public final class Controls {
             private final static Axis throttle = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.LeftStickY);
             private final static Axis steer = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.RightStickX);
 
-            private static double getSteerDampened() { return -steer.get() * 0.75; }
-            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(throttle.get() + getSteerDampened(), throttle.get() - getSteerDampened()); }
+            private static double getSteerDampened() { return -steer.getSquared() * 0.75; }
+            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(throttle.getSquared() + getSteerDampened(), throttle.getSquared() - getSteerDampened()); }
         }
 
         private static class TankDrive {
             private final static Axis leftAxis = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.LeftStickY);
             private final static Axis rightAxis = controlsFactory.createAxis(Controller.Driver, Logitech310Axis.RightStickY);
 
-            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(leftAxis.get(), rightAxis.get()); }
+            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(leftAxis.getSquared(), rightAxis.getSquared()); }
         }
     }
 }

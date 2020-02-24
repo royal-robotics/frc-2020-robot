@@ -14,7 +14,7 @@ public class Hood extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "hood-position-v5";
+    private static final String positionSettingName = "hood-position-v6";
 
     public Hood() {
         super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 0.5);
@@ -42,11 +42,7 @@ public class Hood extends PositionConstrainedSubsystem {
 
     @Override
     protected void setOutput(double pidError, double setpoint) {
-        // final var feedforwardHelper = new SimpleMotorFeedforward(0.451, 0.102, 0.000757);
-        // final var feedforwardVelocity = getMeasurement() < setpoint ? 30.0 : -30.0;
-        // final var feedforward = feedforwardHelper.calculate(feedforwardVelocity);
         final var feedforward = 0.0;
-
         var power = clampOnConstraints(feedforward + pidError);
         updateSave(power);
         _motor.setSpeed(power);
@@ -54,9 +50,7 @@ public class Hood extends PositionConstrainedSubsystem {
 
     @Override
     protected double clampOnConstraints(double value) {
-        // Something is a little wrong with the cordinantes of the BaseClass+Turret :(
-        // And this was the easiest fix :(
-        // return -super.clampOnConstraints(-value);
+        // Hood PWM needs to be inverted
         return -super.clampOnConstraints(value);
     }
 

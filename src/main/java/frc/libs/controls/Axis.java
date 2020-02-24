@@ -15,11 +15,28 @@ public class Axis {
     }
 
     public double get() {
+        return this.get(false);
+    }
+
+    public double get(boolean invert) {
         if (inDeadband()) {
             return 0.0;
         }
         final var rawAxis = _rawAxis.get();
-        return rawAxis;
+        return invert ? -rawAxis : rawAxis;
+    }
+
+    public double getSquared() {
+        if (inDeadband()) {
+            return 0.0;
+        }
+
+        final var rawAxis = _rawAxis.get();
+        if (rawAxis < 0.0) {
+            return -(rawAxis * rawAxis);
+        } else {
+            return rawAxis * rawAxis;
+        }
     }
 
     public boolean inDeadband() {

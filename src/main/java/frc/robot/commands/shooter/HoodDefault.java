@@ -20,7 +20,7 @@ public class HoodDefault extends CommandBase {
 
 	@Override
     public void execute() {
-        final var hoodPower = _moveHood.get();
+        final var hoodPower = _moveHood.get(true);
         _hood.setPower(hoodPower);
 
         // If we're entering the deadband state we want to save the current position.
