@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.kinematics.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.*;
 
-public final class DrivebaseSubsystem extends SubsystemBase {
+public final class Drivebase extends SubsystemBase {
     private final DriveGearbox _leftGearbox;
     private final DriveGearbox _rightGearbox;
     private final Gyro _gyro;
 
     private final DifferentialDriveOdometry _odometry;
 
-    public DrivebaseSubsystem() {
+    public Drivebase() {
         _leftGearbox = new DriveGearbox(true, Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
         _rightGearbox = new DriveGearbox(false, Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
 

@@ -4,12 +4,12 @@ import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.drivebase.*;
 
 public class RawDataTab extends RoyalShuffleTab {
-    private final DrivebaseSubsystem _drivebaseSubsystem;
+    private final Drivebase _drivebase;
     private final Intake _intake;
 
-    public RawDataTab(DrivebaseSubsystem drivebaseSubsystem, Intake intake) {
+    public RawDataTab(Drivebase drivebase, Intake intake) {
         super("Driver");
-        _drivebaseSubsystem = drivebaseSubsystem;
+        _drivebase = drivebase;
         _intake = intake;
 
         this.initialize();

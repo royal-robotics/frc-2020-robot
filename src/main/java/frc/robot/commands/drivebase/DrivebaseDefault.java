@@ -2,14 +2,14 @@ package frc.robot.commands.drivebase;
 
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.*;
-import frc.robot.Controls;
+import frc.robot.*;
 import frc.robot.subsystems.drivebase.*;
 
 public class DrivebaseDefault extends CommandBase {
-    private final DrivebaseSubsystem _drivebase;
+    private final Drivebase _drivebase;
     private final Button _snailModeEnabled;
 
-    public DrivebaseDefault(DrivebaseSubsystem drivebase) {
+    public DrivebaseDefault(Drivebase drivebase) {
         addRequirements(drivebase);
         _drivebase = drivebase;
         _snailModeEnabled = Controls.DriveBase.snailSpeed;

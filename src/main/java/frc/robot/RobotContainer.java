@@ -12,7 +12,7 @@ import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.shooter.*;
 
 public class RobotContainer {
-    private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
+    private final Drivebase drivebase = new Drivebase();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
     private final Climber climber = new Climber();
