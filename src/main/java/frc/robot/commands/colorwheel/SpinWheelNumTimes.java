@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.colorwheel.*;
 
 public class SpinWheelNumTimes extends CommandBase {
-    private final ColorWheel _colorwheel;
+    private final ColorWheel _colorWheel;
     private final int _numSpins;
     private final Timer _timeoutTimer;
 
     public SpinWheelNumTimes(ColorWheel colorWheel, int numSpins) {
-        _colorwheel = colorWheel;
+        _colorWheel = colorWheel;
         _numSpins = numSpins;
         _timeoutTimer = new Timer();
     }
@@ -19,8 +19,8 @@ public class SpinWheelNumTimes extends CommandBase {
     public void initialize() {
         _timeoutTimer.reset();
         _timeoutTimer.start();
-        _colorwheel.getEncoder().reset();
-        _colorwheel.setPower(1.0);
+        _colorWheel.getEncoder().reset();
+        _colorWheel.setPower(1.0);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class SpinWheelNumTimes extends CommandBase {
             return true;
         }
 
-        return _colorwheel.getEncoder().getTurns() >= _numSpins;
+        return _colorWheel.getEncoder().getTurns() >= _numSpins;
     }
 
     @Override
     public void end(boolean interrupted) {
         _timeoutTimer.stop();
-        _colorwheel.setPower(0.0);
+        _colorWheel.setPower(0.0);
     }
 }
