@@ -46,7 +46,9 @@ public final class Controls {
 
         public final static Button toggleLock = controlsFactory.createButton(Controller.Operator, Logitech310Button.Back);
 
-        public final static Button autoBalance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
+        //public final static Button autoBalance = controlsFactory.createButton(Controller.Operator, Logitech310Button.LeftBumper);
+        public final static Button balanceLeft = controlsFactory.createDPadButton(Controller.Driver, Direction.Left);
+        public final static Button balanceRight = controlsFactory.createDPadButton(Controller.Driver, Direction.Right);
     }
 
     public static class DriveBase {
