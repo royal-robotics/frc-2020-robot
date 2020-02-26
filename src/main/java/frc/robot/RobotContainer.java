@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.autonomous.modes.TestAuto;
 import frc.robot.commands.climber.ElevatorDefault;
 import frc.robot.commands.colorwheel.*;
 import frc.robot.commands.drivebase.*;
@@ -35,6 +36,9 @@ public class RobotContainer {
         colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
+
+        // Starts up an autonomous shooting
+        // Controls.autoTest.whenPressed(new TestAuto(drivebase, shooter, intake, Components.Camera.limelight));
     }
 
     public final void storeState() {

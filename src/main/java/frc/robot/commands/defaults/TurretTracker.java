@@ -8,11 +8,20 @@ import frc.robot.subsystems.shooter.Turret;
 public class TurretTracker extends CommandBase {
     private final Turret _turret;
     private final Limelight _limelight;
+    private final boolean _endOnTarget;
 
     public TurretTracker(Turret turret) {
         addRequirements(turret);
         _turret = turret;
         _limelight = Components.Camera.limelight;
+        _endOnTarget = false;
+    }
+
+    public TurretTracker(Turret turret, boolean endOnTarget) {
+        addRequirements(turret);
+        _turret = turret;
+        _limelight = Components.Camera.limelight;
+        _endOnTarget = endOnTarget;
     }
 
     @Override
@@ -34,6 +43,11 @@ public class TurretTracker extends CommandBase {
             }
         } else {
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return (_endOnTarget && _turret.isAtSetpoint());
     }
 
     @Override
