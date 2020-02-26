@@ -46,6 +46,6 @@ public class Shooter {
                 }
             }
         }, hood);
-        Controls.Turret.autoTrackShooter.whenHeld(moveTurrent.alongWith(setPitchingWheel).alongWith(setHood));
+        Controls.Turret.autoTrackShooter.whenHeld(moveTurrent.alongWith(setPitchingWheel, setHood));
     }
 }

@@ -31,7 +31,7 @@ public class RobotContainer {
         Components.Drivebase.gyro.reset();
 
         drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
-        intake.setDefaultCommand(new IntakeDefault(intake));
+        intake.setDefaultCommand(new IntakeDefault(intake, shooter));
         colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));

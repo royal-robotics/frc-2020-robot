@@ -1,12 +1,15 @@
 package frc.robot.commands.intake;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Controls;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.shooter.Shooter;
 
 public class IntakeDefault extends CommandBase {
     private final Intake _intake;
+    private final Shooter _shooter;
     // private final Button _runBallIntake;
     private final Button _shootBall;
     private final Button _forceIntakeIn;
@@ -14,9 +17,10 @@ public class IntakeDefault extends CommandBase {
     private final Button _forceBallInBackwards;
 
 
-    public IntakeDefault(Intake intake) {
+    public IntakeDefault(Intake intake, Shooter shooter) {
         addRequirements(intake);
         _intake = intake;
+        _shooter = shooter;
 
         // Controls.Intake.shootBall.whenHeld(new ShootBallConveyor(_intake));
 
@@ -31,7 +35,7 @@ public class IntakeDefault extends CommandBase {
 
 	@Override
     public void execute() {
-        if (_shootBall.get()) {
+        if (_shootBall.get() && _shooter.pitchingWheel.atRPM(0.025)) {
             _intake.setConveyorPower(1.0);
             _intake.setIntakePower(0.0);
         } else if (_forceIntakeIn.get()) {

@@ -19,7 +19,7 @@ public class ElevatorDefault extends CommandBase {
     @Override
     public void execute() {
         if (!_moveElevator.inDeadband()) {
-            final var elevatorPower = -_moveElevator.get();
+            final var elevatorPower = -Controls.Climber.getElevatorMovement();
             _elevator.setPower(elevatorPower);
         } else if (!_elevator.isEnabled()) {
             // If the joystick isn't being used and there isn't a setpoint

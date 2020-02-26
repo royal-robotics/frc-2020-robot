@@ -10,6 +10,7 @@ public class PitchingWheel extends RoyalSubsystem {
     private final CANSparkMax _motor;
     private final CANEncoder _encoder;
     private final CANPIDController _controller;
+    private double _targetRPM = 0;
 
     public PitchingWheel() {
         _motor = Components.Shooter.shooterWheel;
@@ -38,7 +39,17 @@ public class PitchingWheel extends RoyalSubsystem {
     }
 
     public void setRPM(double rpm) {
+        _targetRPM = rpm;
         _controller.setReference(rpm, ControlType.kVelocity);
+    }
+
+    public boolean atRPM(double tolerance) {
+        // final var percentTarget = Math.abs((_targetRPM - _encoder.getVelocity()) / _targetRPM);
+        // final var percentOffTarget = Math.abs(1.0 - percentTarget);
+        // return percentOffTarget >= targetPercentage;
+
+        final var variation = _targetRPM * tolerance;
+        return _encoder.getVelocity() >= (_targetRPM - variation) && _encoder.getVelocity() <= (_targetRPM + variation);
     }
 
     @Override
@@ -48,6 +59,7 @@ public class PitchingWheel extends RoyalSubsystem {
 
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Shooter/PitchingWheel/Power", _motor.get());
+        SmartDashboard.putNumber("Shooter/PitchingWheel/TargetRpm", _targetRPM);
         SmartDashboard.putNumber("Shooter/PitchingWheel/Rpm", _encoder.getVelocity());
         SmartDashboard.putNumber("Shooter/PitchingWheel/BusVoltage", _motor.getBusVoltage());
         SmartDashboard.putNumber("Shooter/PitchingWheel/Current", _motor.getOutputCurrent());
