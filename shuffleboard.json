@@ -10,24 +10,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "4,0": {
-            "size": [
-              3,
-              3
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_title": "Camera Stream",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": false,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
-            }
-          },
           "7,1": {
             "size": [
               1,
@@ -35,7 +17,7 @@
             ],
             "content": {
               "_type": "Boolean Box",
-              "_title": "Shooter Ready",
+              "_title": "Shooter Ready - Not Implemented",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -47,6 +29,7 @@
             ],
             "content": {
               "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Climber/Lock/Enabled",
               "_title": "Lock Enabled",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
@@ -59,6 +42,7 @@
             ],
             "content": {
               "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Shooter/PitchingWheel/Rpm",
               "_title": "Shooter RPM",
               "Range/Min": 0.0,
               "Range/Max": 8000.0,
@@ -72,11 +56,13 @@
             ],
             "content": {
               "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Shooter/PitchingWheel/Rpm",
               "_title": "Shooter RPM",
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Shooter/PitchingWheel/Rpm": true
             }
           },
           "9,2": {
@@ -85,13 +71,12 @@
               1
             ],
             "content": {
-              "_type": "Number Bar",
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Shooter/Hood/Degrees",
               "_title": "Hood",
-              "Range/Min": -1.0,
-              "Range/Max": 1.0,
-              "Range/Center": 0.0,
-              "Visuals/Num tick marks": 5,
-              "Visuals/Show text": true
+              "Range/Min": 42.0,
+              "Range/Max": 70.0,
+              "Visuals/Show value": true
             }
           },
           "7,2": {
@@ -101,9 +86,10 @@
             ],
             "content": {
               "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Shooter/Turret/Degrees",
               "_title": "Turret",
-              "Range/Min": -1.0,
-              "Range/Max": 1.0,
+              "Range/Min": -90.0,
+              "Range/Max": 90.0,
               "Range/Center": 0.0,
               "Visuals/Num tick marks": 5,
               "Visuals/Show text": true
@@ -116,6 +102,7 @@
             ],
             "content": {
               "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Climber/Lock/Set",
               "_title": "Lock Set",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
@@ -128,11 +115,12 @@
             ],
             "content": {
               "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Climber/Balancer/X-Angle",
               "_title": "Climber Angle",
-              "Range/Min": -1.0,
-              "Range/Max": 1.0,
+              "Range/Min": -45.0,
+              "Range/Max": 45.0,
               "Range/Center": 0.0,
-              "Visuals/Num tick marks": 5,
+              "Visuals/Num tick marks": 2,
               "Visuals/Show text": true
             }
           },
@@ -143,11 +131,12 @@
             ],
             "content": {
               "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Climber/Elevator/Position",
               "_title": "Climber Height",
-              "Range/Min": -1.0,
-              "Range/Max": 1.0,
+              "Range/Min": 0.0,
+              "Range/Max": 40.0,
               "Range/Center": 0.0,
-              "Visuals/Num tick marks": 7,
+              "Visuals/Num tick marks": 2,
               "Visuals/Show text": true
             }
           },
@@ -187,6 +176,7 @@
             ],
             "content": {
               "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake/Conveyor/TopSensor",
               "_title": "Intake Full",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
@@ -199,33 +189,29 @@
             ],
             "content": {
               "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake/Conveyor/BottomSensor",
               "_title": "Intake Sensed",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "9,4": {
+          "4,0": {
             "size": [
-              1,
-              1
+              3,
+              3
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_title": "Intake On",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "10,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_title": "Ball Count",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": false,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           },
           "8,5": {
@@ -234,10 +220,9 @@
               1
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_title": "Current Color",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ColorWheel/Sensor/Target",
+              "_title": "/SmartDashboard/ColorWheel/Sensor/Target"
             }
           },
           "7,5": {
@@ -246,10 +231,9 @@
               1
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_title": "Target Color",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ColorWheel/Sensor/Color",
+              "_title": "/SmartDashboard/ColorWheel/Sensor/Color"
             }
           },
           "9,5": {
@@ -258,10 +242,20 @@
               1
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_title": "Wheel Spins",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ColorWheel/Sensor/Turns",
+              "_title": "Wheel Spins"
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake/Conveyor/BallCount",
+              "_title": "/SmartDashboard/Intake/Conveyor/BallCount"
             }
           }
         }

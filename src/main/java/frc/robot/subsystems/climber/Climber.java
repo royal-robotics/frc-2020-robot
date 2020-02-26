@@ -15,7 +15,7 @@ public class Climber {
     public Climber() {
         elevator = new Elevator();
         balancer = new Balancer();
-        lock = new Lock();
+        lock = new Lock(elevator);
 
         _toggleLock = Controls.Climber.toggleLock;
 

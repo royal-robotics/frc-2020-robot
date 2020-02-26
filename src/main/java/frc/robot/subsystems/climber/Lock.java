@@ -8,10 +8,14 @@ import frc.robot.*;
 public class Lock extends SubsystemBase {
     private final PWM _lock;
 
+    // private boolean _confirmationTimer
+    private boolean _isConfirmed;
+
     public Lock() {
         _lock = Components.Climber.lock;
 
         set(false);
+        // _isSet = false;
     }
 
     public void set(boolean lockOn) {
@@ -29,6 +33,16 @@ public class Lock extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if (!get()) {
+            // If the lock is ever disabled, we need to reconfirm it's enabled
+            _isConfirmed = false;
+        } else {
+            // if (Comp)
+
+        }
+
+
         SmartDashboard.putBoolean("Climber/Lock/Enabled", get());
+        SmartDashboard.putBoolean("Climber/Lock/Confirmed", _isConfirmed);
     }
 }

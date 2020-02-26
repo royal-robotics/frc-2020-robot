@@ -44,8 +44,10 @@ public class Intake extends RoyalSubsystem {
 
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Intake/BallIn/Power", _ballIn.get());
+        SmartDashboard.putBoolean("Intake/BallIn/On", Math.abs(_ballIn.get()) > 0.0);
         SmartDashboard.putNumber("Intake/Conveyor/Power", _ballConveyor.get());
         SmartDashboard.putBoolean("Intake/Conveyor/BottomSensor", isBallAtBottom());
         SmartDashboard.putBoolean("Intake/Conveyor/TopSensor", isBallAtTop());
+        SmartDashboard.putString("Intake/Conveyor/BallCount", "TODO");
     }
 }
