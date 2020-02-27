@@ -56,11 +56,6 @@ public class Lock extends SubsystemBase {
         }
 
         private void checkLock() {
-            if (_isValidated) {
-                _loop.stop();
-                return;
-            }
-
             if (!_lock.get()) {
                 _isValidated = false;
                 _loop.stop();
@@ -96,7 +91,7 @@ public class Lock extends SubsystemBase {
             final var elevator1Amps = Components.Climber.elevator1.getOutputCurrent();
             final var elevator2Amps = Components.Climber.elevator2.getOutputCurrent();
             final var elevatorAmps = (elevator1Amps + elevator2Amps) / 2.0;
-            return elevatorAmps > 1.0;
+            return elevatorAmps > 1.5;
         }
 
         private double getElevatorPosition() {
