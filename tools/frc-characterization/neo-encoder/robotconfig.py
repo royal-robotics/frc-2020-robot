@@ -4,25 +4,25 @@
     #   - Set the project type to "SparkMax (Brushless/Neo)"
 
     # Ports for the spark motor controllers
-    "leftMotorPorts": [0, 1],
-    "rightMotorPorts": [2, 3],
+    "leftMotorPorts": [3, 4],
+    "rightMotorPorts": [1, 2],
 
     # Inversions of the motors
     # Note: Inversions of the slaves (i.e. any motor *after* the first on
     # each side of the drive) are *with respect to their master*.  This is
     # different from the other poject types!
-    "leftMotorsInverted": [False, False],
+    "leftMotorsInverted": [True, False],
     "rightMotorsInverted": [False, False],
 
     # The total gear reduction between the motor and the wheels, expressed as
     # a fraction [motor turns]/[wheel turns]
-    "gearing": 1,
+    "gearing": 9.36,
 
     # Wheel diameter (in units of your choice - will dictate units of analysis)
-    "wheelDiameter": 0.333,
+    "wheelDiameter": 6,
 
     # Your gyro type (one of "NavX", "Pigeon", "ADXRS450", "AnalogGyro", or "None")
-    "gyroType": "None",
+    "gyroType": "ADXRS450",
 
     # Whatever you put into the constructor of your gyro
     # Could be:
@@ -34,4 +34,5 @@
     # "" (NavX using default SPI, ADXRS450 using onboard CS0, or no gyro)
     "gyroPort": "",
 }
+
 

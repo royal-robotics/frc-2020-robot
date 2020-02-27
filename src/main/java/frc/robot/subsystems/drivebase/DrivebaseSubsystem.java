@@ -33,8 +33,11 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         _odometry.update(gyroAngle, leftDistance, rightDistance);
 
         final var wheelSpeeds = getWheelSpeeds();
-        SmartDashboard.putNumber("drive/left/velocity", getWheelSpeeds().leftMetersPerSecond);
-        SmartDashboard.putNumber("drive/right/velocity", getWheelSpeeds().rightMetersPerSecond);
+        SmartDashboard.putNumber("drive/left/velocity", wheelSpeeds.leftMetersPerSecond);
+        SmartDashboard.putNumber("drive/right/velocity", wheelSpeeds.rightMetersPerSecond);
+
+        SmartDashboard.putNumber("drive/left/position", _leftGearbox.getPosition());
+        SmartDashboard.putNumber("drive/right/position", _rightGearbox.getPosition());
     }
 
     public void setPower(double leftPower, double rightPower) {
