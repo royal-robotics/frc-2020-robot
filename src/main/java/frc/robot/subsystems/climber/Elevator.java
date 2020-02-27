@@ -79,7 +79,7 @@ public class Elevator extends PIDSubsystem {
 
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Climber/Elevator/Power", _motor.get());
-        SmartDashboard.putNumber("Climber/Elevator/Voltage", _motor.getAppliedOutput());
+        SmartDashboard.putNumber("Climber/Elevator/Curret", _motor.getOutputCurrent());
         SmartDashboard.putNumber("Climber/Elevator/Position", getMeasurement());
         SmartDashboard.putNumber("Climber/Elevator/Setpoint", m_controller.getSetpoint());
         SmartDashboard.putBoolean("Climber/Elevator/PidControlEnabled", isEnabled());
