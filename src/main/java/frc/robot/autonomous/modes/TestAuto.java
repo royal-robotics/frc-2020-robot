@@ -24,10 +24,12 @@ public class TestAuto extends AutoModeBase {
         _intake = intake;
         _limelight = limelight;
 
-        this.addCommands(new TurretTracker(shooter.turret, true),
+        // TODO: Run pitching wheel first to warm up
+        this.addCommands(new SetPitchingWheel(_shooter.pitchingWheel,1.0),
+                         new TurretTracker(shooter.turret, true),
                          new RunPitchingWheel(_shooter.pitchingWheel, _shooter.hood, _limelight),
                          new RunConveyor(_intake).withTimeout(7.0),
-                         new StopPitchingWheel(_shooter.pitchingWheel) );
+                         new SetPitchingWheel(_shooter.pitchingWheel, 0.0) );
     }
 
     private class RunPitchingWheel extends CommandBase{
@@ -45,7 +47,9 @@ public class TestAuto extends AutoModeBase {
         @Override
         public void initialize() {
             final var area = _limelight.areaTarget();
-            final var rpm = 7300.0 - (300.0 * area);
+            double rpm;
+            if (area < 0.255) { rpm = 7300; }
+            else { rpm = 7384.889 + (-336 * area); }
             _pitchingWheel.setRPM(rpm);
 
             final var angle = 61.5 - (0.515 * area);
@@ -95,17 +99,19 @@ public class TestAuto extends AutoModeBase {
         }
     }
 
-    private class StopPitchingWheel extends CommandBase {
+    private class SetPitchingWheel extends CommandBase {
         private final PitchingWheel _pitchingWheel;
+        private final double _power;
 
-        public StopPitchingWheel (PitchingWheel pitchingWheel) {
+        public SetPitchingWheel (PitchingWheel pitchingWheel, double power) {
             addRequirements(pitchingWheel);
             _pitchingWheel = pitchingWheel;
+            _power = power;
         }
 
         @Override
         public void initialize() {
-            _pitchingWheel.setPower(0.0);
+            _pitchingWheel.setPower(_power);
         }
 
         @Override

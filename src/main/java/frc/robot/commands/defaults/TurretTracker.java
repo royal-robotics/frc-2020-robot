@@ -9,6 +9,7 @@ public class TurretTracker extends CommandBase {
     private final Turret _turret;
     private final Limelight _limelight;
     private final boolean _endOnTarget;
+    public boolean finished = false;
 
     public TurretTracker(Turret turret) {
         addRequirements(turret);
@@ -31,9 +32,7 @@ public class TurretTracker extends CommandBase {
 
     @Override
     public void execute() {
-        // Turn turret 0.186 degrees per pixel we are off on the x-axis
-        // Target takes up 7.98% of the screen at 56.184" away
-        // Distance = squirt(25204.3/% of image)
+        // Distance = sqrt(25204.3/% of image)
         if (_limelight.hasTarget()) {
             double xtarget = _limelight.xTarget();
 
@@ -47,11 +46,16 @@ public class TurretTracker extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return (_endOnTarget && _turret.isAtSetpoint());
+        // return (_endOnTarget && _turret.isAtSetpoint());
+        return finished;
     }
 
     @Override
     public void end(boolean interrupted) {
         _limelight.setLedMode(1);
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

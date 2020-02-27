@@ -32,7 +32,9 @@ public class Shooter {
         final var setPitchingWheel = new RunCommand(() -> {
             if (_limelight.hasTarget()) {
                 final var area = _limelight.areaTarget();
-                final var rpm = 7300.0 - (300.0 * area);
+                double rpm;
+                if (area < 0.255) { rpm = 7300; }
+                else { rpm = 7384.889 + (-336 * area); }
                 pitchingWheel.setRPM(rpm);
             }
         }, pitchingWheel);

@@ -38,7 +38,7 @@ public class RobotContainer {
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
 
         // Starts up an autonomous shooting
-        // Controls.autoTest.whenPressed(new TestAuto(drivebase, shooter, intake, Components.Camera.limelight));
+        Controls.autoTest.whenPressed(new TestAuto(drivebase, shooter, intake, Components.Camera.limelight));
     }
 
     public final void storeState() {

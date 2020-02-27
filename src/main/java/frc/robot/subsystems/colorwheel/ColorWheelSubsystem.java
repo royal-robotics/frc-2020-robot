@@ -26,13 +26,12 @@ public class ColorWheelSubsystem extends RoyalSubsystem {
     @Override
     public void periodic() {
         _encoder.updateControlLoop();
-
-        SmartDashboard.putNumber("ColorWheel/Sensor/Red", _encoder.getActualColor().red);
-        SmartDashboard.putNumber("ColorWheel/Sensor/Green", _encoder.getActualColor().green);
-        SmartDashboard.putNumber("ColorWheel/Sensor/Blue", _encoder.getActualColor().blue);
-        SmartDashboard.putString("ColorWheel/Sensor/Target", DriverStation.getInstance().getGameSpecificMessage());
-        SmartDashboard.putString("ColorWheel/Sensor/Color", _encoder.getColorString());
-        SmartDashboard.putNumber("ColorWheel/Sensor/Turns", _encoder.getTurns());
+        SmartDashboard.putNumber("ColorWheel/Sensor/Tick", _encoder.getTurns());
+        // SmartDashboard.putNumber("ColorWheel/Sensor/Red", _encoder.getActualColor().red);
+        // SmartDashboard.putNumber("ColorWheel/Sensor/Green", _encoder.getActualColor().green);
+        // SmartDashboard.putNumber("ColorWheel/Sensor/Blue", _encoder.getActualColor().blue);
+        SmartDashboard.putString("ColorWheel/Sensor/ColorSensor", _encoder.colorSensorColor());
+        SmartDashboard.putString("ColorWheel/Sensor/FieldSensor", _encoder.fieldSensorColor());
         SmartDashboard.putNumber("ColorWheel/Motor/Power", _wheel.get());
     }
 }
