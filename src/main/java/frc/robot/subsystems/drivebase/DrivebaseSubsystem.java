@@ -58,7 +58,7 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     }
 
     public double getHeading() {
-        final boolean isGyroReversed = false;
+        final boolean isGyroReversed = true;
         return Math.IEEEremainder(_gyro.getAngle(), 360.0) * (isGyroReversed ? -1.0 : 1.0);
     }
 

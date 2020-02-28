@@ -127,8 +127,8 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private static class TurretPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
-        private static final double P = 0.04 * 12.0;
-        private static final double I = 0.05 / (1000.0 / LoopIntervalMs);
+        private static final double P = 0.015 * 12.0;
+        private static final double I = 0.00 / (1000.0 / LoopIntervalMs);
         private static final double D = 0.03;
 
         public TurretPidController() {

@@ -27,7 +27,7 @@ public class DrivePath extends RamseteCommand {
     private static final double RamseteB = 2.0;
     private static final double RamseteZeta = 0.7;
 
-    private static final double P_DriveVelocity = 0.005;
+    private static final double P_DriveVelocity = 0.01;
     private static final double I_DriveVelocity = 0.0;
     private static final double D_DriveVelocity = 0.0;
 
@@ -44,6 +44,7 @@ public class DrivePath extends RamseteCommand {
             (leftVolts, rightVolts) -> drivebase.setVolts(leftVolts, rightVolts, inverted),
             drivebase
         );
+        addRequirements(drivebase);
 
         _drivebase = drivebase;
     }
@@ -67,11 +68,11 @@ public class DrivePath extends RamseteCommand {
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
             List.of(
-                // new Translation2d(5.0, 0.0)
-                // new Translation2d(2, -1)
+                //  new Translation2d(1.33, 0.5),
+                // new Translation2d(2.66, -0.5)
             ),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(1.5, 0, new Rotation2d(0)),
+            new Pose2d(2.0, 0, new Rotation2d(0)),
+            // new Pose2d(4.0, 0, new Rotation2d(0)),
             // Pass config
             config
         );
