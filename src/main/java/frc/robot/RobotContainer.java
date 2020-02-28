@@ -1,6 +1,5 @@
 package frc.robot;
 
-import frc.robot.autonomous.modes.TestAuto;
 import frc.robot.commands.climber.ElevatorDefault;
 import frc.robot.commands.colorwheel.*;
 import frc.robot.commands.drivebase.*;
@@ -15,8 +14,8 @@ import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
     public final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
-    // public final Intake intake = new Intake();
-    // public final Shooter shooter = new Shooter();
+    public final Intake intake = new Intake();
+    public final Shooter shooter = new Shooter();
     // public final Climber climber = new Climber();
     // public final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
@@ -32,13 +31,10 @@ public class RobotContainer {
         Components.Drivebase.gyro.reset();
 
         drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
-        // intake.setDefaultCommand(new IntakeDefault(intake, shooter));
+        intake.setDefaultCommand(new IntakeDefault(intake, shooter));
         // colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
-        // shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
+        shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
         // climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
-
-        // // Starts up an autonomous shooting
-        // Controls.autoTest.whenPressed(new TestAuto(drivebase, shooter, intake, Components.Camera.limelight));
     }
 
     public final void storeState() {

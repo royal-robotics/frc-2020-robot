@@ -22,7 +22,7 @@ public class Turret extends PositionConstrainedSubsystem {
     private static final String positionSettingName = "turret-position-7";
 
     public Turret() {
-        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 1.0);
+        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 2.0);
         _motor = Components.Shooter.turret;
         _encoder = Components.Shooter.turretEncoder;
         _leftLimit = Components.Shooter.leftLimit;

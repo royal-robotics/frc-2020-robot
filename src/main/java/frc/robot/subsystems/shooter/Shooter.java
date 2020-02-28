@@ -12,15 +12,22 @@ public class Shooter {
     public final Turret turret;
     public final Hood hood;
     public final PitchingWheel pitchingWheel;
-    private final Limelight _limelight; // TODO: Move this into a command
+    public final Limelight limelight;
 
     public Shooter() {
         turret = new Turret();
         hood = new Hood();
         pitchingWheel = new PitchingWheel();
-        _limelight = Components.Camera.limelight;
+        limelight = Components.Camera.limelight;
 
         bindCommands();
+    }
+
+    public boolean readyToShoot() {
+        final var turretReady = turret.isEnabled() && turret.isAtSetpoint();
+        final var hoodReady = hood.isEnabled() && hood.isAtSetpoint();
+        final var pitchingWheelReady = pitchingWheel.onRPMTarget(0.05);
+        return turretReady && hoodReady && pitchingWheelReady;
     }
 
     public void bindCommands() {
@@ -30,8 +37,8 @@ public class Shooter {
 
         final var moveTurrent = new TurretTracker(turret);
         final var setPitchingWheel = new RunCommand(() -> {
-            if (_limelight.hasTarget()) {
-                final var area = _limelight.areaTarget();
+            if (limelight.hasTarget()) {
+                final var area = limelight.areaTarget();
                 double rpm;
                 if (area < 0.255) { rpm = 7300; }
                 else { rpm = 7384.889 + (-336 * area); }
@@ -39,15 +46,15 @@ public class Shooter {
             }
         }, pitchingWheel);
         final var setHood = new RunCommand(() -> {
-            if (_limelight.hasTarget()) {
-                final var area = _limelight.areaTarget();
+            if (limelight.hasTarget()) {
+                final var area = limelight.areaTarget();
                 double angle;
                 if (area > 3.0) {
                     angle = 42.0;
                 }
                 else {
                     angle = 61.5 - (6.515 * area);
-                } 
+                }
                 hood.setSetpoint(angle);
                 if (!hood.isEnabled()) {
                     hood.enable();

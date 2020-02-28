@@ -13,8 +13,6 @@ public final class Controls {
     private final static Joystick operator = new Joystick(1);
     private final static ControlsFactory controlsFactory = new ControlsFactory(driver, operator);
 
-    public final static Button autoTest = controlsFactory.createButton(Controller.Driver, Logitech310Button.Start);
-
     public static class Intake {
         public final static Button runBallIntake = controlsFactory.createButton(Controller.Operator, Logitech310Button.B);
         public final static Button shootBall = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
