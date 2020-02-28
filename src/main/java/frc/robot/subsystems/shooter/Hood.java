@@ -14,10 +14,10 @@ public class Hood extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "hood-position-v6";
+    private static final String positionSettingName = "hood-position-v8";
 
     public Hood() {
-        super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 0.5);
+        super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 1.0);
         _motor = Components.Shooter.hood;
         _encoder = Components.Shooter.hoodEncoder;
 
@@ -45,7 +45,10 @@ public class Hood extends PositionConstrainedSubsystem {
         final var feedforward = 0.0;
         var power = clampOnConstraints(feedforward + pidError);
         updateSave(power);
-        _motor.setSpeed(power);
+
+        if (!this.isAtSetpoint()) {
+            _motor.setSpeed(power);
+        }
     }
 
     @Override

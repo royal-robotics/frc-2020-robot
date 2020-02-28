@@ -1,8 +1,6 @@
-package frc.robot.autonomous.commands;
+package frc.robot.commands.drivebase;
 
 import java.util.*;
-
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.controller.*;
 import edu.wpi.first.wpilibj.geometry.*;
 import edu.wpi.first.wpilibj.kinematics.*;
@@ -12,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.drivebase.*;
 
 public class DrivePath extends RamseteCommand {
+    private final DrivebaseSubsystem _drivebase;
+
     private static final double StaticVolts = 0.187;
     private static final double VoltSecondsPerMeter = 2.55;
     private static final double VoltSecondsSquaredPerMeter = 0.543;
@@ -27,7 +27,6 @@ public class DrivePath extends RamseteCommand {
     private static final double RamseteB = 2.0;
     private static final double RamseteZeta = 0.7;
 
-    // "12.0 * 1000.0" converts volt/meter/second -> percentOutput/centimeter/second
     private static final double P_DriveVelocity = 0.005;
     private static final double I_DriveVelocity = 0.0;
     private static final double D_DriveVelocity = 0.0;
@@ -45,21 +44,16 @@ public class DrivePath extends RamseteCommand {
             (leftVolts, rightVolts) -> drivebase.setVolts(leftVolts, rightVolts, inverted),
             drivebase
         );
+
+        _drivebase = drivebase;
     }
 
     @Override
     public void initialize() {
         super.initialize();
-        System.out.println("Start Time: " + (RobotController.getFPGATime() / 1000.0));
+        _drivebase.setBreakMode(true);
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-        System.out.println("End Time  : " + (RobotController.getFPGATime() / 1000.0));
-    }
-
-    // TODO: Parameterize this
     private static final Trajectory getTrajectory() {
         final var kMaxSpeedMetersPerSecond = 1.0;
         final var kMaxAccelerationMetersPerSecondSquared = 0.5;

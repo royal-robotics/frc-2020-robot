@@ -1,14 +1,12 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.libs.components.*;
 import frc.robot.subsystems.shooter.*;
 
 public class TrackTarget extends ParallelCommandGroup {
     private final Shooter _shooter;
 
     public TrackTarget(Shooter shooter) {
-        this.addRequirements(shooter.turret, shooter.hood, shooter.pitchingWheel);
         _shooter = shooter;
 
         this.addCommands(
@@ -19,11 +17,13 @@ public class TrackTarget extends ParallelCommandGroup {
 
     @Override
     public void initialize() {
+        super.initialize();
         _shooter.limelight.setLedMode(3);
     }
 
     @Override
     public void end(boolean interrupted) {
+        super.end(interrupted);
         _shooter.limelight.setLedMode(1);
     }
 

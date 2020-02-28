@@ -44,6 +44,10 @@ public class PitchingWheel extends RoyalSubsystem {
     }
 
     public boolean onRPMTarget(double tolerance) {
+        if (_targetRPM == null) {
+            return false;
+        }
+
         final var variation = _targetRPM * tolerance;
         return _encoder.getVelocity() >= (_targetRPM - variation) && _encoder.getVelocity() <= (_targetRPM + variation);
     }
@@ -55,9 +59,8 @@ public class PitchingWheel extends RoyalSubsystem {
 
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Shooter/PitchingWheel/Power", _motor.get());
-        SmartDashboard.putNumber("Shooter/PitchingWheel/TargetRpm", _targetRPM);
+        SmartDashboard.putNumber("Shooter/PitchingWheel/TargetRpm", _targetRPM == null ? -1 : _targetRPM);
         SmartDashboard.putNumber("Shooter/PitchingWheel/Rpm", _encoder.getVelocity());
-        SmartDashboard.putNumber("Shooter/PitchingWheel/BusVoltage", _motor.getBusVoltage());
-        SmartDashboard.putNumber("Shooter/PitchingWheel/Current", _motor.getOutputCurrent());
+        SmartDashboard.putBoolean("Shooter/PitchingWheel/AtTarget", this.onRPMTarget(0.05));
     }
 }
