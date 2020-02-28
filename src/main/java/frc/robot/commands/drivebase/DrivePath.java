@@ -11,6 +11,7 @@ import frc.robot.subsystems.drivebase.*;
 
 public abstract class DrivePath extends SequentialCommandGroup {
     private final DrivebaseSubsystem _drivebase;
+    private final boolean _inverted;
 
     private static final double StaticVolts = 0.187;
     private static final double VoltSecondsPerMeter = 2.55;
@@ -32,26 +33,26 @@ public abstract class DrivePath extends SequentialCommandGroup {
     private static final double D_DriveVelocity = 0.0;
 
     public DrivePath(DrivebaseSubsystem drivebase, boolean inverted) {
-        this.addCommands(
-            new RamseteCommand(
-                getTrajectory(),
-                () -> drivebase.getPose(inverted),
-                new RamseteController(RamseteB, RamseteZeta),
-                MotorFeedforward,
-                DriveKinematics,
-                () -> drivebase.getWheelSpeeds(inverted),
-                new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
-                new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
-                (leftVolts, rightVolts) -> drivebase.setVolts(leftVolts, rightVolts, inverted),
-                drivebase));
-
         _drivebase = drivebase;
+        _inverted = inverted;
     }
-
     protected abstract Trajectory getTrajectory();
 
     @Override
     public void initialize() {
+        this.addCommands(
+            new RamseteCommand(
+                getTrajectory(),
+                () -> _drivebase.getPose(_inverted),
+                new RamseteController(RamseteB, RamseteZeta),
+                MotorFeedforward,
+                DriveKinematics,
+                () -> _drivebase.getWheelSpeeds(_inverted),
+                new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
+                new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
+                (leftVolts, rightVolts) -> _drivebase.setVolts(leftVolts, rightVolts, _inverted),
+                _drivebase));
+
         super.initialize();
         _drivebase.setBreakMode(true);
     }
