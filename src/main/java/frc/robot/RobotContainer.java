@@ -16,8 +16,8 @@ public class RobotContainer {
     public final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
     public final Intake intake = new Intake();
     public final Shooter shooter = new Shooter();
-    // public final Climber climber = new Climber();
-    // public final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
+    public final Climber climber = new Climber();
+    public final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
     // private final DriverTab driverTab = new DriverTab(drivebase, intake);
     // private final ConfigsTab configsTab = new ConfigsTab(drivebase, intake);
@@ -32,13 +32,13 @@ public class RobotContainer {
 
         drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
         intake.setDefaultCommand(new IntakeDefault(intake, shooter));
-        // colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
+        colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
-        // climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
+        climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
     }
 
     public final void storeState() {
-        // shooter.turret.save();
-        // shooter.hood.save();
+        shooter.turret.save();
+        shooter.hood.save();
     }
 }
