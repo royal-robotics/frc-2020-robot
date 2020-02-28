@@ -1,5 +1,6 @@
 package frc.robot.autonomous.modes;
 
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.*;
 import frc.robot.autonomous.*;
 import frc.robot.commands.drivebase.*;
@@ -13,7 +14,9 @@ public class ShootThenBackup extends AutoModeBase {
         super("Shoot Then Backup");
         _drivebase = robotContainer.drivebase;
 
-        // this.addCommands(new TargetAndShoot(robotContainer.intake, robotContainer.shooter));
-        this.addCommands(new DrivePath(_drivebase, true).andThen(() -> _drivebase.setPower(0.0, 0.0)));
+        final var targetAndShoot = new TargetAndShoot(robotContainer.intake, robotContainer.shooter);
+        final var shootWithTimeout = new ParallelRaceGroup(targetAndShoot, new WaitCommand(10.0));
+        this.addCommands(shootWithTimeout);
+        this.addCommands(new DrivePath(_drivebase, false).andThen(() -> _drivebase.setPower(0.0, 0.0)));
     }
 }
