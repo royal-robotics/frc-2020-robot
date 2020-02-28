@@ -14,7 +14,7 @@ public class ShootThenBackup extends AutoModeBase {
         addRequirements(robotContainer.drivebase);
         _drivebase = robotContainer.drivebase;
 
-        this.addCommands(new DrivePath(_drivebase));
+        this.addCommands(new DrivePath(_drivebase, false));
         this.addCommands(new InstantCommand(() -> _drivebase.setPower(-0.0, -0.0)));
         this.addCommands(new WaitCommand(1.0));
         this.addCommands(new InstantCommand(() -> _drivebase.setPower(0.0, 0.0)));

@@ -31,7 +31,7 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         final var rightDistance = _rightGearbox.getPosition();
         _odometry.update(gyroAngle, leftDistance, rightDistance);
 
-        final var wheelSpeeds = getWheelSpeeds();
+        final var wheelSpeeds = getWheelSpeeds(false);
         SmartDashboard.putNumber("drive/heading/degrees", getHeading());
         SmartDashboard.putNumber("drive/velocity/left", wheelSpeeds.leftMetersPerSecond);
         SmartDashboard.putNumber("drive/velocity/right", wheelSpeeds.rightMetersPerSecond);
@@ -52,9 +52,9 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         _rightGearbox.setBreakMode(breakModeOn);
     }
 
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
-        _leftGearbox.setVoltage(leftVolts);
-        _rightGearbox.setVoltage(rightVolts);
+    public void setVolts(double leftVolts, double rightVolts, boolean inverted) {
+        _leftGearbox.setVoltage(inverted ? -leftVolts : leftVolts);
+        _rightGearbox.setVoltage(inverted ? -rightVolts : rightVolts);
     }
 
     public double getHeading() {
@@ -62,13 +62,19 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         return Math.IEEEremainder(_gyro.getAngle(), 360.0) * (isGyroReversed ? -1.0 : 1.0);
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        final var leftVelocity = _leftGearbox.getVelocity();
-        final var rightVelocity = _rightGearbox.getVelocity();
+    public DifferentialDriveWheelSpeeds getWheelSpeeds(boolean inverted) {
+        final var leftVelocity = inverted ? -_leftGearbox.getVelocity() : _leftGearbox.getVelocity();
+        final var rightVelocity = inverted ? -_rightGearbox.getVelocity() : _rightGearbox.getVelocity();
         return new DifferentialDriveWheelSpeeds(leftVelocity, rightVelocity);
     }
 
-    public Pose2d getPose() {
-        return _odometry.getPoseMeters();
+    public Pose2d getPose(boolean inverted) {
+        if (inverted) {
+            return new Pose2d(
+                _odometry.getPoseMeters().getTranslation().rotateBy(Rotation2d.fromDegrees(180.0)),
+                _odometry.getPoseMeters().getRotation());
+        } else {
+            return _odometry.getPoseMeters();
+        }
     }
 }

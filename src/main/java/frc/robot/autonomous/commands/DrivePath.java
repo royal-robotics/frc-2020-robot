@@ -32,17 +32,17 @@ public class DrivePath extends RamseteCommand {
     private static final double I_DriveVelocity = 0.0;
     private static final double D_DriveVelocity = 0.0;
 
-    public DrivePath(DrivebaseSubsystem drivebase) {
+    public DrivePath(DrivebaseSubsystem drivebase, boolean inverted) {
         super(
             getTrajectory(),
-            drivebase::getPose,
+            () -> drivebase.getPose(inverted),
             new RamseteController(RamseteB, RamseteZeta),
             MotorFeedforward,
             DriveKinematics,
-            drivebase::getWheelSpeeds,
+            () -> drivebase.getWheelSpeeds(inverted),
             new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
             new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
-            drivebase::tankDriveVolts,
+            (leftVolts, rightVolts) -> drivebase.setVolts(leftVolts, rightVolts, inverted),
             drivebase
         );
     }
