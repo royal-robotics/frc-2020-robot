@@ -33,6 +33,7 @@ public abstract class DrivePath extends SequentialCommandGroup {
     private static final double D_DriveVelocity = 0.0;
 
     public DrivePath(DrivebaseSubsystem drivebase, boolean inverted) {
+        addRequirements(drivebase);
         _drivebase = drivebase;
         _inverted = inverted;
     }
@@ -53,7 +54,7 @@ public abstract class DrivePath extends SequentialCommandGroup {
                 (leftVolts, rightVolts) -> _drivebase.setVolts(leftVolts, rightVolts, _inverted),
                 _drivebase));
 
-        super.initialize();
         _drivebase.setBreakMode(true);
+        super.initialize();
     }
 }

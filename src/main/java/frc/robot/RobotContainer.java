@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.climber.ElevatorDefault;
 import frc.robot.commands.colorwheel.*;
 import frc.robot.commands.drivebase.*;
@@ -35,6 +37,10 @@ public class RobotContainer {
         colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
+
+        SmartDashboard.putData("Reset Drivebase", new InstantCommand(() -> {
+            drivebase.reset();
+        }));
     }
 
     public final void storeState() {

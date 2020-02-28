@@ -57,6 +57,12 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         _rightGearbox.setVoltage(inverted ? -rightVolts : rightVolts);
     }
 
+    public void reset() {
+        // _leftGearbox.reset();
+        // _rightGearbox.reset();
+        // _odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(getHeading()));
+    }
+
     public double getHeading() {
         final boolean isGyroReversed = true;
         return Math.IEEEremainder(_gyro.getAngle(), 360.0) * (isGyroReversed ? -1.0 : 1.0);
