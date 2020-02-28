@@ -28,7 +28,7 @@ public class DrivePath extends RamseteCommand {
     private static final double RamseteZeta = 0.7;
 
     // "12.0 * 1000.0" converts volt/meter/second -> percentOutput/centimeter/second
-    private static final double P_DriveVelocity = 0.0;//12.00 * 1000.0 * .01;
+    private static final double P_DriveVelocity = 0.005;
     private static final double I_DriveVelocity = 0.0;
     private static final double D_DriveVelocity = 0.0;
 
@@ -77,7 +77,7 @@ public class DrivePath extends RamseteCommand {
                 // new Translation2d(2, -1)
             ),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3.0, 0, new Rotation2d(0)),
+            new Pose2d(1.0, 0, new Rotation2d(0)),
             // Pass config
             config
         );
