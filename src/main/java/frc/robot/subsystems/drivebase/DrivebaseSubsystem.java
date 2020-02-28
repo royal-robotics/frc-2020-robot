@@ -2,7 +2,6 @@ package frc.robot.subsystems.drivebase;
 
 import frc.robot.Components;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.geometry.*;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.*;
@@ -17,8 +16,8 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     private final DifferentialDriveOdometry _odometry;
 
     public DrivebaseSubsystem() {
-        _leftGearbox = new DriveGearbox(true, Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
-        _rightGearbox = new DriveGearbox(false, Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
+        _leftGearbox = new DriveGearbox(false, Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
+        _rightGearbox = new DriveGearbox(true, Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
 
         _gyro = Components.Drivebase.gyro;
 
@@ -33,11 +32,14 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
         _odometry.update(gyroAngle, leftDistance, rightDistance);
 
         final var wheelSpeeds = getWheelSpeeds();
-        SmartDashboard.putNumber("drive/left/velocity", wheelSpeeds.leftMetersPerSecond);
-        SmartDashboard.putNumber("drive/right/velocity", wheelSpeeds.rightMetersPerSecond);
-
-        SmartDashboard.putNumber("drive/left/position", _leftGearbox.getPosition());
-        SmartDashboard.putNumber("drive/right/position", _rightGearbox.getPosition());
+        SmartDashboard.putNumber("drive/heading/degrees", getHeading());
+        SmartDashboard.putNumber("drive/velocity/left", wheelSpeeds.leftMetersPerSecond);
+        SmartDashboard.putNumber("drive/velocity/right", wheelSpeeds.rightMetersPerSecond);
+        SmartDashboard.putNumber("drive/position/left", _leftGearbox.getPosition());
+        SmartDashboard.putNumber("drive/position/right", _rightGearbox.getPosition());
+        SmartDashboard.putNumber("drive/odometry/x", _odometry.getPoseMeters().getTranslation().getX());
+        SmartDashboard.putNumber("drive/odometry/y", _odometry.getPoseMeters().getTranslation().getY());
+        SmartDashboard.putNumber("drive/odometry/angle", _odometry.getPoseMeters().getRotation().getDegrees());
     }
 
     public void setPower(double leftPower, double rightPower) {
@@ -51,16 +53,13 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        // TODO: I think RamsetCommand assumes left and right are swapped? Or somethings weird.
-        // _leftGearbox.setVoltage(-leftVolts);
-        // _rightGearbox.setVoltage(rightVolts);
         _leftGearbox.setVoltage(leftVolts);
-        _rightGearbox.setVoltage(-rightVolts);
+        _rightGearbox.setVoltage(rightVolts);
     }
 
     public double getHeading() {
         final boolean isGyroReversed = false;
-        return Math.IEEEremainder(_gyro.getAngle(), 360) * (isGyroReversed ? -1.0 : 1.0);
+        return Math.IEEEremainder(_gyro.getAngle(), 360.0) * (isGyroReversed ? -1.0 : 1.0);
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {

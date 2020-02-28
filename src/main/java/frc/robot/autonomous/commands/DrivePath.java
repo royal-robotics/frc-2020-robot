@@ -1,0 +1,85 @@
+package frc.robot.autonomous.commands;
+
+import java.util.*;
+
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.controller.*;
+import edu.wpi.first.wpilibj.geometry.*;
+import edu.wpi.first.wpilibj.kinematics.*;
+import edu.wpi.first.wpilibj.trajectory.*;
+import edu.wpi.first.wpilibj.trajectory.constraint.*;
+import edu.wpi.first.wpilibj2.command.*;
+import frc.robot.subsystems.drivebase.*;
+
+public class DrivePath extends RamseteCommand {
+    private static final double StaticVolts = 0.187;
+    private static final double VoltSecondsPerMeter = 2.55;
+    private static final double VoltSecondsSquaredPerMeter = 0.543;
+    private static final SimpleMotorFeedforward MotorFeedforward = new SimpleMotorFeedforward(StaticVolts, VoltSecondsPerMeter, VoltSecondsSquaredPerMeter);
+
+    private static final double MetersPerInch =  0.0254;
+    private static final double kTrackwidth = 25.0 * MetersPerInch; // TODO: Get a more accurate width number from SolidWorks.
+    private static final DifferentialDriveKinematics DriveKinematics = new DifferentialDriveKinematics(kTrackwidth);
+
+    private static final double MaxVoltage = 10.0;
+    private static final  DifferentialDriveVoltageConstraint DriveVoltageConstraint = new DifferentialDriveVoltageConstraint(MotorFeedforward, DriveKinematics, MaxVoltage);
+
+    private static final double RamseteB = 2.0;
+    private static final double RamseteZeta = 0.7;
+
+    // "12.0 * 1000.0" converts volt/meter/second -> percentOutput/centimeter/second
+    private static final double P_DriveVelocity = 0.0;//12.00 * 1000.0 * .01;
+    private static final double I_DriveVelocity = 0.0;
+    private static final double D_DriveVelocity = 0.0;
+
+    public DrivePath(DrivebaseSubsystem drivebase) {
+        super(
+            getTrajectory(),
+            drivebase::getPose,
+            new RamseteController(RamseteB, RamseteZeta),
+            MotorFeedforward,
+            DriveKinematics,
+            drivebase::getWheelSpeeds,
+            new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
+            new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
+            drivebase::tankDriveVolts,
+            drivebase
+        );
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+        System.out.println("Start Time: " + (RobotController.getFPGATime() / 1000.0));
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+        System.out.println("End Time  : " + (RobotController.getFPGATime() / 1000.0));
+    }
+
+    // TODO: Parameterize this
+    private static final Trajectory getTrajectory() {
+        final var kMaxSpeedMetersPerSecond = 1.0;
+        final var kMaxAccelerationMetersPerSecondSquared = 0.5;
+        final var config = new TrajectoryConfig(kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared)
+            .setKinematics(DriveKinematics)
+            .addConstraint(DriveVoltageConstraint);
+
+        // An example trajectory to follow.  All units in meters.
+        return TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(
+                // new Translation2d(5.0, 0.0)
+                // new Translation2d(2, -1)
+            ),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3.0, 0, new Rotation2d(0)),
+            // Pass config
+            config
+        );
+    }
+}

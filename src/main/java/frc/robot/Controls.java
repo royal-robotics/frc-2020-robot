@@ -78,13 +78,13 @@ public final class Controls {
 
             private static double getSteerDampened() {
                 if (throttle.inDeadband()) {
-                    return -steer.getSquared() * 0.75;
+                    return steer.getSquared() * 0.75;
                 }
                 else {
-                    return -steer.getSquared() * 0.25;
+                    return steer.getSquared() * 0.25;
                 }
             }
-            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(throttle.getSquared() + getSteerDampened(), throttle.getSquared() - getSteerDampened()); }
+            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(-throttle.getSquared() + getSteerDampened(), -throttle.getSquared() - getSteerDampened()); }
         }
 
         private static class TankDrive {

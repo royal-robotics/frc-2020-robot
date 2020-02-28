@@ -18,6 +18,7 @@ public class TestAuto extends AutoModeBase {
     private final Limelight _limelight;
 
     public TestAuto(DrivebaseSubsystem drivebase, Shooter shooter, Intake intake, Limelight limelight) {
+        super("Test Shooter");
         addRequirements(drivebase, shooter.pitchingWheel, shooter.turret, shooter.hood, intake);
         _drivebase = drivebase;
         _shooter = shooter;

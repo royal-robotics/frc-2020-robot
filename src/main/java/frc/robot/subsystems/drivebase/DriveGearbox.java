@@ -26,7 +26,7 @@ public class DriveGearbox {
         for (var i = 0; i < followers.length; i++) {
             encoders[i + 1] = followers[i].getEncoder();
         }
-        _encoder = new EncoderGroup(calculateFinalDriveRatio(), inverted, encoders);
+        _encoder = new EncoderGroup(calculateFinalDriveRatio(), false, encoders);
     }
 
     public void setPower(double power) {
@@ -63,10 +63,10 @@ public class DriveGearbox {
         final double CompositeRatio3 = 28.0 / 38.0;
         final double GearRatio = CompositeRatio1 * CompositeRatio2 * CompositeRatio3;
 
-        final double WheelDiameter = 6.0;
+        final double WheelDiameter = 6.0 * 0.0254;
         final double WheelCircumference = Math.PI * WheelDiameter;
 
-        final double WheelFudgeFactor = 0.9599;
+        final double WheelFudgeFactor = 0.9599 * 1.027;
         return GearRatio * WheelCircumference * WheelFudgeFactor;
     }
 }

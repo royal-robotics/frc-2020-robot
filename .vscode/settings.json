@@ -1,6 +1,7 @@
 {
   "java.configuration.updateBuildConfiguration": "automatic",
   "files.exclude": {
+    "**/frc-characterization/**": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,

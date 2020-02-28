@@ -260,12 +260,36 @@
           }
         }
       }
+    },
+    {
+      "title": "Diagnostics",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/drive",
+              "_title": "SmartDashboard/drive"
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": -6.5,
-    "y": -6.5,
-    "width": 1633.0,
-    "height": 1053.0
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1382.0,
+    "height": 744.0
   }
 }

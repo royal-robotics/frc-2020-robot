@@ -14,11 +14,11 @@ import frc.robot.subsystems.shooter.*;
 import frc.robot.shuffleboard.*;
 
 public class RobotContainer {
-    private final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
-    private final Intake intake = new Intake();
-    private final Shooter shooter = new Shooter();
-    private final Climber climber = new Climber();
-    private final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
+    public final DrivebaseSubsystem drivebase = new DrivebaseSubsystem();
+    // public final Intake intake = new Intake();
+    // public final Shooter shooter = new Shooter();
+    // public final Climber climber = new Climber();
+    // public final ColorWheelSubsystem colorWheel = new ColorWheelSubsystem();
 
     // private final DriverTab driverTab = new DriverTab(drivebase, intake);
     // private final ConfigsTab configsTab = new ConfigsTab(drivebase, intake);
@@ -32,17 +32,17 @@ public class RobotContainer {
         Components.Drivebase.gyro.reset();
 
         drivebase.setDefaultCommand(new DrivebaseDefault(drivebase));
-        intake.setDefaultCommand(new IntakeDefault(intake, shooter));
-        colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
-        shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
-        climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
+        // intake.setDefaultCommand(new IntakeDefault(intake, shooter));
+        // colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
+        // shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
+        // climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
 
-        // Starts up an autonomous shooting
-        Controls.autoTest.whenPressed(new TestAuto(drivebase, shooter, intake, Components.Camera.limelight));
+        // // Starts up an autonomous shooting
+        // Controls.autoTest.whenPressed(new TestAuto(drivebase, shooter, intake, Components.Camera.limelight));
     }
 
     public final void storeState() {
-        shooter.turret.save();
-        shooter.hood.save();
+        // shooter.turret.save();
+        // shooter.hood.save();
     }
 }
