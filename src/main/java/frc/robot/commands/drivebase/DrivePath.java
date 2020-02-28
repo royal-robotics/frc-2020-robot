@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.trajectory.constraint.*;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.drivebase.*;
 
-public class DrivePath extends RamseteCommand {
+public abstract class DrivePath extends SequentialCommandGroup {
     private final DrivebaseSubsystem _drivebase;
 
     private static final double StaticVolts = 0.187;
@@ -19,10 +19,10 @@ public class DrivePath extends RamseteCommand {
 
     private static final double MetersPerInch =  0.0254;
     private static final double kTrackwidth = 25.0 * MetersPerInch; // TODO: Get a more accurate width number from SolidWorks.
-    private static final DifferentialDriveKinematics DriveKinematics = new DifferentialDriveKinematics(kTrackwidth);
+    protected static final DifferentialDriveKinematics DriveKinematics = new DifferentialDriveKinematics(kTrackwidth);
 
     private static final double MaxVoltage = 10.0;
-    private static final  DifferentialDriveVoltageConstraint DriveVoltageConstraint = new DifferentialDriveVoltageConstraint(MotorFeedforward, DriveKinematics, MaxVoltage);
+    protected static final  DifferentialDriveVoltageConstraint DriveVoltageConstraint = new DifferentialDriveVoltageConstraint(MotorFeedforward, DriveKinematics, MaxVoltage);
 
     private static final double RamseteB = 2.0;
     private static final double RamseteZeta = 0.7;
@@ -32,49 +32,27 @@ public class DrivePath extends RamseteCommand {
     private static final double D_DriveVelocity = 0.0;
 
     public DrivePath(DrivebaseSubsystem drivebase, boolean inverted) {
-        super(
-            getTrajectory(),
-            () -> drivebase.getPose(inverted),
-            new RamseteController(RamseteB, RamseteZeta),
-            MotorFeedforward,
-            DriveKinematics,
-            () -> drivebase.getWheelSpeeds(inverted),
-            new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
-            new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
-            (leftVolts, rightVolts) -> drivebase.setVolts(leftVolts, rightVolts, inverted),
-            drivebase
-        );
-        addRequirements(drivebase);
+        this.addCommands(
+            new RamseteCommand(
+                getTrajectory(),
+                () -> drivebase.getPose(inverted),
+                new RamseteController(RamseteB, RamseteZeta),
+                MotorFeedforward,
+                DriveKinematics,
+                () -> drivebase.getWheelSpeeds(inverted),
+                new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
+                new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
+                (leftVolts, rightVolts) -> drivebase.setVolts(leftVolts, rightVolts, inverted),
+                drivebase));
 
         _drivebase = drivebase;
     }
+
+    protected abstract Trajectory getTrajectory();
 
     @Override
     public void initialize() {
         super.initialize();
         _drivebase.setBreakMode(true);
-    }
-
-    private static final Trajectory getTrajectory() {
-        final var kMaxSpeedMetersPerSecond = 1.0;
-        final var kMaxAccelerationMetersPerSecondSquared = 0.5;
-        final var config = new TrajectoryConfig(kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(DriveKinematics)
-            .addConstraint(DriveVoltageConstraint);
-
-        // An example trajectory to follow.  All units in meters.
-        return TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(
-                //  new Translation2d(1.33, 0.5),
-                // new Translation2d(2.66, -0.5)
-            ),
-            new Pose2d(2.0, 0, new Rotation2d(0)),
-            // new Pose2d(4.0, 0, new Rotation2d(0)),
-            // Pass config
-            config
-        );
     }
 }
