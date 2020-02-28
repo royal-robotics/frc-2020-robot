@@ -41,7 +41,13 @@ public class Shooter {
         final var setHood = new RunCommand(() -> {
             if (_limelight.hasTarget()) {
                 final var area = _limelight.areaTarget();
-                final var angle = 61.5 - (0.515 * area);
+                double angle;
+                if (area > 3.0) {
+                    angle = 42.0;
+                }
+                else {
+                    angle = 61.5 - (6.515 * area);
+                } 
                 hood.setSetpoint(angle);
                 if (!hood.isEnabled()) {
                     hood.enable();
