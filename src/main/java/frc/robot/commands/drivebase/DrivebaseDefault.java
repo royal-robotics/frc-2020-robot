@@ -8,13 +8,13 @@ import frc.robot.subsystems.drivebase.*;
 public class DrivebaseDefault extends CommandBase {
     private final DrivebaseSubsystem _drivebase;
     private final Button _snailModeEnabled;
-    private final Button _slothModeEnabled;
+    private final Button _ludicrousSpeedEnabled;
 
     public DrivebaseDefault(DrivebaseSubsystem drivebase) {
         addRequirements(drivebase);
         _drivebase = drivebase;
         _snailModeEnabled = Controls.DriveBase.snailSpeed;
-        _slothModeEnabled = Controls.DriveBase.slothSpeed;
+        _ludicrousSpeedEnabled = Controls.DriveBase.ludicrousSpeed;
     }
 
 	@Override
@@ -24,14 +24,15 @@ public class DrivebaseDefault extends CommandBase {
         if (_snailModeEnabled.get()) {
             tankThrottleValues = tankThrottleValues.withScaleFactor(0.10);
             _drivebase.setBreakMode(true);
-        } else if (_slothModeEnabled.get()) {
-            tankThrottleValues = tankThrottleValues.withScaleFactor(0.50);
-            _drivebase.setBreakMode(true);
+            _drivebase.setPower(tankThrottleValues.left, tankThrottleValues.right);
+        } else if (_ludicrousSpeedEnabled.get()) {
+            _drivebase.setBreakMode(false);
+            _drivebase.setPower(tankThrottleValues.left, tankThrottleValues.right);
         }
         else {
-            _drivebase.setBreakMode(false);
+            tankThrottleValues = tankThrottleValues.withScaleFactor(0.50);
+            _drivebase.setBreakMode(true);
+            _drivebase.setPower(tankThrottleValues.left, tankThrottleValues.right);
         }
-
-        _drivebase.setPower(tankThrottleValues.left, tankThrottleValues.right);
     }
 }

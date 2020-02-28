@@ -55,7 +55,7 @@ public final class Controls {
 
     public static class DriveBase {
         public final static Button snailSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.RightBumper);
-        public final static Button slothSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.LeftBumper);
+        public final static Button ludicrousSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.LeftBumper);
 
         public static TankThrottleValues getThrottleValues() {
             switch (Configs.getDriveControlType()) {

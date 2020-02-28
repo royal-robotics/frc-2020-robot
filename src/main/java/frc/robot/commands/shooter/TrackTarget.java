@@ -10,9 +10,9 @@ public class TrackTarget extends ParallelCommandGroup {
         _shooter = shooter;
 
         this.addCommands(
-            createTurretTracker());
-            // createHoodTracker(),
-            // createPitchingWheelTracker());
+            createTurretTracker(),
+            createHoodTracker(),
+            createPitchingWheelTracker());
     }
 
     @Override
@@ -35,14 +35,15 @@ public class TrackTarget extends ParallelCommandGroup {
             if (_shooter.limelight.hasTarget()) {
                 double xtarget = _shooter.limelight.xTarget();
                 // _shooter.turret.setRelativePosition(-xtarget);
-                _shooter.turret.setRelativePosition(-((xtarget + xTargetLast + xTargetLast2 + xTargetLast3) / 4.0));
+                _shooter.turret.setRelativePosition(-((xtarget + xTargetLast + xTargetLast2) / 3.0));
                 if (!_shooter.turret.isEnabled()) {
                     _shooter.turret.enable();
                 }
 
-                xTargetLast = xtarget;
-                xTargetLast2 = xTargetLast;
                 xTargetLast3 = xTargetLast2;
+                xTargetLast2 = xTargetLast;
+                xTargetLast = xtarget;
+
             } else {
                 _shooter.turret.setPower(0.0);
             }
@@ -51,34 +52,26 @@ public class TrackTarget extends ParallelCommandGroup {
         }, _shooter.turret);
     }
 
-    // private Command createHoodTracker() {
-    //     return new RunCommand(() -> {
-    //         if (_shooter.limelight.hasTarget()) {
-    //             final var area = _shooter.limelight.areaTarget();
-    //             double angle;
-    //             if (area > 3.0) {
-    //                 angle = 42.0;
-    //             }
-    //             else {
-    //                 angle = 61.5 - (6.515 * area);
-    //             }
-    //             _shooter.hood.setSetpoint(angle);
-    //             if (!_shooter.hood.isEnabled()) {
-    //                 _shooter.hood.enable();
-    //             }
-    //         }
-    //     }, _shooter.hood);
-    // }
+    private Command createHoodTracker() {
+        return new RunCommand(() -> {
+            if (_shooter.limelight.hasTarget()) {
+                final var area = _shooter.limelight.areaTarget();
+                final var angle = 61.5 - (0.515 * area);
+                _shooter.hood.setSetpoint(angle);
+                if (!_shooter.hood.isEnabled()) {
+                    _shooter.hood.enable();
+                }
+            }
+        }, _shooter.hood);
+    }
 
-    // private Command createPitchingWheelTracker() {
-    //     return new RunCommand(() -> {
-    //         if (_shooter.limelight.hasTarget()) {
-    //             final var area = _shooter.limelight.areaTarget();
-    //             double rpm;
-    //             if (area < 0.255) { rpm = 7300; }
-    //             else { rpm = 7384.889 + (-336 * area); }
-    //             _shooter.pitchingWheel.setRPM(rpm);
-    //         }
-    //     }, _shooter.pitchingWheel);
-    // }
+    private Command createPitchingWheelTracker() {
+        return new RunCommand(() -> {
+            if (_shooter.limelight.hasTarget()) {
+                final var area = _shooter.limelight.areaTarget();
+                final var rpm = 7300 - (300 * area);
+                _shooter.pitchingWheel.setRPM(rpm);
+            }
+        }, _shooter.pitchingWheel);
+    }
 }

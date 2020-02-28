@@ -129,7 +129,7 @@ public class Turret extends PositionConstrainedSubsystem {
         // Output/Input Units: volts per degree
         private static final double P = 0.015 * 12.0;
         private static final double I = 0.00 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.03;
+        private static final double D = 0.05;
 
         public TurretPidController() {
             super(P, I, D);
