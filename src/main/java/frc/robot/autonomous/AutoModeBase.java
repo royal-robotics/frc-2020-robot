@@ -1,9 +1,18 @@
 package frc.robot.autonomous;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.*;
 
 public class AutoModeBase extends SequentialCommandGroup {
-    public AutoModeBase() {
+    private final String _name;
 
+    public AutoModeBase(String name) {
+        super();
+        _name = name;
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+        System.out.printf("Starting Auto: %s\n", _name);
     }
 }

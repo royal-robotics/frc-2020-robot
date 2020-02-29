@@ -13,8 +13,6 @@ public final class Controls {
     private final static Joystick operator = new Joystick(1);
     private final static ControlsFactory controlsFactory = new ControlsFactory(driver, operator);
 
-    public final static Button autoTest = controlsFactory.createButton(Controller.Driver, Logitech310Button.Start);
-
     public static class Intake {
         public final static Button runBallIntake = controlsFactory.createButton(Controller.Operator, Logitech310Button.B);
         public final static Button shootBall = controlsFactory.createButton(Controller.Operator, Logitech310Button.RightBumper);
@@ -57,7 +55,7 @@ public final class Controls {
 
     public static class DriveBase {
         public final static Button snailSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.RightBumper);
-        public final static Button slothSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.LeftBumper);
+        public final static Button ludicrousSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.LeftBumper);
 
         public static TankThrottleValues getThrottleValues() {
             switch (Configs.getDriveControlType()) {
@@ -78,13 +76,13 @@ public final class Controls {
 
             private static double getSteerDampened() {
                 if (throttle.inDeadband()) {
-                    return -steer.getSquared() * 0.75;
+                    return steer.getSquared() * 0.75;
                 }
                 else {
-                    return -steer.getSquared() * 0.25;
+                    return steer.getSquared() * 0.25;
                 }
             }
-            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(throttle.getSquared() + getSteerDampened(), throttle.getSquared() - getSteerDampened()); }
+            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(-throttle.getSquared() + getSteerDampened(), -throttle.getSquared() - getSteerDampened()); }
         }
 
         private static class TankDrive {

@@ -10,7 +10,7 @@ public class PitchingWheel extends RoyalSubsystem {
     private final CANSparkMax _motor;
     private final CANEncoder _encoder;
     private final CANPIDController _controller;
-    private double _targetRPM = 0;
+    private Double _targetRPM = null;
 
     public PitchingWheel() {
         _motor = Components.Shooter.shooterWheel;
@@ -34,7 +34,7 @@ public class PitchingWheel extends RoyalSubsystem {
     }
 
     public void setPower(double power) {
-        // _motor.set(power);
+        _targetRPM = null;
         _controller.setReference(power, ControlType.kDutyCycle);
     }
 
@@ -43,10 +43,10 @@ public class PitchingWheel extends RoyalSubsystem {
         _controller.setReference(rpm, ControlType.kVelocity);
     }
 
-    public boolean atRPM(double tolerance) {
-        // final var percentTarget = Math.abs((_targetRPM - _encoder.getVelocity()) / _targetRPM);
-        // final var percentOffTarget = Math.abs(1.0 - percentTarget);
-        // return percentOffTarget >= targetPercentage;
+    public boolean onRPMTarget(double tolerance) {
+        if (_targetRPM == null) {
+            return false;
+        }
 
         final var variation = _targetRPM * tolerance;
         return _encoder.getVelocity() >= (_targetRPM - variation) && _encoder.getVelocity() <= (_targetRPM + variation);
@@ -59,9 +59,8 @@ public class PitchingWheel extends RoyalSubsystem {
 
     private void updateDiagnostics() {
         SmartDashboard.putNumber("Shooter/PitchingWheel/Power", _motor.get());
-        SmartDashboard.putNumber("Shooter/PitchingWheel/TargetRpm", _targetRPM);
+        SmartDashboard.putNumber("Shooter/PitchingWheel/TargetRpm", _targetRPM == null ? -1 : _targetRPM);
         SmartDashboard.putNumber("Shooter/PitchingWheel/Rpm", _encoder.getVelocity());
-        SmartDashboard.putNumber("Shooter/PitchingWheel/BusVoltage", _motor.getBusVoltage());
-        SmartDashboard.putNumber("Shooter/PitchingWheel/Current", _motor.getOutputCurrent());
+        SmartDashboard.putBoolean("Shooter/PitchingWheel/AtTarget", this.onRPMTarget(0.05));
     }
 }

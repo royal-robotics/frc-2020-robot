@@ -14,17 +14,25 @@ public class Robot extends TimedRobot {
 
     public Robot() {
         _robotContainer = new RobotContainer();
-        _autoModeSelector = new AutoModeSelector();
+        _autoModeSelector = new AutoModeSelector(_robotContainer);
     }
 
     @Override
     public void robotInit() {
+        // TODO: call into RobotContainer to init the gyro here
     }
 
     @Override
     public void autonomousInit() {
         _autoMode = _autoModeSelector.getAutoMode();
         _autoMode.schedule();
+    }
+
+    @Override
+    public void teleopInit() {
+        if (_autoMode != null) {
+            _autoMode.cancel();
+        }
     }
 
     @Override
