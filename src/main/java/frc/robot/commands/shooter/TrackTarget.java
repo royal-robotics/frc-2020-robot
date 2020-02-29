@@ -55,8 +55,9 @@ public class TrackTarget extends ParallelCommandGroup {
     private Command createHoodTracker() {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
+
                 final var area = _shooter.limelight.areaTarget();
-                final var angle = 63.5 - (0.405 * area);
+                final var angle = 61.5 - (0.515 * area);
                 _shooter.hood.setSetpoint(angle);
                 if (!_shooter.hood.isEnabled()) {
                     _shooter.hood.enable();
@@ -69,7 +70,7 @@ public class TrackTarget extends ParallelCommandGroup {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
                 final var area = _shooter.limelight.areaTarget();
-                final var rpm = 7350 - (400 * area);
+                final var rpm = 7300.0 - (300.0 * area);
                 _shooter.pitchingWheel.setRPM(rpm);
             }
         }, _shooter.pitchingWheel);
