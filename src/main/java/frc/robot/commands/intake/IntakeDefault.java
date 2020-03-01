@@ -38,6 +38,9 @@ public class IntakeDefault extends CommandBase {
 
         final var autoTargetOn = Controls.Turret.autoTrackShooter.get();
 
+        // final var readyToShoot = (autoTargetOn && _shooter.readyToShoot()) || !autoTargetOn;
+        // if (_shootBall.get() && readyToShoot) {
+
         if (autoTargetOn && _shootBall.get() && _shooter.pitchingWheel.onRPMTarget(0.025)) {
             _intake.setConveyorPower(1.0);
             _intake.setIntakePower(0.0);

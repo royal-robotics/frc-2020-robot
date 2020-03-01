@@ -52,16 +52,24 @@ public class TrackTarget extends ParallelCommandGroup {
         }, _shooter.turret);
     }
 
+    private double _lastArea = 0.0;
+    private double _lastArea2 = 0.0;
+    private double _lastArea3 = 0.0;
     private Command createHoodTracker() {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
 
                 final var area = _shooter.limelight.areaTarget();
-                final var angle = 61.5 - (0.515 * area);
+                final var areaAverage = (area + _lastArea + _lastArea2 + _lastArea3) / 4.0;
+                final var angle = 61.5 - (0.515 * areaAverage);
                 _shooter.hood.setSetpoint(angle);
                 if (!_shooter.hood.isEnabled()) {
                     _shooter.hood.enable();
                 }
+
+                _lastArea3 = _lastArea2;
+                _lastArea2 = _lastArea;
+                _lastArea = area;
             }
         }, _shooter.hood);
     }
@@ -70,7 +78,7 @@ public class TrackTarget extends ParallelCommandGroup {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
                 final var area = _shooter.limelight.areaTarget();
-                final var rpm = 7300.0 - (300.0 * area);
+                final var rpm = 7200.0 - (350.0 * area);
                 _shooter.pitchingWheel.setRPM(rpm);
             }
         }, _shooter.pitchingWheel);
