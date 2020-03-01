@@ -27,6 +27,11 @@ public class TrackTarget extends ParallelCommandGroup {
         _shooter.limelight.setLedMode(1);
     }
 
+    @Override
+    public void execute() {
+        System.out.println("Execute auto track");
+    }
+
     double xTargetLast = 0.0;
     double xTargetLast2 = 0.0;
     double xTargetLast3 = 0.0;
@@ -70,7 +75,7 @@ public class TrackTarget extends ParallelCommandGroup {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
                 final var area = _shooter.limelight.areaTarget();
-                final var rpm = 7300.0 - (300.0 * area);
+                final var rpm = 7200.0 - (320.0 * area);
                 _shooter.pitchingWheel.setRPM(rpm);
             }
         }, _shooter.pitchingWheel);

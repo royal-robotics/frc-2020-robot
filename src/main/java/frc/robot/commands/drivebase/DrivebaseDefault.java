@@ -31,7 +31,7 @@ public class DrivebaseDefault extends CommandBase {
         }
         else {
             tankThrottleValues = tankThrottleValues.withScaleFactor(0.50);
-            _drivebase.setBreakMode(true);
+            _drivebase.setBreakMode(false);
             _drivebase.setPower(tankThrottleValues.left, tankThrottleValues.right);
         }
     }

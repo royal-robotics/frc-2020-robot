@@ -22,7 +22,7 @@ public class Shooter {
     public boolean readyToShoot() {
         final var turretReady = turret.isEnabled() && turret.isAtSetpoint();
         final var hoodReady = hood.isEnabled() && hood.isAtSetpoint();
-        final var pitchingWheelReady = pitchingWheel.onRPMTarget(0.05);
+        final var pitchingWheelReady = pitchingWheel.onRPMTarget(0.08);
         return turretReady && hoodReady && pitchingWheelReady;
     }
 
