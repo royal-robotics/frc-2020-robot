@@ -78,7 +78,7 @@ public class TrackTarget extends ParallelCommandGroup {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
                 final var area = _shooter.limelight.areaTarget();
-                final var rpm = 7200.0 - (350.0 * area);
+                final var rpm = 7000.0 - (350.0 * area);
                 _shooter.pitchingWheel.setRPM(rpm);
             }
         }, _shooter.pitchingWheel);

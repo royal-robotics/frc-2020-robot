@@ -41,7 +41,7 @@ public final class Controls {
 
     public static class Climber {
         public final static Axis moveElevator = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightStickY);
-        public final static double getElevatorMovement() { return moveElevator.get() * 0.3; }
+        public final static double getElevatorMovement() { return moveElevator.get() * 0.5; }
 
         public final static Button quickMoveElevatorBottom = controlsFactory.createDPadButton(Controller.Operator, Direction.Left);
         public final static Button quickMoveElevatorTop = controlsFactory.createDPadButton(Controller.Operator, Direction.Right);
