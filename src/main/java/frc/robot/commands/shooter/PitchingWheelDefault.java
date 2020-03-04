@@ -19,7 +19,7 @@ public class PitchingWheelDefault extends CommandBase {
             _pitchingWheel.setPower(0.15);
          }
          else {
-            _pitchingWheel.setPower(wheelPower);
+            _pitchingWheel.setRPM(5000);
          }
     }
 }
