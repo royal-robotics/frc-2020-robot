@@ -23,7 +23,7 @@ public class PitchingWheel extends RoyalSubsystem {
         _encoder.setVelocityConversionFactor(GearRatio);
 
         _controller = _motor.getPIDController();
-        _controller.setP(5e-4);
+        _controller.setP(3e-4);
         _controller.setI(0e-6);
         _controller.setD(0);
         _controller.setIZone(0);

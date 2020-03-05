@@ -16,10 +16,10 @@ public class PitchingWheelDefault extends CommandBase {
     public void execute() {
          final var wheelPower = Controls.Turret.wheelThrottle.get();
          if (Controls.Turret.wheelThrottle.inDeadband()) {
-            _pitchingWheel.setPower(0.15);
+            _pitchingWheel.setPower(0);
          }
          else {
-            _pitchingWheel.setRPM(5000);
+            _pitchingWheel.setRPM(7000);
          }
     }
 }
