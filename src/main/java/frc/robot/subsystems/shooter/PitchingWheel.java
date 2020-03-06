@@ -25,10 +25,10 @@ public class PitchingWheel extends RoyalSubsystem {
         _controller = _motor.getPIDController();
         _controller.setP(5e-4);
         _controller.setI(0e-6);
-        _controller.setD(0);
+        _controller.setD(1e-4);
         _controller.setIZone(0);
         _controller.setFeedbackDevice(_encoder);
-        _controller.setFF(0.000137);
+        _controller.setFF(0.000138);
         _controller.setOutputRange(-1, 1);
         // _controller.
     }

@@ -3,10 +3,10 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.shooter.*;
 
-public class TrackTarget extends ParallelCommandGroup {
+public class TrackTarget2 extends ParallelCommandGroup {
     private final Shooter _shooter;
 
-    public TrackTarget(Shooter shooter) {
+    public TrackTarget2(Shooter shooter) {
         _shooter = shooter;
 
         this.addCommands(
@@ -43,7 +43,6 @@ public class TrackTarget extends ParallelCommandGroup {
                 xTargetLast3 = xTargetLast2;
                 xTargetLast2 = xTargetLast;
                 xTargetLast = xtarget;
-
             } else {
                 _shooter.turret.setPower(0.0);
             }
@@ -60,7 +59,7 @@ public class TrackTarget extends ParallelCommandGroup {
 
                 final var area = _shooter.limelight.areaTarget();
                 final var areaAverage = (area + _lastArea + _lastArea2 + _lastArea3) / 4.0;
-                final var angle = 63.0 - ((areaAverage - 2.8) * 1.0);
+                final var angle = 56.0 + ((areaAverage - 1.0) * 0.2);
                 _shooter.hood.setSetpoint(angle);
                 if (!_shooter.hood.isEnabled()) {
                     _shooter.hood.enable();
@@ -76,7 +75,7 @@ public class TrackTarget extends ParallelCommandGroup {
     private Command createPitchingWheelTracker() {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
-                _shooter.pitchingWheel.setRPM(6800.0);
+                _shooter.pitchingWheel.setRPM(7000.0);
             } else {
                 // TODO: Only go to 0 if there hasn't been a target for a couple loop iterations
                 _shooter.pitchingWheel.setRPM(0.0);

@@ -14,10 +14,10 @@ public class Hood extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "hood-position-v21";
+    private static final String positionSettingName = "hood-position-v25";
 
     public Hood() {
-        super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 1.0);
+        super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 0.5);
         _motor = Components.Shooter.hood;
         _encoder = Components.Shooter.hoodEncoder;
 

@@ -32,5 +32,6 @@ public class Shooter {
         pitchingWheel.setDefaultCommand(new PitchingWheelDefault(pitchingWheel));
 
         Controls.Turret.autoTrackShooter.whenHeld(new TrackTarget(this));
+        Controls.Turret.autoTrackProtected.whenHeld(new TrackTarget2(this));
     }
 }

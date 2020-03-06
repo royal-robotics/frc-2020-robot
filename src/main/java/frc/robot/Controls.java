@@ -31,12 +31,13 @@ public final class Controls {
 
         // Currently moves the platform to the center position.
         public final static Button autoTrackShooter = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
+        public final static Button autoTrackProtected = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
     }
 
     public static class ColorWheel {
         public final static Axis throttle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
-        public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
-        public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
+        // public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
+        // public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
     }
 
     public static class Climber {

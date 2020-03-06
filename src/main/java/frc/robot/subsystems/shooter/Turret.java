@@ -22,7 +22,7 @@ public class Turret extends PositionConstrainedSubsystem {
     private static final String positionSettingName = "turret-position-v21";
 
     public Turret() {
-        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 3.0);
+        super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 1.0);
         _motor = Components.Shooter.turret;
         _encoder = Components.Shooter.turretEncoder;
         _leftLimit = Components.Shooter.leftLimit;
@@ -52,13 +52,15 @@ public class Turret extends PositionConstrainedSubsystem {
         // final var feedforwardHelper = new SimpleMotorFeedforward(0.451, 0.102, 0.000757);
         // final var feedforwardVelocity = getMeasurement() < setpoint ? 30.0 : -30.0;
         // final var feedforward = feedforwardHelper.calculate(feedforwardVelocity);
-        final var feedforward = 0.0;
+        final var feedforward = pidError > 0.0 ? 0.2 : -0.2;
 
         var voltage = clampOnConstraints(feedforward + pidError);
         updateSave(voltage);
 
         if (!this.isAtSetpoint()) {
             _motor.setVoltage(voltage);
+        } else {
+            _motor.setVoltage(0.0);
         }
     }
 
@@ -127,9 +129,9 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private static class TurretPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
-        private static final double P = 0.015 * 12.0;
-        private static final double I = 0.00 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.05;
+        private static final double P = 0.0175 * 12.0;
+        private static final double I = (0.000 * 12.0) / (1000.0 / LoopIntervalMs);
+        private static final double D = 0.005 * 12.0;
 
         public TurretPidController() {
             super(P, I, D);
