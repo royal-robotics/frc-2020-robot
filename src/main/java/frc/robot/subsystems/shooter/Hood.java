@@ -14,7 +14,7 @@ public class Hood extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "hood-position-v25";
+    private static final String positionSettingName = "hood-position-v27";
 
     public Hood() {
         super(new HoodPidController(), Settings.loadDouble(positionSettingName, 42.5), 43.0, 69.50, 0.5);

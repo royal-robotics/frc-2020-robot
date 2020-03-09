@@ -7,6 +7,7 @@ import frc.robot.commands.colorwheel.*;
 import frc.robot.commands.drivebase.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.TurretDefault;
+import frc.robot.commands.shooter.WallShooter;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.colorwheel.*;
@@ -37,6 +38,8 @@ public class RobotContainer {
         colorWheel.setDefaultCommand(new ColorWheelDefault(colorWheel));
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
+
+        Controls.Turret.autoTrackProtected.whenHeld(new WallShooter(shooter, drivebase, intake));
 
         SmartDashboard.putData("Reset Drivebase", new InstantCommand(() -> {
             drivebase.reset();

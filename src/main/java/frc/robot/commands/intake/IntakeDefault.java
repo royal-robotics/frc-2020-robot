@@ -41,7 +41,7 @@ public class IntakeDefault extends CommandBase {
         // final var readyToShoot = (autoTargetOn && _shooter.readyToShoot()) || !autoTargetOn;
         // if (_shootBall.get() && readyToShoot) {
 
-        if (_shootBall.get() && autoTargetOn && _shooter.pitchingWheel.onRPMTarget(0.02)) {
+        if (_shootBall.get() && autoTargetOn && _shooter.pitchingWheel.onRPMTarget(0.005)) {
             _intake.setConveyorPower(1.0);
             _intake.setIntakePower(0.0);
         } else if(_shootBall.get() && !autoTargetOn) {

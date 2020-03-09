@@ -60,7 +60,7 @@ public class TrackTarget extends ParallelCommandGroup {
 
                 final var area = _shooter.limelight.areaTarget();
                 final var areaAverage = (area + _lastArea + _lastArea2 + _lastArea3) / 4.0;
-                final var angle = 63.0 - ((areaAverage - 2.8) * 1.0);
+                final var angle = 63.0 - ((areaAverage - 0.0) * 2.0);
                 _shooter.hood.setSetpoint(angle);
                 if (!_shooter.hood.isEnabled()) {
                     _shooter.hood.enable();
@@ -76,7 +76,7 @@ public class TrackTarget extends ParallelCommandGroup {
     private Command createPitchingWheelTracker() {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
-                _shooter.pitchingWheel.setRPM(6800.0);
+                _shooter.pitchingWheel.setRPM(7200.0);
             } else {
                 // TODO: Only go to 0 if there hasn't been a target for a couple loop iterations
                 _shooter.pitchingWheel.setRPM(0.0);
