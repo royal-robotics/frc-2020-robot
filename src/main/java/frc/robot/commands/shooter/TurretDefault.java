@@ -3,7 +3,6 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.libs.controls.*;
 import frc.robot.*;
-import frc.robot.commands.defaults.TurretTracker;
 import frc.robot.subsystems.shooter.*;
 
 public class TurretDefault extends CommandBase {
@@ -17,8 +16,6 @@ public class TurretDefault extends CommandBase {
         addRequirements(turret);
         _turret = turret;
         _moveTurret = Controls.Turret.moveTurret;
-
-        // Controls.Turret.autoTrackShooter.whenHeld(new TurretTracker(_turret));
     }
 
 	@Override

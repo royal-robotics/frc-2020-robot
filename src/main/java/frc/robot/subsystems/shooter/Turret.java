@@ -19,7 +19,7 @@ public class Turret extends PositionConstrainedSubsystem {
 
     private Double _lastStoredMeasure = null;
 
-    private static final String positionSettingName = "turret-position-7";
+    private static final String positionSettingName = "turret-position-v21";
 
     public Turret() {
         super(new TurretPidController(), Settings.loadDouble(positionSettingName, 0.0), -82.0, 82.0, 1.0);
@@ -52,11 +52,16 @@ public class Turret extends PositionConstrainedSubsystem {
         // final var feedforwardHelper = new SimpleMotorFeedforward(0.451, 0.102, 0.000757);
         // final var feedforwardVelocity = getMeasurement() < setpoint ? 30.0 : -30.0;
         // final var feedforward = feedforwardHelper.calculate(feedforwardVelocity);
-        final var feedforward = 0.0;
+        final var feedforward = pidError > 0.0 ? 0.2 : -0.2;
 
         var voltage = clampOnConstraints(feedforward + pidError);
         updateSave(voltage);
-        _motor.setVoltage(voltage);
+
+        if (!this.isAtSetpoint()) {
+            _motor.setVoltage(voltage);
+        } else {
+            _motor.setVoltage(0.0);
+        }
     }
 
     @Override
@@ -117,16 +122,16 @@ public class Turret extends PositionConstrainedSubsystem {
         SmartDashboard.putNumber("Shooter/Turret/Voltage", _motor.getMotorOutputVoltage());
         SmartDashboard.putNumber("Shooter/Turret/Degrees", getMeasurement());
         SmartDashboard.putNumber("Shooter/Turret/Setpoint", _pidController.getSetpoint());
-        SmartDashboard.putBoolean("Shooter/Turret/OnTarget", _pidController.atSetpoint());
+        SmartDashboard.putBoolean("Shooter/Turret/OnTarget", this.isAtSetpoint());
         SmartDashboard.putBoolean("Shooter/Turret/LeftLimit", _leftLimit.get());
         SmartDashboard.putBoolean("Shooter/Turret/RightLimit", _rightLimit.get());
     }
 
     private static class TurretPidController extends RoyalPidController {
         // Output/Input Units: volts per degree
-        private static final double P = 0.05 * 12.0;
-        private static final double I = 0.05 / (1000.0 / LoopIntervalMs);
-        private static final double D = 0.05;
+        private static final double P = 0.0175 * 12.0;
+        private static final double I = (0.000 * 12.0) / (1000.0 / LoopIntervalMs);
+        private static final double D = 0.005 * 12.0;
 
         public TurretPidController() {
             super(P, I, D);

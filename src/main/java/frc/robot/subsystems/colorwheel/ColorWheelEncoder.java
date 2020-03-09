@@ -35,7 +35,7 @@ public class ColorWheelEncoder {
         return _lastColor;
     }
 
-    public String getColorString() {
+    public String colorSensorColor() {
         ColorMatchResult match = _colorMatcher.matchClosestColor(getColor());
         if (match.color == _blue) {
             return "Blue";
@@ -45,6 +45,21 @@ public class ColorWheelEncoder {
             return "Green";
           } else if (match.color == _yellow) {
             return "Yellow";
+          } else {
+            return "Unknown";
+          }
+    }
+
+    public String fieldSensorColor() {
+        ColorMatchResult match = _colorMatcher.matchClosestColor(getColor());
+        if (match.color == _blue) {
+            return "Red";
+          } else if (match.color == _red) {
+            return "Blue";
+          } else if (match.color == _green) {
+            return "Yellow";
+          } else if (match.color == _yellow) {
+            return "Green";
           } else {
             return "Unknown";
           }

@@ -8,16 +8,18 @@ import frc.robot.autonomous.*;
 public class Robot extends TimedRobot {
     private final RobotContainer _robotContainer;
     private final AutoModeSelector _autoModeSelector;
+    // private final PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
     private AutoModeBase _autoMode;
 
     public Robot() {
         _robotContainer = new RobotContainer();
-        _autoModeSelector = new AutoModeSelector();
+        _autoModeSelector = new AutoModeSelector(_robotContainer);
     }
 
     @Override
     public void robotInit() {
+        // TODO: call into RobotContainer to init the gyro here
     }
 
     @Override
@@ -27,9 +29,20 @@ public class Robot extends TimedRobot {
     }
 
     @Override
+    public void teleopInit() {
+        if (_autoMode != null) {
+            _autoMode.cancel();
+        }
+    }
+
+    @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         Shuffleboard.update();
+        // SmartDashboard.putNumber("Robot/Pdp/Voltage", pdp.getVoltage());
+        // SmartDashboard.putNumber("Robot/Pdp/Current", pdp.getTotalCurrent());
+        // SmartDashboard.putNumber("Robot/Pdp/Voltage", pdp.getTotalPower());
+        // SmartDashboard.putNumber("Robot/Pdp/Temperature", pdp.getTemperature());
     }
 
     @Override

@@ -31,17 +31,18 @@ public final class Controls {
 
         // Currently moves the platform to the center position.
         public final static Button autoTrackShooter = controlsFactory.createButton(Controller.Operator, Logitech310Button.A);
+        public final static Button autoTrackProtected = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
     }
 
     public static class ColorWheel {
         public final static Axis throttle = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.LeftTrigger);
-        public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
-        public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
+        // public final static Button turnWheelSetTimes = controlsFactory.createButton(Controller.Operator, Logitech310Button.Y);
+        // public final static Button turnWheelToColor = controlsFactory.createButton(Controller.Operator, Logitech310Button.X);
     }
 
     public static class Climber {
         public final static Axis moveElevator = controlsFactory.createAxis(Controller.Operator, Logitech310Axis.RightStickY);
-        public final static double getElevatorMovement() { return moveElevator.get() * 0.3; }
+        public final static double getElevatorMovement() { return moveElevator.get() * 0.5; }
 
         public final static Button quickMoveElevatorBottom = controlsFactory.createDPadButton(Controller.Operator, Direction.Left);
         public final static Button quickMoveElevatorTop = controlsFactory.createDPadButton(Controller.Operator, Direction.Right);
@@ -55,7 +56,7 @@ public final class Controls {
 
     public static class DriveBase {
         public final static Button snailSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.RightBumper);
-        public final static Button slothSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.LeftBumper);
+        public final static Button ludicrousSpeed = controlsFactory.createButton(Controller.Driver, Logitech310Button.LeftBumper);
 
         public static TankThrottleValues getThrottleValues() {
             switch (Configs.getDriveControlType()) {
@@ -76,13 +77,13 @@ public final class Controls {
 
             private static double getSteerDampened() {
                 if (throttle.inDeadband()) {
-                    return -steer.getSquared() * 0.75;
+                    return steer.getSquared() * 0.75;
                 }
                 else {
-                    return -steer.getSquared() * 0.25;
+                    return steer.getSquared() * 0.25;
                 }
             }
-            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(throttle.getSquared() + getSteerDampened(), throttle.getSquared() - getSteerDampened()); }
+            public static TankThrottleValues getThrottleValues() { return new TankThrottleValues(-throttle.getSquared() + getSteerDampened(), -throttle.getSquared() - getSteerDampened()); }
         }
 
         private static class TankDrive {
