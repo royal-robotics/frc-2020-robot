@@ -1,10 +1,13 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.Controls;
 import frc.robot.subsystems.shooter.*;
 
 public class TrackTarget extends ParallelCommandGroup {
     private final Shooter _shooter;
+    private Button _holdState = Controls.Intake.shootBall;
 
     public TrackTarget(Shooter shooter) {
         _shooter = shooter;
@@ -32,7 +35,7 @@ public class TrackTarget extends ParallelCommandGroup {
     double xTargetLast3 = 0.0;
     private Command createTurretTracker() {
         return new RunCommand(() -> {
-            if (_shooter.limelight.hasTarget()) {
+            if (_shooter.limelight.hasTarget() && !_holdState.get()) {
                 double xtarget = _shooter.limelight.xTarget();
                 // _shooter.turret.setRelativePosition(-xtarget);
                 _shooter.turret.setRelativePosition(-((xtarget + xTargetLast + xTargetLast2) / 3.0));
@@ -56,11 +59,11 @@ public class TrackTarget extends ParallelCommandGroup {
     private double _lastArea3 = 0.0;
     private Command createHoodTracker() {
         return new RunCommand(() -> {
-            if (_shooter.limelight.hasTarget()) {
+            if (_shooter.limelight.hasTarget() && !_holdState.get()) {
 
                 final var area = _shooter.limelight.areaTarget();
                 final var areaAverage = (area + _lastArea + _lastArea2 + _lastArea3) / 4.0;
-                final var angle = 63.0 - ((areaAverage - 0.0) * 2.0);
+                final var angle = 63.0 - ((areaAverage - 0.0) * 2.2);
                 _shooter.hood.setSetpoint(angle);
                 if (!_shooter.hood.isEnabled()) {
                     _shooter.hood.enable();
@@ -76,7 +79,11 @@ public class TrackTarget extends ParallelCommandGroup {
     private Command createPitchingWheelTracker() {
         return new RunCommand(() -> {
             if (_shooter.limelight.hasTarget()) {
-                _shooter.pitchingWheel.setRPM(7200.0);
+                if (_holdState.get()) {
+                    _shooter.pitchingWheel.useLastRPM();
+                } else {
+                    _shooter.pitchingWheel.setRPM(_shooter.pitchingWheel.getShuffleboardRPM());
+                }
             } else {
                 // TODO: Only go to 0 if there hasn't been a target for a couple loop iterations
                 _shooter.pitchingWheel.setRPM(0.0);

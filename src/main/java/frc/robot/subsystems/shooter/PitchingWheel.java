@@ -1,7 +1,11 @@
 package frc.robot.subsystems.shooter;
 
+import java.util.Map;
+
 import com.revrobotics.*;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 import frc.robot.subsystems.RoyalSubsystem;
@@ -11,6 +15,8 @@ public class PitchingWheel extends RoyalSubsystem {
     private final CANEncoder _encoder;
     private final CANPIDController _controller;
     private Double _targetRPM = null;
+    private double _lastRPM = 0.0;
+    private NetworkTableEntry _rpmSlider;
 
     public PitchingWheel() {
         _motor = Components.Shooter.shooterWheel;
@@ -31,6 +37,9 @@ public class PitchingWheel extends RoyalSubsystem {
         _controller.setFF(0.000138);
         _controller.setOutputRange(-1, 1);
         // _controller.
+
+        _rpmSlider = Shuffleboard.getTab("Diagnostics").add("Set RPM", 0).withWidget(BuiltInWidgets.kNumberSlider)
+                                .withProperties(Map.of("min", 0, "max", 7000)).getEntry();
     }
 
     public void setPower(double power) {
@@ -40,7 +49,13 @@ public class PitchingWheel extends RoyalSubsystem {
 
     public void setRPM(double rpm) {
         _targetRPM = rpm;
+        _lastRPM = rpm;
         _controller.setReference(rpm, ControlType.kVelocity);
+    }
+
+    public void useLastRPM() {
+        _targetRPM = _lastRPM;
+        _controller.setReference(_targetRPM, ControlType.kVelocity);
     }
 
     public boolean onRPMTarget(double tolerance) {
@@ -50,6 +65,10 @@ public class PitchingWheel extends RoyalSubsystem {
 
         final var variation = _targetRPM * tolerance;
         return _encoder.getVelocity() >= (_targetRPM - variation) && _encoder.getVelocity() <= (_targetRPM + variation);
+    }
+
+    public double getShuffleboardRPM() {
+        return _rpmSlider.getDouble(0.0);
     }
 
     @Override
