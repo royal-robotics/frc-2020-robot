@@ -42,12 +42,14 @@ public class IntakeDefault extends CommandBase {
         // if (_shootBall.get() && readyToShoot) {
 
         if (_shootBall.get() && autoTargetOn && _shooter.pitchingWheel.onRPMTarget(0.005)) {
-            _intake.setConveyorPower(1.0);
+            _intake.setConveyorPower(0.8);
             _intake.setIntakePower(0.0);
-        } else if(_shootBall.get() && !autoTargetOn) {
-            _intake.setConveyorPower(1.0);
-            _intake.setIntakePower(0.0);
-        } else if (_forceIntakeIn.get()) {
+        }
+        //  else if(_shootBall.get() && !autoTargetOn) {
+        //     _intake.setConveyorPower(1.0);
+        //     _intake.setIntakePower(0.0);
+        // }
+        else if (_forceIntakeIn.get()) {
             _intake.setIntakePower(0.8);
             _intake.setConveyorPower(0.8);
         } else if (_forceIntakeOut.get()) {
