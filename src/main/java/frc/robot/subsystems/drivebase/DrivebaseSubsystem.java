@@ -18,9 +18,7 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     public DrivebaseSubsystem() {
         _leftGearbox = new DriveGearbox(false, Components.Drivebase.leftMotor1, Components.Drivebase.leftMotor2);
         _rightGearbox = new DriveGearbox(true, Components.Drivebase.rightMotor1, Components.Drivebase.rightMotor2);
-
         _gyro = Components.Drivebase.gyro;
-
         _odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     }
 
@@ -58,9 +56,9 @@ public final class DrivebaseSubsystem extends RoyalSubsystem
     }
 
     public void reset() {
-        // _leftGearbox.reset();
-        // _rightGearbox.reset();
-        // _odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(getHeading()));
+        _leftGearbox.reset();
+        _rightGearbox.reset();
+        _odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(getHeading()));
     }
 
     public double getHeading() {

@@ -22,7 +22,7 @@ public class WallShooter extends ParallelCommandGroup {
         _intake = intake;
 
         this.addCommands(
-            new DriveStraight(_drivebase, 0.635, false).andThen(() -> _drivebase.setPower(0.0, 0.0)).andThen(setShooting()),
+            new DriveStraight(_drivebase, 0.635).andThen(() -> _drivebase.setPower(0.0, 0.0)).andThen(setShooting()),
             new MoveHoodAngle(_shooter.hood, 42.5).andThen(() -> atHoodAngle = true),
             new MoveTurretAngle(_shooter.turret, 0.0).andThen(() -> atTurretAngle = true),
             setRPM());

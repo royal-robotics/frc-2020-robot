@@ -8,13 +8,11 @@ public class DriveGearbox {
     private final CANSparkMax _motor;
     private final CANSparkMax[] _followers;
     private final EncoderGroup _encoder;
-    private final boolean _inverted;
 
     public DriveGearbox(boolean inverted, CANSparkMax leader, CANSparkMax ...followers) {
         _motor = leader;
         _followers = followers;
-        _inverted = inverted;
-        leader.setInverted(_inverted);
+        leader.setInverted(inverted);
 
         for (var follower : followers) {
             follower.follow(leader);
@@ -66,7 +64,8 @@ public class DriveGearbox {
         final double WheelDiameter = 6.0 * 0.0254;
         final double WheelCircumference = Math.PI * WheelDiameter;
 
-        final double WheelFudgeFactor = 0.9599 * 1.027;
+        // final double WheelFudgeFactor = 0.9599 * 1.027;
+        final double WheelFudgeFactor = 1.0;
         return GearRatio * WheelCircumference * WheelFudgeFactor;
     }
 }

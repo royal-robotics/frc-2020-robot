@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.trajectory.constraint.*;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.drivebase.*;
 
+// Note: DrivePath resets the encoders/odometry when starting a command.
 public abstract class DrivePath extends SequentialCommandGroup {
     private final DrivebaseSubsystem _drivebase;
-    private final boolean _inverted;
 
-    private static final double StaticVolts = 0.187;
-    private static final double VoltSecondsPerMeter = 2.55;
-    private static final double VoltSecondsSquaredPerMeter = 0.543;
+    private static final double StaticVolts = 0.208;
+    private static final double VoltSecondsPerMeter = 2.5;
+    private static final double VoltSecondsSquaredPerMeter = 0.544;
     private static final SimpleMotorFeedforward MotorFeedforward = new SimpleMotorFeedforward(StaticVolts, VoltSecondsPerMeter, VoltSecondsSquaredPerMeter);
 
     private static final double MetersPerInch =  0.0254;
@@ -32,26 +32,26 @@ public abstract class DrivePath extends SequentialCommandGroup {
     private static final double I_DriveVelocity = 0.0;
     private static final double D_DriveVelocity = 0.0;
 
-    public DrivePath(DrivebaseSubsystem drivebase, boolean inverted) {
+    public DrivePath(DrivebaseSubsystem drivebase) {
         addRequirements(drivebase);
         _drivebase = drivebase;
-        _inverted = inverted;
     }
     protected abstract Trajectory getTrajectory();
 
     @Override
     public void initialize() {
+        _drivebase.reset();
         this.addCommands(
             new RamseteCommand(
                 getTrajectory(),
-                () -> _drivebase.getPose(_inverted),
+                () -> _drivebase.getPose(false),
                 new RamseteController(RamseteB, RamseteZeta),
                 MotorFeedforward,
                 DriveKinematics,
-                () -> _drivebase.getWheelSpeeds(_inverted),
+                () -> _drivebase.getWheelSpeeds(false),
                 new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
                 new PIDController(P_DriveVelocity, I_DriveVelocity, D_DriveVelocity),
-                (leftVolts, rightVolts) -> _drivebase.setVolts(leftVolts, rightVolts, _inverted),
+                (leftVolts, rightVolts) -> _drivebase.setVolts(leftVolts, rightVolts, false),
                 _drivebase));
 
         _drivebase.setBreakMode(true);

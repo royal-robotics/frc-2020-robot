@@ -16,7 +16,7 @@ public class ShootThenBackup extends AutoModeBase {
 
         final var targetAndShoot = new TargetAndShoot(robotContainer.intake, robotContainer.shooter);
         final var shootWithTimeout = new ParallelRaceGroup(targetAndShoot, new WaitCommand(10.0));
-        final var driveStraightAndStop = new DriveStraight(_drivebase, 2.0, false).andThen(() -> _drivebase.setPower(0.0, 0.0));
+        final var driveStraightAndStop = new DriveStraight(_drivebase, 2.0).andThen(() -> _drivebase.setPower(0.0, 0.0));
         this.addCommands(shootWithTimeout, driveStraightAndStop);
     }
 }

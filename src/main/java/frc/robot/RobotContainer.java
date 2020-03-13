@@ -39,7 +39,7 @@ public class RobotContainer {
         shooter.turret.setDefaultCommand(new TurretDefault(shooter.turret));
         climber.elevator.setDefaultCommand(new ElevatorDefault(climber.elevator));
 
-        Controls.Turret.autoTrackProtected.whenHeld(new WallShooter(shooter, drivebase, intake));
+        Controls.Turret.autoTrackProtected.whenHeld(new DriveStraight(drivebase, 0.635));
 
         SmartDashboard.putData("Reset Drivebase", new InstantCommand(() -> {
             drivebase.reset();
