@@ -38,7 +38,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 
-  static private double WHEEL_DIAMETER = 6.0;
+  static private double WHEEL_DIAMETER = 6.0 * 0.0254;
   static private double GEARING = 0.1069;
   static private int PIDIDX = 0;
 
@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
 
     stick = new Joystick(0);
 
-    final double fudgeFactor = 0.9599;
+    final double fudgeFactor = 1.0;//0.9599;
     double encoderConstant =
         (GEARING) * WHEEL_DIAMETER * Math.PI * fudgeFactor;
 
